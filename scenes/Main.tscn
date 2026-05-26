@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://c54ohpylo44a5"]
+
+[ext_resource type="PackedScene" uid="uid://cgtccu3an8s4r" path="res://scenes/Stone.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://dyvktekropxwu" path="res://assets/curling/rink_blank.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://dkctn1fn4rdgh" path="res://assets/curling/rink_ring.png" id="4"]
+[ext_resource type="Script" uid="uid://m5r3oiemkomn" path="res://scenes/camera_follow.gd" id="5"]
+
+[node name="Main" type="Node2D"]
+
+[node name="RinkStart" type="Sprite2D" parent="."]
+position = Vector2(359.5, 641)
+scale = Vector2(0.990278, 1)
+texture = ExtResource("3")
+
+[node name="RinkBlank" type="Sprite2D" parent="."]
+position = Vector2(360, -613)
+scale = Vector2(0.991667, 1)
+texture = ExtResource("3")
+
+[node name="RinkRing" type="Sprite2D" parent="."]
+position = Vector2(360, -1894)
+texture = ExtResource("4")
+
+[node name="Stone" parent="." instance=ExtResource("1")]
+position = Vector2(360, 1150)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(360, 1150)
+limit_top = -2525
+limit_bottom = 1200
+script = ExtResource("5")

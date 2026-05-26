@@ -24,3 +24,18 @@ func _physics_process(_delta: float) -> void:
 		next_pos.x = target.global_position.x
 
 	global_position = next_pos
+
+
+func set_target(new_target: Node2D) -> void:
+	target = new_target
+	if target == null:
+		return
+
+	var next_pos := global_position
+	next_pos.y = target.global_position.y
+	if lock_x_to_center:
+		next_pos.x = center_x
+	else:
+		next_pos.x = target.global_position.x
+
+	global_position = next_pos

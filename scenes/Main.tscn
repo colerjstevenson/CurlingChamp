@@ -1,11 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://c54ohpylo44a5"]
+[gd_scene load_steps=7 format=3 uid="uid://c54ohpylo44a5"]
 
-[ext_resource type="PackedScene" uid="uid://cgtccu3an8s4r" path="res://scenes/Stone.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://dyvktekropxwu" path="res://assets/curling/rink_blank.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://dkctn1fn4rdgh" path="res://assets/curling/rink_ring.png" id="4"]
 [ext_resource type="Script" uid="uid://m5r3oiemkomn" path="res://scenes/camera_follow.gd" id="5"]
+[ext_resource type="Script" uid="uid://dd48i4ht0jjf7" path="res://scenes/main.gd" id="6_main"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_walls"]
+friction = 0.05
+bounce = 0.45
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rarhs"]
+size = Vector2(95, 3814)
 
 [node name="Main" type="Node2D"]
+script = ExtResource("6_main")
 
 [node name="RinkStart" type="Sprite2D" parent="."]
 position = Vector2(359.5, 641)
@@ -21,11 +29,20 @@ texture = ExtResource("3")
 position = Vector2(360, -1894)
 texture = ExtResource("4")
 
-[node name="Stone" parent="." instance=ExtResource("1")]
-position = Vector2(360, 1150)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(360, 1150)
 limit_top = -2525
 limit_bottom = 1200
 script = ExtResource("5")
+
+[node name="walls" type="StaticBody2D" parent="."]
+position = Vector2(14, 0)
+physics_material_override = SubResource("PhysicsMaterial_walls")
+
+[node name="left_wall" type="CollisionShape2D" parent="walls"]
+position = Vector2(-25.5, -634)
+shape = SubResource("RectangleShape2D_rarhs")
+
+[node name="right_wall" type="CollisionShape2D" parent="walls"]
+position = Vector2(716, -636)
+shape = SubResource("RectangleShape2D_rarhs")

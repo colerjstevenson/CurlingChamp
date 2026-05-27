@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bbdpcqbo2ujok"]
 
 [ext_resource type="Texture2D" uid="uid://c2jwp3lujvh3m" path="res://assets/curling/stones/stone_blue_top.png" id="1_fr1hy"]
-[ext_resource type="Script" uid="uid://cwimigax0ft21" path="res://scenes/spin_setter.gd" id="1_mt75t"]
+[ext_resource type="Script" path="res://scenes/spin_setter.gd" id="1_mt75t"]
 [ext_resource type="Texture2D" uid="uid://dm6diy0o68jyk" path="res://assets/curling/stones/stone_red_top.png" id="2_6abum"]
 [ext_resource type="Texture2D" uid="uid://c1iwmuwlutomx" path="res://assets/curling/stones/stone_yellow_top.png" id="3_mt75t"]
 [ext_resource type="Texture2D" uid="uid://dp70ag0rjlvcu" path="res://assets/spin_graphic.png" id="4_6abum"]

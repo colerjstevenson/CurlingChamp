@@ -1,8 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://c54ohpylo44a5"]
+[gd_scene load_steps=6 format=3 uid="uid://c54ohpylo44a5"]
 
-[ext_resource type="Texture2D" uid="uid://dyvktekropxwu" path="res://assets/curling/rink_blank.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://dkctn1fn4rdgh" path="res://assets/curling/rink_ring.png" id="4"]
-[ext_resource type="Script" uid="uid://m5r3oiemkomn" path="res://scenes/camera_follow.gd" id="5"]
+[ext_resource type="Texture2D" uid="uid://dkbppwjcbhyu7" path="res://assets/curling/rinkLong.png" id="2_rvslj"]
 [ext_resource type="Script" uid="uid://dd48i4ht0jjf7" path="res://scenes/main.gd" id="6_main"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_walls"]
@@ -10,39 +8,53 @@ friction = 0.05
 bounce = 0.45
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rarhs"]
-size = Vector2(95, 3814)
+size = Vector2(175.938, 1461.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rvslj"]
+radius = 111.005
 
 [node name="Main" type="Node2D"]
+position = Vector2(0, 84)
 script = ExtResource("6_main")
 
-[node name="RinkStart" type="Sprite2D" parent="."]
-position = Vector2(359.5, 641)
-scale = Vector2(0.990278, 1)
-texture = ExtResource("3")
-
-[node name="RinkBlank" type="Sprite2D" parent="."]
-position = Vector2(360, -613)
-scale = Vector2(0.991667, 1)
-texture = ExtResource("3")
-
-[node name="RinkRing" type="Sprite2D" parent="."]
-position = Vector2(360, -1894)
-texture = ExtResource("4")
+[node name="Rink" type="Sprite2D" parent="."]
+position = Vector2(359.5, 559)
+scale = Vector2(0.990278, 0.998438)
+texture = ExtResource("2_rvslj")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(360, 1150)
-limit_top = -2525
-limit_bottom = 1200
-script = ExtResource("5")
+position = Vector2(360, 559)
+limit_left = -4420
+limit_top = 0
+limit_right = 5350
+limit_bottom = 1280
 
 [node name="walls" type="StaticBody2D" parent="."]
-position = Vector2(14, 0)
+position = Vector2(14, -22)
 physics_material_override = SubResource("PhysicsMaterial_walls")
 
 [node name="left_wall" type="CollisionShape2D" parent="walls"]
-position = Vector2(-25.5, -634)
+position = Vector2(110, 658.75)
 shape = SubResource("RectangleShape2D_rarhs")
 
 [node name="right_wall" type="CollisionShape2D" parent="walls"]
-position = Vector2(716, -636)
+position = Vector2(580.031, 664)
 shape = SubResource("RectangleShape2D_rarhs")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="EndScoreLabel" type="Label" parent="CanvasLayer"]
+offset_left = 171.0
+offset_top = 27.0
+offset_right = 548.0
+offset_bottom = 95.0
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="house" type="Area2D" parent="."]
+position = Vector2(360, 121)
+
+[node name="houseArea" type="CollisionShape2D" parent="house"]
+position = Vector2(0, -57)
+shape = SubResource("CircleShape2D_rvslj")

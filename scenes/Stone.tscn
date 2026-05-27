@@ -8,7 +8,7 @@ friction = 0.05
 bounce = 0.35
 
 [sub_resource type="CircleShape2D" id="1"]
-radius = 51.0882
+radius = 18.2
 
 [node name="Stone" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_stone")
@@ -18,8 +18,9 @@ max_contacts_reported = 8
 script = ExtResource("2")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.05625, 0.05625)
 texture = ExtResource("1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
 shape = SubResource("1")

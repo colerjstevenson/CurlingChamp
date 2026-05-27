@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 signal stone_stopped(stone: RigidBody2D)
+signal stone_launched(stone: RigidBody2D)
 
 const BLUE_TOP_TEXTURE := preload("res://assets/curling/stones/stone_blue_top.png")
 const RED_TOP_TEXTURE := preload("res://assets/curling/stones/stone_red_top.png")
@@ -15,13 +16,14 @@ var current_spin_degrees: float = 0.0
 var has_launched := false
 var has_reported_stop := false
 var can_aim := true
+var player_control_enabled := true
 var stone_color := "blue"
 var touched_side_wall := false
 @onready var stone_sprite: Sprite2D = $Sprite
 
 @export var grab_radius := 64.0
-@export var max_power := 1600.0
-@export var arrow_max_length := 360.0
+@export var max_power := 1000.0
+@export var arrow_max_length := 200
 @export var launch_speed_multiplier := 1.35
 @export var arrow_low_power_color := Color(1.0, 0.95, 0.2, 0.95)
 @export var arrow_high_power_color := Color(1.0, 0.15, 0.1, 0.98)
@@ -51,7 +53,28 @@ func set_stone_color(color: String) -> void:
 			stone_sprite.texture = BLUE_TOP_TEXTURE
 
 
+func set_player_control_enabled(enabled: bool) -> void:
+	player_control_enabled = enabled
+	if not enabled:
+		dragging = false
+		queue_redraw()
+
+
+func launch_shot(direction: Vector2, power: float, spin_degrees: float) -> void:
+	if direction == Vector2.ZERO:
+		return
+
+	can_aim = false
+	dragging = false
+	pending_launch_direction = direction.normalized()
+	pending_launch_power = clampf(power, 0.0, max_power)
+	_launch_with_spin(spin_degrees)
+
+
 func _input(event):
+	if not player_control_enabled:
+		return
+
 	if event is InputEventScreenTouch or event is InputEventMouseButton:
 		if event.pressed and can_aim and not dragging and get_global_mouse_position().distance_to(global_position) < grab_radius:
 			dragging = true
@@ -156,6 +179,10 @@ func _show_spin_setter() -> void:
 
 
 func _on_spin_selected(spin_degrees: float) -> void:
+	_launch_with_spin(spin_degrees)
+
+
+func _launch_with_spin(spin_degrees: float) -> void:
 	# Apply the spin rotation to the stone
 	current_spin_degrees = spin_degrees
 	rotation_degrees = spin_degrees
@@ -165,6 +192,7 @@ func _on_spin_selected(spin_degrees: float) -> void:
 	# Launch the stone with the stored parameters
 	linear_velocity = pending_launch_direction * pending_launch_power * launch_speed_multiplier
 	freeze = false
+	stone_launched.emit(self)
 
 
 func _emit_stop_if_needed() -> void:

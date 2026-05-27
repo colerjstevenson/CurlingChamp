@@ -3,12 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cns560tpc7863"
-valid=false
+uid="uid://dfsrsx70tl6sk"
+path="res://.godot/imported/scoreboard.blend-b20e0ac810c52a680773fd9d1d9609a6.scn"
 
 [deps]
 
-source_file="res://assets/curling/blender/rink.blend"
+source_file="res://assets/curling/blender/scoreboard.blend"
+dest_files=["res://.godot/imported/scoreboard.blend-b20e0ac810c52a680773fd9d1d9609a6.scn"]
 
 [params]
 

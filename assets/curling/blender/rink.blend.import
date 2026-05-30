@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cns560tpc7863"
-valid=false
+path="res://.godot/imported/rink.blend-bf6f096c9398e17fcb8f187924c4a81f.scn"
 
 [deps]
 
 source_file="res://assets/curling/blender/rink.blend"
+dest_files=["res://.godot/imported/rink.blend-bf6f096c9398e17fcb8f187924c4a81f.scn"]
 
 [params]
 

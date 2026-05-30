@@ -2,6 +2,8 @@ extends RigidBody2D
 
 signal stone_stopped(stone: RigidBody2D)
 signal stone_launched(stone: RigidBody2D)
+signal spin_selection_started(stone: RigidBody2D)
+signal spin_selection_completed(stone: RigidBody2D)
 
 const BLUE_TOP_TEXTURE := preload("res://assets/curling/stones/stone_blue_top.png")
 const RED_TOP_TEXTURE := preload("res://assets/curling/stones/stone_red_top.png")
@@ -172,6 +174,7 @@ func _apply_visual_spin(delta: float, speed: float) -> void:
 
 
 func _show_spin_setter() -> void:
+	spin_selection_started.emit(self)
 	var spin_setter = SpinSetter.instantiate()
 	get_tree().root.add_child(spin_setter)
 	spin_setter.spin_selected.connect(_on_spin_selected)
@@ -179,6 +182,7 @@ func _show_spin_setter() -> void:
 
 
 func _on_spin_selected(spin_degrees: float) -> void:
+	spin_selection_completed.emit(self)
 	_launch_with_spin(spin_degrees)
 
 

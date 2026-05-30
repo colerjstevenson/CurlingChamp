@@ -168,8 +168,12 @@ offset_bottom = 136.0
 scale = Vector2(1.97045, 1.53371)
 
 [node name="house" type="Area2D" parent="."]
-position = Vector2(360, 121)
+position = Vector2(360, 64)
 
 [node name="houseArea" type="CollisionShape2D" parent="house"]
-position = Vector2(-1, -56)
+position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_rvslj")
+
+[node name="scratchline" type="Line2D" parent="house"]
+points = PackedVector2Array(359, 390, -364, 390)
+default_color = Color(1, 1, 1, 0)

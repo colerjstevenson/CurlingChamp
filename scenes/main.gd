@@ -14,7 +14,7 @@ const YELLOW_STONE_ICON := preload("res://assets/curling/stones/stone_yellow_top
 @export var stone_spawn_position := Vector2(360.0, 1000.0)
 @export var settled_speed_threshold := 8.0
 @export var settled_frames_required := 5
-@export var red_line_y := 433
+@export var scratch_line_fallback_y := 433.0
 @export var rink_end_y := -70
 @export var camera_overview_position := Vector2(360.0, 640)
 @export var camera_overview_zoom := Vector2(1.0, 1.0)
@@ -23,6 +23,7 @@ const YELLOW_STONE_ICON := preload("res://assets/curling/stones/stone_yellow_top
 @export var camera_overview_delay := 0.25
 @export var max_ends := 3
 @export var end_score_extra_hold_seconds := 1.0
+@export var ai_difficulty: int = 5
 var house_center
 var house_radius
 
@@ -36,6 +37,7 @@ var PLAYER_COLORS := [human_player_color, ai_player_color]
 @onready var end_label: RichTextLabel = $CanvasLayer/scoreboard/end
 @onready var rocks_1_box: HBoxContainer = $CanvasLayer/scoreboard/rocks1
 @onready var rocks_2_box: HBoxContainer = $CanvasLayer/scoreboard/rocks2
+@onready var scratch_line: Line2D = $house/scratchline
 
 var current_player_index := 0
 var current_end := 1
@@ -49,7 +51,7 @@ var scores_by_color := {
 }
 var active_stone: RigidBody2D
 var followed_stone: RigidBody2D
-var ai_player = AI_PLAYER.new()
+var ai_player = null
 var camera_tween: Tween
 var camera_delay_tween: Tween
 
@@ -65,6 +67,8 @@ func _ready() -> void:
 		camera.zoom = camera_overview_zoom
 	house_center = $house.position
 	house_radius = $house/houseArea.shape.radius
+	ai_player = AI_PLAYER.new()
+	ai_player.difficulty = ai_difficulty
 	_update_scoreboard_ui()
 	_update_rocks_left_ui()
 	_spawn_next_stone()
@@ -189,12 +193,13 @@ func _start_ai_turn(stone: RigidBody2D) -> void:
 	if not is_instance_valid(stone) or stone != active_stone:
 		return
 
-	var shot := ai_player.choose_shot(
+	var shot: Dictionary = ai_player.choose_shot(
 		stone_spawn_position,
 		stone,
 		_collect_stone_data(),
 		house_center,
-		house_radius
+		house_radius,
+		stones_per_player
 	)
 
 	if stone.has_method("launch_shot"):
@@ -225,6 +230,8 @@ func _collect_stone_data() -> Array[Dictionary]:
 
 
 func _prune_out_of_play_stones() -> void:
+	var scratch_line_y: float = _get_scratch_line_y()
+
 	for node in get_tree().get_nodes_in_group(STONES_GROUP):
 		if not is_instance_valid(node):
 			continue
@@ -233,8 +240,15 @@ func _prune_out_of_play_stones() -> void:
 		if stone == null:
 			continue
 
-		if stone.has_method("should_remove_on_reset") and stone.should_remove_on_reset(red_line_y, rink_end_y):
+		if stone.has_method("should_remove_on_reset") and stone.should_remove_on_reset(scratch_line_y, rink_end_y):
 			stone.queue_free()
+
+
+func _get_scratch_line_y() -> float:
+	if is_instance_valid(scratch_line) and scratch_line.points.size() > 0:
+		return scratch_line.to_global(scratch_line.points[0]).y
+
+	return scratch_line_fallback_y
 
 
 func _calculate_end_score() -> Dictionary:

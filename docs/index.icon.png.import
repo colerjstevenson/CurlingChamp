@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjrpi6ev4v6e8"
-path="res://.godot/imported/curling_scoreboard_1.png-0584fd627b3636269d2c217e302d86ef.ctex"
+uid="uid://oenduiv5k004"
+path="res://.godot/imported/index.icon.png-b92c9a802ad4b78e247784454a6b506f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/curling_scoreboard_1.png"
-dest_files=["res://.godot/imported/curling_scoreboard_1.png-0584fd627b3636269d2c217e302d86ef.ctex"]
+source_file="res://docs/index.icon.png"
+dest_files=["res://.godot/imported/index.icon.png-b92c9a802ad4b78e247784454a6b506f.ctex"]
 
 [params]
 

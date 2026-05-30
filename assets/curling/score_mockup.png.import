@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dc0dpyg87aj0w"
-path="res://.godot/imported/Untitled.png-f999cbd9ad67ebf939413b3a76841057.ctex"
+uid="uid://djnnmj67w8ios"
+path="res://.godot/imported/score_mockup.png-dc780f5d7649f9347258ef5b0f187345.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Untitled.png"
-dest_files=["res://.godot/imported/Untitled.png-f999cbd9ad67ebf939413b3a76841057.ctex"]
+source_file="res://assets/curling/score_mockup.png"
+dest_files=["res://.godot/imported/score_mockup.png-dc780f5d7649f9347258ef5b0f187345.ctex"]
 
 [params]
 

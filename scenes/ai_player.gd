@@ -1,7 +1,7 @@
 extends RefCounted
 
 ## difficulty: 1 (worst) to 10 (best). Set this from main.gd after instantiating.
-var difficulty: int = 10
+var difficulty: int = 5
 
 var rng := RandomNumberGenerator.new()
 

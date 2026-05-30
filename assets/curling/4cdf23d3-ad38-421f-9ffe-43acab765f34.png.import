@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chtwrignwig5y"
-path="res://.godot/imported/spin_mockup.png-775fd4b0ebd7b0dbed79e11868e955a4.ctex"
+uid="uid://dlycu71enixl7"
+path="res://.godot/imported/4cdf23d3-ad38-421f-9ffe-43acab765f34.png-a88671e5ddc3773b2f9bc0cbad520e6f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/spin_mockup.png"
-dest_files=["res://.godot/imported/spin_mockup.png-775fd4b0ebd7b0dbed79e11868e955a4.ctex"]
+source_file="res://assets/curling/4cdf23d3-ad38-421f-9ffe-43acab765f34.png"
+dest_files=["res://.godot/imported/4cdf23d3-ad38-421f-9ffe-43acab765f34.png-a88671e5ddc3773b2f9bc0cbad520e6f.ctex"]
 
 [params]
 

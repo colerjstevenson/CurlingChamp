@@ -24,7 +24,7 @@ var touched_side_wall := false
 @onready var stone_sprite: Sprite2D = $Sprite
 
 @export var grab_radius := 64.0
-@export var max_power := 1000.0
+@export var max_power := 800.0
 @export var arrow_max_length := 200
 @export var launch_speed_multiplier := 1.35
 @export var arrow_low_power_color := Color(1.0, 0.95, 0.2, 0.95)

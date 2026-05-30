@@ -54,9 +54,16 @@ var followed_stone: RigidBody2D
 var ai_player = null
 var camera_tween: Tween
 var camera_delay_tween: Tween
+var starting_player_index := 0
+var hammer_icon_texture: Texture2D
 
 
 func _ready() -> void:
+	randomize()
+	starting_player_index = randi_range(0, PLAYER_COLORS.size() - 1)
+	current_player_index = starting_player_index
+	hammer_icon_texture = _load_hammer_icon_texture()
+
 	if has_node("walls"):
 		$walls.add_to_group("side_walls")
 	if is_instance_valid(end_score_label):
@@ -147,7 +154,9 @@ func _on_stone_stopped(stone: RigidBody2D) -> void:
 	_prune_out_of_play_stones()
 
 	if _match_finished():
-		_show_end_score(_calculate_end_score())
+		var end_score: Dictionary = _calculate_end_score()
+		_show_end_score(end_score)
+		_set_next_end_starting_player(end_score)
 		active_stone = null
 		_advance_to_next_end()
 		return
@@ -389,10 +398,20 @@ func _reset_end_state() -> void:
 	throws_by_color[human_player_color] = 0
 	throws_by_color[ai_player_color] = 0
 	_update_rocks_left_ui()
-	current_player_index = 0
+	current_player_index = starting_player_index
 	active_stone = null
 	followed_stone = null
 	_queue_camera_overview()
+
+
+func _set_next_end_starting_player(score: Dictionary) -> void:
+	var scoring_color: String = String(score.get("color", ""))
+	if scoring_color == "":
+		return
+
+	var next_index := PLAYER_COLORS.find(scoring_color)
+	if next_index >= 0:
+		starting_player_index = next_index
 
 
 func _update_scoreboard_ui() -> void:
@@ -422,12 +441,14 @@ func _update_rocks_left_ui(override_color: String = "", override_throws: int = -
 
 	var player_one_left: int = maxi(stones_per_player - player_one_throws, 0)
 	var player_two_left: int = maxi(stones_per_player - player_two_throws, 0)
+	var player_one_has_hammer: bool = _player_has_hammer(player_one_color)
+	var player_two_has_hammer: bool = _player_has_hammer(player_two_color)
 
-	_populate_rocks_box(rocks_1_box, player_one_color, player_one_left)
-	_populate_rocks_box(rocks_2_box, player_two_color, player_two_left)
+	_populate_rocks_box(rocks_1_box, player_one_color, player_one_left, player_one_has_hammer)
+	_populate_rocks_box(rocks_2_box, player_two_color, player_two_left, player_two_has_hammer)
 
 
-func _populate_rocks_box(box: HBoxContainer, stone_color: String, stones_left: int) -> void:
+func _populate_rocks_box(box: HBoxContainer, stone_color: String, stones_left: int, has_hammer: bool) -> void:
 	for child in box.get_children():
 		child.queue_free()
 
@@ -442,6 +463,36 @@ func _populate_rocks_box(box: HBoxContainer, stone_color: String, stones_left: i
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.custom_minimum_size = Vector2(16.0, 16.0)
 		box.add_child(icon)
+
+	if has_hammer and hammer_icon_texture != null:
+		var hammer_icon := TextureRect.new()
+		hammer_icon.texture = hammer_icon_texture
+		hammer_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		hammer_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		hammer_icon.custom_minimum_size = Vector2(14.0, 14.0)
+		box.add_child(hammer_icon)
+
+
+func _player_has_hammer(player_color: String) -> bool:
+	if PLAYER_COLORS.size() < 2:
+		return false
+
+	var starting_color: String = String(PLAYER_COLORS[starting_player_index])
+	return player_color != starting_color
+
+
+func _load_hammer_icon_texture() -> Texture2D:
+	var candidate_paths := [
+		"res://assets/hammer.png",
+		"res://assets/pngtree-retro-8-bit-hammer-icon-with-transparent-background-vector-png-image_16300563.png",
+	]
+
+	for path in candidate_paths:
+		var image := Image.load_from_file(path)
+		if image != null and not image.is_empty():
+			return ImageTexture.create_from_image(image)
+
+	return null
 
 
 func _stone_color_to_icon(stone_color: String) -> Texture2D:

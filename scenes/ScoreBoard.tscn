@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://cc2kxpu33ax4s"]
+
+[node name="ScoreBoard" type="Control"]
+layout_mode = 3
+anchors_preset = 0

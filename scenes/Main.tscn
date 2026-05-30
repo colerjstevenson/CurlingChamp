@@ -56,5 +56,5 @@ vertical_alignment = 1
 position = Vector2(360, 121)
 
 [node name="houseArea" type="CollisionShape2D" parent="house"]
-position = Vector2(0, -57)
+position = Vector2(-1, -56)
 shape = SubResource("CircleShape2D_rvslj")

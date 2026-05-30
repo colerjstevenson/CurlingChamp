@@ -2,12 +2,12 @@ extends Node2D
 
 const STONE_SCENE := preload("res://scenes/Stone.tscn")
 const AI_PLAYER := preload("res://scenes/ai_player.gd")
-const PLAYER_COLORS := ["blue", "red"]
 const STONES_GROUP := "stones"
 
 @export var stones_per_player := 5
 @export var ai_enabled := true
 @export var ai_player_color := "red"
+@export var human_player_color := "yellow"
 @export var stone_spawn_position := Vector2(360.0, 1000.0)
 @export var settled_speed_threshold := 8.0
 @export var settled_frames_required := 5
@@ -17,23 +17,31 @@ const STONES_GROUP := "stones"
 @export var camera_overview_zoom := Vector2(1.0, 1.0)
 @export var camera_follow_zoom := Vector2(1.5, 1.5)
 @export var camera_follow_lerp_speed := 6.0
+@export var camera_overview_delay := 0.25
 var house_center
 var house_radius
 
-
+var PLAYER_COLORS := [human_player_color, ai_player_color]
 
 @onready var camera: Camera2D = $Camera2D
 @onready var end_score_label: Label = $CanvasLayer/EndScoreLabel
+@onready var scoreboard = $CanvasLayer/ScoreBoard
 
 var current_player_index := 0
+var current_end := 1
 var throws_by_color := {
-	"blue": 0,
-	"red": 0,
+	human_player_color: 0,
+	ai_player_color: 0,
+}
+var scores_by_color := {
+	human_player_color: 0,
+	ai_player_color: 0,
 }
 var active_stone: RigidBody2D
 var followed_stone: RigidBody2D
 var ai_player = AI_PLAYER.new()
 var camera_tween: Tween
+var camera_delay_tween: Tween
 
 
 func _ready() -> void:
@@ -47,6 +55,9 @@ func _ready() -> void:
 		camera.zoom = camera_overview_zoom
 	house_center = $house.position
 	house_radius = $house/houseArea.shape.radius
+	if is_instance_valid(scoreboard):
+		scoreboard.setup(PLAYER_COLORS, stones_per_player)
+		scoreboard.set_end(current_end)
 	_spawn_next_stone()
 
 
@@ -64,7 +75,7 @@ func _process(delta: float) -> void:
 
 func _spawn_next_stone() -> void:
 	followed_stone = null
-	_move_camera_to_overview()
+	_queue_camera_overview()
 
 	if _match_finished():
 		active_stone = null
@@ -86,6 +97,9 @@ func _spawn_next_stone() -> void:
 		stone.stone_launched.connect(_on_stone_launched)
 	active_stone = stone
 
+	if is_instance_valid(scoreboard):
+		scoreboard.set_stones_thrown(color, throws_by_color[color])
+
 	if _is_ai_turn(color):
 		_start_ai_turn(stone)
 
@@ -96,6 +110,13 @@ func _spawn_next_stone() -> void:
 func _on_stone_launched(stone: RigidBody2D) -> void:
 	if stone != active_stone:
 		return
+
+	if is_instance_valid(camera_delay_tween):
+		camera_delay_tween.kill()
+
+	var launched_color: String = PLAYER_COLORS[current_player_index]
+	if is_instance_valid(scoreboard):
+		scoreboard.set_stones_thrown(launched_color, throws_by_color[launched_color] + 1)
 
 	followed_stone = stone
 	_set_camera_zoom(camera_follow_zoom)
@@ -121,7 +142,7 @@ func _on_stone_stopped(stone: RigidBody2D) -> void:
 
 
 func _match_finished() -> bool:
-	return throws_by_color["blue"] >= stones_per_player and throws_by_color["red"] >= stones_per_player
+	return throws_by_color[human_player_color] >= stones_per_player and throws_by_color[ai_player_color] >= stones_per_player
 
 
 func _wait_for_all_stones_to_settle() -> void:
@@ -248,15 +269,23 @@ func _calculate_end_score() -> Dictionary:
 
 
 func _show_end_score(score: Dictionary) -> void:
+	var scoring_color: String = String(score.get("color", ""))
+	var points: int = int(score.get("points", 0))
+
+	if scoring_color != "" and points > 0 and scores_by_color.has(scoring_color):
+		scores_by_color[scoring_color] += points
+
+	if is_instance_valid(scoreboard):
+		for c in PLAYER_COLORS:
+			scoreboard.set_score(c, scores_by_color.get(c, 0))
+
 	if not is_instance_valid(end_score_label):
 		return
 
-	var points: int = int(score.get("points", 0))
 	if points <= 0:
 		end_score_label.text = "Blank end - no score"
 	else:
-		var color: String = String(score.get("color", "")).capitalize()
-		end_score_label.text = "%s scores %d" % [color, points]
+		end_score_label.text = "%s scores %d" % [scoring_color.capitalize(), points]
 
 	end_score_label.visible = true
 
@@ -272,6 +301,22 @@ func _move_camera_to_overview() -> void:
 	camera_tween.set_parallel(true)
 	camera_tween.tween_property(camera, "zoom", camera_overview_zoom, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	camera_tween.tween_property(camera, "global_position", camera_overview_position, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+
+func _queue_camera_overview() -> void:
+	if not is_instance_valid(camera):
+		return
+
+	if is_instance_valid(camera_delay_tween):
+		camera_delay_tween.kill()
+
+	if camera_overview_delay <= 0.0:
+		_move_camera_to_overview()
+		return
+
+	camera_delay_tween = create_tween()
+	camera_delay_tween.tween_interval(camera_overview_delay)
+	camera_delay_tween.tween_callback(_move_camera_to_overview)
 
 
 func _set_camera_zoom(target_zoom: Vector2) -> void:

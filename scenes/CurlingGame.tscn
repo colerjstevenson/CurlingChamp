@@ -1,0 +1,199 @@
+[gd_scene load_steps=10 format=3 uid="uid://c54ohpylo44a5"]
+
+[ext_resource type="Texture2D" uid="uid://dkbppwjcbhyu7" path="res://assets/curling/rinkLong.png" id="2_rvslj"]
+[ext_resource type="Texture2D" uid="uid://c0ylw76defigq" path="res://assets/curling/e0380555-65b2-45fb-bb7d-2c546790c21f.png" id="3_0bbpv"]
+[ext_resource type="FontFile" uid="uid://mfdjupiwfar2" path="res://Fonts/PixeloidSans-mLxMm.ttf" id="4_rarhs"]
+[ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="5_p15o0"]
+[ext_resource type="Script" uid="uid://dd48i4ht0jjf7" path="res://scripts/curlinggame.gd" id="6_main"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_walls"]
+friction = 0.05
+bounce = 0.45
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rarhs"]
+size = Vector2(175.938, 1461.5)
+
+[sub_resource type="Theme" id="Theme_rarhs"]
+RichTextLabel/colors/default_color = Color(0.851391, 0, 0.169515, 1)
+RichTextLabel/fonts/bold_font = ExtResource("4_rarhs")
+RichTextLabel/fonts/normal_font = ExtResource("4_rarhs")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rvslj"]
+radius = 111.005
+
+[node name="CurlingGame" type="Node2D"]
+position = Vector2(0, 84)
+script = ExtResource("6_main")
+stones_per_player = null
+ai_enabled = null
+ai_player_color = null
+human_player_color = null
+human_player_name = null
+ai_player_name = null
+human_player_stones = null
+stone_spawn_position = null
+settled_speed_threshold = null
+settled_frames_required = null
+scratch_line_fallback_y = null
+rink_end_y = null
+camera_overview_position = null
+camera_overview_zoom = null
+camera_follow_zoom = null
+camera_follow_lerp_speed = null
+camera_overview_delay = null
+max_ends = null
+end_score_extra_hold_seconds = null
+ai_difficulty = null
+auto_return_to_menu = null
+match_result_hold_seconds = null
+return_to_scene_path = null
+
+[node name="Rink" type="Sprite2D" parent="."]
+position = Vector2(359.5, 559)
+scale = Vector2(0.990278, 0.998438)
+texture = ExtResource("2_rvslj")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(360, 559)
+limit_left = -4420
+limit_top = 0
+limit_right = 5350
+limit_bottom = 1280
+
+[node name="walls" type="StaticBody2D" parent="."]
+position = Vector2(14, -22)
+physics_material_override = SubResource("PhysicsMaterial_walls")
+
+[node name="left_wall" type="CollisionShape2D" parent="walls"]
+position = Vector2(110, 658.75)
+shape = SubResource("RectangleShape2D_rarhs")
+
+[node name="right_wall" type="CollisionShape2D" parent="walls"]
+position = Vector2(580.031, 664)
+shape = SubResource("RectangleShape2D_rarhs")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="EndScoreLabel" type="Label" parent="CanvasLayer"]
+offset_left = 97.0
+offset_top = 312.0
+offset_right = 621.0
+offset_bottom = 545.0
+theme = SubResource("Theme_rarhs")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_rarhs")
+theme_override_font_sizes/font_size = 60
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="scoreboard" type="TextureRect" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = -60.0
+offset_top = 1017.0
+offset_right = 765.0
+offset_bottom = 1444.0
+texture = ExtResource("3_0bbpv")
+expand_mode = 1
+
+[node name="name1" type="RichTextLabel" parent="CanvasLayer/scoreboard"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.112
+anchor_top = 0.393
+anchor_right = 0.322
+anchor_bottom = 0.5
+offset_left = -0.400002
+offset_top = 0.188995
+offset_right = 0.349976
+offset_bottom = -0.5
+theme = ExtResource("5_p15o0")
+text = "Player 1"
+
+[node name="score1" type="RichTextLabel" parent="CanvasLayer/scoreboard"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.048
+anchor_bottom = 0.094
+offset_left = 302.0
+offset_top = 165.0
+offset_right = 319.4
+offset_bottom = 185.862
+theme = ExtResource("5_p15o0")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 48
+text = "0"
+
+[node name="score2" type="RichTextLabel" parent="CanvasLayer/scoreboard"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.048
+anchor_bottom = 0.094
+offset_left = 596.0
+offset_top = 164.0
+offset_right = 613.4
+offset_bottom = 184.862
+theme = ExtResource("5_p15o0")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 48
+text = "0"
+
+[node name="end" type="RichTextLabel" parent="CanvasLayer/scoreboard"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.048
+anchor_bottom = 0.094
+offset_left = 668.0
+offset_top = 161.0
+offset_right = 698.4
+offset_bottom = 187.862
+theme = ExtResource("5_p15o0")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 27
+text = "End
+1"
+horizontal_alignment = 1
+
+[node name="name2" type="RichTextLabel" parent="CanvasLayer/scoreboard"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.048
+anchor_bottom = 0.094
+offset_left = 380.0
+offset_top = 167.0
+offset_right = 516.4
+offset_bottom = 171.862
+theme = ExtResource("5_p15o0")
+text = "Player 1"
+
+[node name="rocks1" type="HBoxContainer" parent="CanvasLayer/scoreboard"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 118.0
+offset_right = 178.0
+offset_bottom = 142.0
+scale = Vector2(1.97045, 1.53371)
+
+[node name="rocks2" type="HBoxContainer" parent="CanvasLayer/scoreboard"]
+layout_mode = 0
+offset_left = 372.0
+offset_top = 112.0
+offset_right = 462.0
+offset_bottom = 136.0
+scale = Vector2(1.97045, 1.53371)
+
+[node name="house" type="Area2D" parent="."]
+position = Vector2(360, 64)
+
+[node name="houseArea" type="CollisionShape2D" parent="house"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_rvslj")
+
+[node name="scratchline" type="Line2D" parent="house"]
+points = PackedVector2Array(359, 390, -364, 390)
+default_color = Color(1, 1, 1, 0)

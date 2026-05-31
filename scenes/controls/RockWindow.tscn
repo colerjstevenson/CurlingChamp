@@ -1,0 +1,215 @@
+[gd_scene load_steps=11 format=3 uid="uid://ddtpc341fn5u3"]
+
+[ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="1_sx757"]
+[ext_resource type="Texture2D" uid="uid://70tj4avbinmn" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/UI_Gradient.png" id="2_45s63"]
+[ext_resource type="FontFile" uid="uid://mfdjupiwfar2" path="res://Fonts/PixeloidSans-mLxMm.ttf" id="3_p8rih"]
+[ext_resource type="Texture2D" uid="uid://cakwv8k8cjr12" path="res://assets/curling/stones/stone_red_side.png" id="4_qi5qn"]
+[ext_resource type="Texture2D" uid="uid://dpol7x3hi2juh" path="res://assets/UI/UI Pixel Art-Update New BG .png" id="5_e4ehg"]
+[ext_resource type="Texture2D" uid="uid://bplnnq7kmkcwf" path="res://assets/UI/Pixel UI/Colors/Red/red_spritesheet.png" id="6_3qrai"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eh5pr"]
+atlas = ExtResource("2_45s63")
+region = Rect2(160.322, 224.65, 63.135, 62.3959)
+
+[sub_resource type="Theme" id="Theme_34pxo"]
+default_font_size = 37
+RichTextLabel/fonts/normal_font = ExtResource("3_p8rih")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dp3w1"]
+atlas = ExtResource("5_e4ehg")
+region = Rect2(257, 274, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q24dl"]
+atlas = ExtResource("6_3qrai")
+region = Rect2(0, 0, 70, 18)
+
+[node name="Stats" type="Control"]
+layout_mode = 3
+anchor_left = 0.072
+anchor_top = 0.089
+anchor_right = 0.874
+anchor_bottom = 0.803
+offset_left = -51.84
+offset_top = -113.92
+offset_right = 90.72
+offset_bottom = 252.16
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_sx757")
+
+[node name="Panel" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 46.0
+offset_top = 107.0
+offset_right = 631.0
+offset_bottom = 1027.0
+texture = SubResource("AtlasTexture_eh5pr")
+
+[node name="Name" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 106.0
+offset_top = 82.0
+offset_right = 488.0
+offset_bottom = 147.0
+theme = SubResource("Theme_34pxo")
+text = "HORSE NAME"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rock" type="Sprite2D" parent="Panel"]
+texture_filter = 1
+position = Vector2(292, 252)
+scale = Vector2(0.400694, 0.368056)
+texture = ExtResource("4_qi5qn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 61.0
+offset_top = 500.0
+offset_right = 533.0
+offset_bottom = 866.0
+theme_override_constants/separation = 45
+alignment = 1
+
+[node name="Power" type="RichTextLabel" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(201.205, 0)
+layout_mode = 2
+tooltip_text = "Effects the top speed
+of the horse"
+text = "SPEED
+"
+fit_content = true
+
+[node name="PowerBar" type="ProgressBar" parent="Panel/VBoxContainer/Power"]
+layout_mode = 0
+offset_left = 226.0
+offset_top = 1.0
+offset_right = 504.0
+offset_bottom = 29.0
+value = 28.04
+show_percentage = false
+
+[node name="Spin" type="RichTextLabel" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(201.205, 0)
+layout_mode = 2
+tooltip_text = "Effects the top speed
+of the horse"
+text = "SPIN
+"
+fit_content = true
+
+[node name="SpinBar" type="ProgressBar" parent="Panel/VBoxContainer/Spin"]
+layout_mode = 0
+offset_left = 227.0
+offset_top = 1.0
+offset_right = 504.0
+offset_bottom = 30.0
+value = 28.04
+show_percentage = false
+
+[node name="Precision" type="RichTextLabel" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(201.205, 0)
+layout_mode = 2
+tooltip_text = "Effects the top speed
+of the horse"
+text = "PRECISION
+"
+fit_content = true
+
+[node name="PrecisionBar" type="ProgressBar" parent="Panel/VBoxContainer/Precision"]
+layout_mode = 0
+offset_left = 226.0
+offset_top = 1.0
+offset_right = 504.0
+offset_bottom = 30.0
+value = 28.04
+show_percentage = false
+
+[node name="Spin2" type="RichTextLabel" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(201.205, 0)
+layout_mode = 2
+tooltip_text = "Effects the top speed
+of the horse"
+text = "CONDITION
+"
+fit_content = true
+
+[node name="SpinBar" type="ProgressBar" parent="Panel/VBoxContainer/Spin2"]
+layout_mode = 0
+offset_left = 226.0
+offset_top = 1.0
+offset_right = 504.0
+offset_bottom = 30.0
+value = 28.04
+show_percentage = false
+
+[node name="Close" type="TextureButton" parent="Panel"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.534
+anchor_top = -0.462
+anchor_right = -0.534
+anchor_bottom = -0.462
+offset_left = 352.39
+offset_top = 481.04
+offset_right = 410.39
+offset_bottom = 540.04
+texture_normal = SubResource("AtlasTexture_dp3w1")
+stretch_mode = 0
+
+[node name="wins" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 343.0
+offset_top = 413.0
+offset_right = 531.0
+offset_bottom = 456.0
+text = "Wins: "
+fit_content = true
+scroll_active = false
+
+[node name="age" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 422.0
+offset_right = 233.0
+offset_bottom = 465.0
+text = "Age: "
+fit_content = true
+scroll_active = false
+
+[node name="auctionButton" type="TextureButton" parent="Panel"]
+visible = false
+layout_mode = 0
+offset_left = 147.0
+offset_top = 805.0
+offset_right = 424.0
+offset_bottom = 868.0
+texture_normal = SubResource("AtlasTexture_q24dl")
+stretch_mode = 0
+
+[node name="warning" type="RichTextLabel" parent="Panel/auctionButton"]
+visible = false
+layout_mode = 0
+offset_left = -7.0
+offset_top = 67.0
+offset_right = 267.0
+offset_bottom = 107.0
+bbcode_enabled = true
+text = "[center]Stable is full[center]"
+
+[node name="text" type="RichTextLabel" parent="Panel/auctionButton"]
+layout_mode = 0
+offset_left = 106.0
+offset_top = 2.0
+offset_right = 285.0
+offset_bottom = 44.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 31
+text = "Buy"
+
+[connection signal="pressed" from="Panel/Close" to="." method="_close_window"]
+[connection signal="pressed" from="Panel/auctionButton" to="." method="_launch_auction"]

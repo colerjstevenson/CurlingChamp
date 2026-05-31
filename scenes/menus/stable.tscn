@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://do10bn4ngs7ob"]
+
+[ext_resource type="Texture2D" uid="uid://70tj4avbinmn" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/UI_Gradient.png" id="1_r7yg1"]
+[ext_resource type="Script" uid="uid://cv0f7wmfbqm32" path="res://scripts/backButton.gd" id="2_gslrm"]
+
+[sub_resource type="Theme" id="Theme_ko6e7"]
+HBoxContainer/constants/separation = 37
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ikty"]
+atlas = ExtResource("1_r7yg1")
+region = Rect2(293.844, 230.686, 20.3254, 19.5437)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 25.0
+offset_top = 22.0
+offset_right = 65.0
+offset_bottom = 62.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 0
+offset_left = -31.0
+offset_top = -22.0
+offset_right = 695.0
+offset_bottom = 1252.0
+color = Color(0.189241, 0.447508, 0.65329, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = -26.0
+offset_top = 230.0
+offset_right = 431.0
+offset_bottom = 878.0
+scale = Vector2(1.57868, 1.22501)
+horizontal_scroll_mode = 2
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_ko6e7")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 94.0
+offset_bottom = 89.0
+texture_normal = SubResource("AtlasTexture_5ikty")
+stretch_mode = 0
+script = ExtResource("2_gslrm")
+
+[connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

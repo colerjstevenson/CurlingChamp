@@ -1,0 +1,559 @@
+[gd_scene load_steps=30 format=3 uid="uid://c6lg1i8npojwy"]
+
+[ext_resource type="Texture2D" uid="uid://nryt1is5p6vm" path="res://art/UI/UI_Wood_C_Border.png" id="1_n6y56"]
+[ext_resource type="Script" uid="uid://c5hs1r27h23l6" path="res://scripts/breeder.gd" id="1_v18u3"]
+[ext_resource type="Script" uid="uid://qu13ruvkc63x" path="res://scripts/backButton.gd" id="2_0gyva"]
+[ext_resource type="Texture2D" uid="uid://dpol7x3hi2juh" path="res://art/UI/UI Pixel Art-Update New BG .png" id="2_jinnr"]
+[ext_resource type="Theme" uid="uid://bjldftgjbp5df" path="res://themes/Button.tres" id="3_711yo"]
+[ext_resource type="Texture2D" uid="uid://uorcffu85i7e" path="res://art/UI/UI_Wood_D_Border.png" id="4_yb7ru"]
+[ext_resource type="Theme" uid="uid://dkt0vm3hsq417" path="res://themes/general_text.tres" id="5_mlupi"]
+[ext_resource type="SpriteFrames" uid="uid://wfq4eygnwjs1" path="res://animation/horse.tres" id="7_4fmy0"]
+[ext_resource type="Texture2D" uid="uid://deok2v6fn8pdd" path="res://art/UI/Pixel UI/Colors/Yellow/yellow_spritesheet.png" id="7_d1qrw"]
+[ext_resource type="Theme" uid="uid://04h0bha3cylt" path="res://themes/stat_window.tres" id="7_xl6cd"]
+[ext_resource type="Texture2D" uid="uid://ullende40irc" path="res://art/UI/Pixel UI/Colors/Cyan/cyan_spritesheet.png" id="9_xl6cd"]
+[ext_resource type="SpriteFrames" uid="uid://dkyvi2g4debs8" path="res://animation/horse_heads.tres" id="10_g2rgr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1qrw"]
+atlas = ExtResource("7_d1qrw")
+region = Rect2(0, 0, 70, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2kq5"]
+atlas = ExtResource("7_d1qrw")
+region = Rect2(0, 98, 70, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3abw3"]
+atlas = ExtResource("1_n6y56")
+region = Rect2(223.527, 287.623, 32.8422, 32.8422)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m18fy"]
+atlas = ExtResource("2_jinnr")
+region = Rect2(160, 176, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7fra"]
+atlas = ExtResource("4_yb7ru")
+region = Rect2(321, 449, 30, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0xad"]
+atlas = ExtResource("4_yb7ru")
+region = Rect2(225, 449, 30, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ay15c"]
+atlas = ExtResource("9_xl6cd")
+region = Rect2(0, 117.184, 70.8095, 71.8156)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2kq5"]
+bg_color = Color(2.88785e-07, 0.463898, 0.507589, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(4.81307e-07, 0.391938, 0.42957, 1)
+shadow_size = 2
+shadow_offset = Vector2(3.99, 2.895)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ay15c"]
+bg_color = Color(0.0190686, 0.508518, 0.888179, 1)
+
+[sub_resource type="Theme" id="Theme_1t56t"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_y2kq5")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_ay15c")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3lvg"]
+bg_color = Color(2.88785e-07, 0.463898, 0.507589, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_color = Color(4.81307e-07, 0.391938, 0.42957, 1)
+shadow_size = 2
+shadow_offset = Vector2(3.99, 2.895)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rufi3"]
+bg_color = Color(0.930457, 0.66709, 0.987984, 1)
+
+[sub_resource type="Theme" id="Theme_2hg5x"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_f3lvg")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_rufi3")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xl6cd"]
+atlas = ExtResource("7_d1qrw")
+region = Rect2(0, 0, 70, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2rgr"]
+atlas = ExtResource("7_d1qrw")
+region = Rect2(0, 98, 70, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1t56t"]
+atlas = ExtResource("7_d1qrw")
+region = Rect2(166.035, 19.1542, 18.2914, 17.9558)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ler27"]
+atlas = ExtResource("2_jinnr")
+region = Rect2(257, 274, 14, 14)
+
+[node name="Breeder" type="Node2D"]
+script = ExtResource("1_v18u3")
+
+[node name="BG" type="ColorRect" parent="."]
+offset_right = 713.0
+offset_bottom = 1285.0
+color = Color(0.409833, 0.643863, 0.801575, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BG"]
+layout_mode = 0
+offset_left = 290.0
+offset_top = 53.0
+offset_right = 535.0
+offset_bottom = 140.0
+text = "Breeding Center"
+
+[node name="BreedingButton" type="TextureButton" parent="BG"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 142.0
+offset_top = 152.0
+offset_right = 312.0
+offset_bottom = 218.0
+disabled = true
+texture_normal = SubResource("AtlasTexture_d1qrw")
+texture_disabled = SubResource("AtlasTexture_y2kq5")
+stretch_mode = 0
+
+[node name="text" type="RichTextLabel" parent="BG/BreedingButton"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 6.0
+offset_right = 191.0
+offset_bottom = 48.0
+mouse_filter = 2
+theme = ExtResource("7_xl6cd")
+theme_override_font_sizes/normal_font_size = 31
+text = "Breeding"
+
+[node name="RightsButton" type="TextureButton" parent="BG"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 387.0
+offset_top = 151.0
+offset_right = 557.0
+offset_bottom = 217.0
+texture_normal = SubResource("AtlasTexture_d1qrw")
+texture_disabled = SubResource("AtlasTexture_y2kq5")
+stretch_mode = 0
+
+[node name="text" type="RichTextLabel" parent="BG/RightsButton"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 7.0
+offset_right = 148.0
+offset_bottom = 49.0
+mouse_filter = 2
+theme = ExtResource("7_xl6cd")
+theme_override_font_sizes/normal_font_size = 31
+text = "Rights"
+
+[node name="BackButton" type="TextureButton" parent="."]
+texture_filter = 1
+offset_left = 25.0
+offset_top = 22.0
+offset_right = 119.0
+offset_bottom = 111.0
+texture_normal = SubResource("AtlasTexture_3abw3")
+stretch_mode = 0
+script = ExtResource("2_0gyva")
+
+[node name="Breeding" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="breederButtons" type="Control" parent="Breeding"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 25.0
+offset_top = 22.0
+offset_right = 65.0
+offset_bottom = 62.0
+
+[node name="maleSelector" type="TextureButton" parent="Breeding/breederButtons"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 145.0
+offset_top = 750.0
+offset_right = 513.0
+offset_bottom = 833.0
+texture_normal = SubResource("AtlasTexture_m18fy")
+stretch_mode = 0
+
+[node name="maleText" type="RichTextLabel" parent="Breeding/breederButtons/maleSelector"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 6.0
+offset_top = 19.0
+offset_right = 366.0
+offset_bottom = 60.0
+mouse_filter = 1
+theme = ExtResource("3_711yo")
+bbcode_enabled = true
+text = "[center]Select Stallion[center]"
+
+[node name="femaleSelector" type="TextureButton" parent="Breeding/breederButtons"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 143.0
+offset_top = 1056.0
+offset_right = 511.0
+offset_bottom = 1139.0
+texture_normal = SubResource("AtlasTexture_m18fy")
+stretch_mode = 0
+
+[node name="femaleText" type="RichTextLabel" parent="Breeding/breederButtons/femaleSelector"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 1.0
+offset_top = 20.0
+offset_right = 369.0
+offset_bottom = 61.0
+mouse_filter = 1
+theme = ExtResource("3_711yo")
+bbcode_enabled = true
+text = "[center]Select Mare[center]"
+
+[node name="BreedButton" type="TextureButton" parent="Breeding/breederButtons"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 258.0
+offset_top = 866.0
+offset_right = 396.0
+offset_bottom = 996.0
+texture_normal = SubResource("AtlasTexture_j7fra")
+texture_disabled = SubResource("AtlasTexture_j0xad")
+stretch_mode = 0
+
+[node name="Preview" type="TextureRect" parent="Breeding/breederButtons"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 90.0
+offset_top = 252.0
+offset_right = 563.0
+offset_bottom = 683.0
+texture = SubResource("AtlasTexture_ay15c")
+
+[node name="Stats" type="VBoxContainer" parent="Breeding/breederButtons/Preview"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 151.0
+offset_right = 620.0
+offset_bottom = 439.0
+scale = Vector2(0.76, 0.879999)
+theme = ExtResource("7_xl6cd")
+theme_override_constants/separation = 40
+
+[node name="Speed" type="RichTextLabel" parent="Breeding/breederButtons/Preview/Stats"]
+custom_minimum_size = Vector2(201.205, 0)
+layout_mode = 2
+tooltip_text = "Effects the top speed
+of the horse"
+theme = ExtResource("7_xl6cd")
+theme_override_font_sizes/normal_font_size = 45
+text = "Speed
+"
+fit_content = true
+
+[node name="Male" type="ProgressBar" parent="Breeding/breederButtons/Preview/Stats/Speed"]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 5.0
+offset_right = 543.0
+offset_bottom = 26.0
+theme = SubResource("Theme_1t56t")
+theme_type_variation = &"male"
+value = 28.04
+show_percentage = false
+
+[node name="Female" type="ProgressBar" parent="Breeding/breederButtons/Preview/Stats/Speed"]
+layout_mode = 0
+offset_left = 214.0
+offset_top = 32.0
+offset_right = 543.0
+offset_bottom = 53.0
+theme = SubResource("Theme_2hg5x")
+value = 28.04
+show_percentage = false
+
+[node name="Stamina" type="RichTextLabel" parent="Breeding/breederButtons/Preview/Stats"]
+custom_minimum_size = Vector2(201.205, 0)
+layout_mode = 2
+tooltip_text = "Effects the top speed
+of the horse"
+theme = ExtResource("7_xl6cd")
+theme_override_font_sizes/normal_font_size = 45
+text = "Stamina
+"
+fit_content = true
+
+[node name="Male" type="ProgressBar" parent="Breeding/breederButtons/Preview/Stats/Stamina"]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 5.0
+offset_right = 543.0
+offset_bottom = 26.0
+theme = SubResource("Theme_1t56t")
+theme_type_variation = &"male"
+value = 28.04
+show_percentage = false
+
+[node name="Female" type="ProgressBar" parent="Breeding/breederButtons/Preview/Stats/Stamina"]
+layout_mode = 0
+offset_left = 214.0
+offset_top = 32.0
+offset_right = 543.0
+offset_bottom = 53.0
+theme = SubResource("Theme_2hg5x")
+value = 28.04
+show_percentage = false
+
+[node name="Acceleration" type="RichTextLabel" parent="Breeding/breederButtons/Preview/Stats"]
+custom_minimum_size = Vector2(201.205, 0)
+layout_mode = 2
+tooltip_text = "Effects the top speed
+of the horse"
+theme = ExtResource("7_xl6cd")
+theme_override_font_sizes/normal_font_size = 45
+text = "Accel.
+"
+fit_content = true
+
+[node name="Male" type="ProgressBar" parent="Breeding/breederButtons/Preview/Stats/Acceleration"]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 5.0
+offset_right = 543.0
+offset_bottom = 26.0
+theme = SubResource("Theme_1t56t")
+theme_type_variation = &"male"
+value = 28.04
+show_percentage = false
+
+[node name="Female" type="ProgressBar" parent="Breeding/breederButtons/Preview/Stats/Acceleration"]
+layout_mode = 0
+offset_left = 214.0
+offset_top = 32.0
+offset_right = 543.0
+offset_bottom = 53.0
+theme = SubResource("Theme_2hg5x")
+value = 28.04
+show_percentage = false
+
+[node name="Male" type="AnimatedSprite2D" parent="Breeding/breederButtons/Preview"]
+position = Vector2(126, 73)
+scale = Vector2(7.14706, 6.5)
+sprite_frames = ExtResource("10_g2rgr")
+animation = &"black"
+
+[node name="Female" type="AnimatedSprite2D" parent="Breeding/breederButtons/Preview"]
+position = Vector2(319, 78)
+scale = Vector2(7.14706, 6.5)
+sprite_frames = ExtResource("10_g2rgr")
+animation = &"black"
+
+[node name="BreedingScreen" type="ColorRect" parent="Breeding"]
+visible = false
+layout_mode = 0
+offset_top = 252.0
+offset_right = 713.0
+offset_bottom = 1285.0
+color = Color(0.409833, 0.643863, 0.801575, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Breeding/BreedingScreen"]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 207.0
+offset_right = 599.0
+offset_bottom = 294.0
+theme = ExtResource("5_mlupi")
+text = "Breeding in Progress..."
+
+[node name="PregoScreen" type="ColorRect" parent="Breeding"]
+visible = false
+layout_mode = 0
+offset_top = 250.0
+offset_right = 713.0
+offset_bottom = 1285.0
+color = Color(0.409833, 0.643863, 0.801575, 1)
+
+[node name="text" type="RichTextLabel" parent="Breeding/PregoScreen"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 378.0
+offset_right = 606.0
+offset_bottom = 617.0
+theme = ExtResource("5_mlupi")
+bbcode_enabled = true
+text = "[center]Horse is Pregnant!
+"
+
+[node name="NewHorseScreen" type="ColorRect" parent="Breeding"]
+auto_translate_mode = 2
+visible = false
+layout_mode = 0
+offset_top = 268.0
+offset_right = 713.0
+offset_bottom = 1285.0
+color = Color(0.409833, 0.643863, 0.801575, 1)
+
+[node name="TextEdit" type="TextEdit" parent="Breeding/NewHorseScreen"]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 467.0
+offset_right = 546.0
+offset_bottom = 555.0
+theme = ExtResource("5_mlupi")
+placeholder_text = "name"
+
+[node name="text" type="RichTextLabel" parent="Breeding/NewHorseScreen"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 62.0
+offset_right = 706.0
+offset_bottom = 192.0
+theme = ExtResource("5_mlupi")
+bbcode_enabled = true
+text = "[center]Horse gave birth![center]
+"
+
+[node name="KeepButton" type="TextureButton" parent="Breeding/NewHorseScreen"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 382.0
+offset_top = 669.0
+offset_right = 679.0
+offset_bottom = 763.0
+texture_normal = SubResource("AtlasTexture_xl6cd")
+texture_disabled = SubResource("AtlasTexture_g2rgr")
+stretch_mode = 0
+
+[node name="text" type="RichTextLabel" parent="Breeding/NewHorseScreen/KeepButton"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 17.0
+offset_right = 283.0
+offset_bottom = 59.0
+mouse_filter = 2
+theme = ExtResource("7_xl6cd")
+theme_override_font_sizes/normal_font_size = 31
+text = "Keep"
+
+[node name="warning" type="RichTextLabel" parent="Breeding/NewHorseScreen/KeepButton"]
+visible = false
+layout_mode = 0
+offset_left = 49.0
+offset_top = 95.0
+offset_right = 285.0
+offset_bottom = 137.0
+mouse_filter = 2
+theme = ExtResource("7_xl6cd")
+theme_override_font_sizes/normal_font_size = 31
+text = "Stable is Full"
+
+[node name="RandomButton" type="TextureButton" parent="Breeding/NewHorseScreen"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 582.0
+offset_top = 462.0
+offset_right = 674.0
+offset_bottom = 556.0
+texture_normal = SubResource("AtlasTexture_1t56t")
+texture_disabled = SubResource("AtlasTexture_g2rgr")
+stretch_mode = 0
+
+[node name="SellButton" type="TextureButton" parent="Breeding/NewHorseScreen"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 44.0
+offset_top = 672.0
+offset_right = 331.0
+offset_bottom = 767.0
+theme = ExtResource("7_xl6cd")
+texture_normal = SubResource("AtlasTexture_xl6cd")
+texture_disabled = SubResource("AtlasTexture_g2rgr")
+stretch_mode = 0
+
+[node name="text" type="RichTextLabel" parent="Breeding/NewHorseScreen/SellButton"]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 15.0
+offset_right = 286.0
+offset_bottom = 57.0
+mouse_filter = 2
+theme = ExtResource("7_xl6cd")
+theme_override_font_sizes/normal_font_size = 31
+text = "Sell"
+
+[node name="horseImg" type="AnimatedSprite2D" parent="Breeding/NewHorseScreen"]
+texture_filter = 1
+position = Vector2(337, 178)
+scale = Vector2(11.5312, 12.0625)
+sprite_frames = ExtResource("7_4fmy0")
+animation = &"red_left_standing"
+
+[node name="FailedScreen" type="ColorRect" parent="Breeding"]
+visible = false
+layout_mode = 0
+offset_top = 257.0
+offset_right = 713.0
+offset_bottom = 1285.0
+color = Color(0.409833, 0.643863, 0.801575, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Breeding/FailedScreen"]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 231.0
+offset_right = 633.0
+offset_bottom = 359.0
+theme = ExtResource("5_mlupi")
+text = "Uh oh... Breeding did not result in pregnancy :("
+
+[node name="Close" type="TextureButton" parent="Breeding/FailedScreen"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.534
+anchor_top = -0.462
+anchor_right = -0.534
+anchor_bottom = -0.462
+offset_left = 672.742
+offset_top = 804.056
+offset_right = 750.742
+offset_bottom = 878.056
+texture_normal = SubResource("AtlasTexture_ler27")
+stretch_mode = 0
+
+[node name="BreedingRights" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BreedingRights"]
+layout_mode = 0
+offset_left = 119.0
+offset_top = 599.0
+offset_right = 637.0
+offset_bottom = 738.0
+theme = ExtResource("7_xl6cd")
+theme_override_font_sizes/normal_font_size = 71
+text = "Coming Soon"
+
+[connection signal="pressed" from="BG/BreedingButton" to="." method="_toggle_pressed" binds= ["Breeding"]]
+[connection signal="pressed" from="BG/RightsButton" to="." method="_toggle_pressed" binds= ["Rights"]]
+[connection signal="pressed" from="BackButton" to="BackButton" method="_on_pressed"]
+[connection signal="pressed" from="Breeding/breederButtons/maleSelector" to="." method="openMales"]
+[connection signal="pressed" from="Breeding/breederButtons/femaleSelector" to="." method="openFemales"]
+[connection signal="pressed" from="Breeding/breederButtons/BreedButton" to="." method="_breed_pressed"]
+[connection signal="pressed" from="Breeding/NewHorseScreen/KeepButton" to="." method="_keep_pressed"]
+[connection signal="pressed" from="Breeding/NewHorseScreen/RandomButton" to="." method="_random_pressed"]
+[connection signal="pressed" from="Breeding/NewHorseScreen/SellButton" to="." method="_sell_pressed"]
+[connection signal="pressed" from="Breeding/FailedScreen/Close" to="." method="_close_messgae"]

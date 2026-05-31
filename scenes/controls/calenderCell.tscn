@@ -1,0 +1,98 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7qa8qi6sdc86"]
+
+[ext_resource type="Script" uid="uid://bimpqj84tbgkw" path="res://scripts/callender_cell.gd" id="1_iiv67"]
+[ext_resource type="Theme" uid="uid://bjldftgjbp5df" path="res://themes/Button.tres" id="2_8sk5o"]
+[ext_resource type="Texture2D" uid="uid://cjnw2m0jto2fk" path="res://art/icons/crown.png" id="3_rvwav"]
+
+[node name="Control" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchor_right = 0.878
+anchor_bottom = 0.11
+offset_right = -0.160034
+offset_bottom = 0.199997
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+script = ExtResource("1_iiv67")
+
+[node name="Button" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 621.0
+offset_bottom = 137.0
+theme = ExtResource("2_8sk5o")
+color = Color(0.499455, 0.271887, 0.149675, 1)
+
+[node name="name" type="RichTextLabel" parent="Button"]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 12.0
+offset_right = 566.0
+offset_bottom = 64.0
+mouse_filter = 1
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "Name of the Race"
+
+[node name="length" type="RichTextLabel" parent="Button"]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 55.0
+offset_right = 239.0
+offset_bottom = 95.0
+theme_override_colors/default_color = Color(0.65834, 0.65834, 0.65834, 1)
+text = "1000m"
+
+[node name="purse" type="RichTextLabel" parent="Button"]
+layout_mode = 0
+offset_left = 253.0
+offset_top = 58.0
+offset_right = 393.0
+offset_bottom = 98.0
+theme_override_colors/default_color = Color(0.658824, 0.658824, 0.658824, 1)
+text = "$100"
+
+[node name="crown" type="TextureRect" parent="Button"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = -6.0
+offset_top = 20.0
+offset_right = 104.0
+offset_bottom = 116.0
+texture = ExtResource("3_rvwav")
+expand_mode = 1
+
+[node name="horse" type="RichTextLabel" parent="Button"]
+visible = false
+layout_mode = 0
+offset_left = 109.0
+offset_top = 87.0
+offset_right = 440.0
+offset_bottom = 127.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "horse name"
+
+[node name="win" type="RichTextLabel" parent="Button"]
+visible = false
+layout_mode = 0
+offset_left = 538.0
+offset_top = 15.0
+offset_right = 635.0
+offset_bottom = 125.0
+theme_override_colors/default_color = Color(0, 0.749434, 0, 1)
+theme_override_font_sizes/normal_font_size = 78
+text = "W"
+
+[node name="loss" type="RichTextLabel" parent="Button"]
+visible = false
+layout_mode = 0
+offset_left = 554.0
+offset_top = 16.0
+offset_right = 651.0
+offset_bottom = 126.0
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 78
+text = "L"

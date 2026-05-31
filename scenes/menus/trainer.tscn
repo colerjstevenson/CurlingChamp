@@ -1,0 +1,175 @@
+[gd_scene load_steps=20 format=3 uid="uid://drax6p6tm5oby"]
+
+[ext_resource type="Texture2D" uid="uid://nryt1is5p6vm" path="res://art/UI/UI_Wood_C_Border.png" id="1_rictg"]
+[ext_resource type="Script" uid="uid://b6yj2cmmpagsb" path="res://scripts/trainer.gd" id="1_utvbv"]
+[ext_resource type="Texture2D" uid="uid://b45r4n2m06nio" path="res://art/race/training.png" id="2_5v7yp"]
+[ext_resource type="Script" uid="uid://qu13ruvkc63x" path="res://scripts/backButton.gd" id="2_sbemh"]
+[ext_resource type="PackedScene" uid="uid://bk71525gyo2ht" path="res://scenes/entities/raceHorse.tscn" id="5_y55kb"]
+[ext_resource type="Texture2D" uid="uid://ullende40irc" path="res://art/UI/Pixel UI/Colors/Cyan/cyan_spritesheet.png" id="6_awtc2"]
+[ext_resource type="Theme" uid="uid://bjldftgjbp5df" path="res://themes/Button.tres" id="7_issco"]
+[ext_resource type="Texture2D" uid="uid://deok2v6fn8pdd" path="res://art/UI/Pixel UI/Colors/Yellow/yellow_spritesheet.png" id="8_aptah"]
+[ext_resource type="Theme" uid="uid://04h0bha3cylt" path="res://themes/stat_window.tres" id="9_fuody"]
+[ext_resource type="Texture2D" uid="uid://1tfd0w1xcib4" path="res://art/UI/Pixel UI/Panels/Panels_Sheetl.png" id="9_y8uif"]
+[ext_resource type="Texture2D" uid="uid://bplnnq7kmkcwf" path="res://art/UI/Pixel UI/Colors/Red/red_spritesheet.png" id="10_fuody"]
+[ext_resource type="Theme" uid="uid://dkt0vm3hsq417" path="res://themes/general_text.tres" id="11_6p8y6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vc0x5"]
+atlas = ExtResource("1_rictg")
+region = Rect2(223.527, 287.623, 32.8422, 32.8422)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n680"]
+atlas = ExtResource("6_awtc2")
+region = Rect2(0, 0, 70, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y312g"]
+atlas = ExtResource("8_aptah")
+region = Rect2(0, 0, 70, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgdyj"]
+atlas = ExtResource("8_aptah")
+region = Rect2(0, 98, 70, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wllwr"]
+atlas = ExtResource("9_y8uif")
+region = Rect2(114.331, 3.06026, 75.8394, 17.9084)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5tc8d"]
+atlas = ExtResource("10_fuody")
+region = Rect2(90.0669, 76.0919, 18.2035, 18.0919)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vm2q"]
+atlas = ExtResource("10_fuody")
+region = Rect2(70.9865, 57.1005, 18.3387, 17.7083)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_utvbv")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 713.0
+offset_bottom = 1285.0
+color = Color(0.548851, 0.575, 0.925934, 1)
+
+[node name="Tile1" type="TextureRect" parent="."]
+offset_top = -3.0
+offset_right = 721.0
+offset_bottom = 718.0
+texture = ExtResource("2_5v7yp")
+expand_mode = 2
+
+[node name="Tile2" type="TextureRect" parent="."]
+offset_left = 714.0
+offset_top = -3.0
+offset_right = 1435.0
+offset_bottom = 718.0
+texture = ExtResource("2_5v7yp")
+expand_mode = 2
+
+[node name="Tile3" type="TextureRect" parent="."]
+offset_left = -720.0
+offset_top = -3.0
+offset_right = 1.0
+offset_bottom = 718.0
+texture = ExtResource("2_5v7yp")
+expand_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="."]
+texture_filter = 1
+offset_left = 25.0
+offset_top = 22.0
+offset_right = 119.0
+offset_bottom = 111.0
+texture_normal = SubResource("AtlasTexture_vc0x5")
+stretch_mode = 0
+script = ExtResource("2_sbemh")
+
+[node name="horse" parent="." instance=ExtResource("5_y55kb")]
+z_index = 0
+position = Vector2(337, 526)
+scale = Vector2(1.825, 1.825)
+
+[node name="chooseHorse" type="TextureButton" parent="."]
+texture_filter = 1
+offset_left = 159.0
+offset_top = 774.0
+offset_right = 574.0
+offset_bottom = 884.0
+texture_normal = SubResource("AtlasTexture_6n680")
+stretch_mode = 0
+
+[node name="horseName" type="RichTextLabel" parent="chooseHorse"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 22.0
+offset_right = 398.0
+offset_bottom = 73.0
+mouse_filter = 1
+theme = ExtResource("7_issco")
+bbcode_enabled = true
+text = "[center]Pick Horse[center]"
+
+[node name="StartButton" type="TextureButton" parent="."]
+texture_filter = 1
+offset_left = 217.0
+offset_top = 1112.0
+offset_right = 514.0
+offset_bottom = 1206.0
+texture_normal = SubResource("AtlasTexture_y312g")
+texture_disabled = SubResource("AtlasTexture_tgdyj")
+stretch_mode = 0
+
+[node name="text" type="RichTextLabel" parent="StartButton"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 12.0
+offset_right = 212.0
+offset_bottom = 54.0
+mouse_filter = 2
+theme = ExtResource("9_fuody")
+theme_override_font_sizes/normal_font_size = 31
+text = "Start"
+
+[node name="StatSelector" type="TextureButton" parent="."]
+texture_filter = 1
+offset_left = 138.0
+offset_top = 950.0
+offset_right = 574.0
+offset_bottom = 1039.0
+texture_normal = SubResource("AtlasTexture_wllwr")
+stretch_mode = 0
+
+[node name="LeftArrow" type="TextureButton" parent="StatSelector"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -102.0
+offset_top = -3.0
+offset_right = -17.0
+offset_bottom = 90.0
+texture_normal = SubResource("AtlasTexture_5tc8d")
+stretch_mode = 0
+
+[node name="RightArrow" type="TextureButton" parent="StatSelector"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 456.0
+offset_top = -5.0
+offset_right = 544.0
+offset_bottom = 90.0
+texture_normal = SubResource("AtlasTexture_5vm2q")
+stretch_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="StatSelector"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 25.0
+offset_right = 417.0
+offset_bottom = 68.0
+theme = ExtResource("11_6p8y6")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+bbcode_enabled = true
+text = "[center]Speed[center]"
+
+[connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]
+[connection signal="pressed" from="chooseHorse" to="." method="_on_selector_pressed"]
+[connection signal="pressed" from="StartButton" to="." method="_start_pressed"]
+[connection signal="pressed" from="StatSelector/LeftArrow" to="." method="_left_pressed"]
+[connection signal="pressed" from="StatSelector/RightArrow" to="." method="_right_pressed"]

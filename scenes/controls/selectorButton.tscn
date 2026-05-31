@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgkvw68i87lfa"]
+
+[ext_resource type="Script" uid="uid://dahxknv1wxbhy" path="res://scripts/selectorButton.gd" id="1_qhfsp"]
+[ext_resource type="FontFile" uid="uid://mfdjupiwfar2" path="res://Fonts/PixeloidSans-mLxMm.ttf" id="2_52jxt"]
+[ext_resource type="SpriteFrames" uid="uid://dkyvi2g4debs8" path="res://animation/horse_heads.tres" id="3_h8eq5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rwiyr"]
+bg_color = Color(0.1709, 0.666942, 0.765926, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.107875, 0.477066, 0.549806, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id="Theme_pganx"]
+Button/constants/outline_size = 6
+Button/styles/normal = SubResource("StyleBoxFlat_rwiyr")
+RichTextLabel/colors/default_color = Color(1, 0.266667, 1, 1)
+RichTextLabel/font_sizes/normal_font_size = 30
+RichTextLabel/fonts/normal_font = ExtResource("2_52jxt")
+
+[node name="Control" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchor_right = 0.878
+anchor_bottom = 0.11
+offset_right = -0.160034
+offset_bottom = 0.199997
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+script = ExtResource("1_qhfsp")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 628.0
+offset_bottom = 139.0
+theme = SubResource("Theme_pganx")
+
+[node name="head" type="AnimatedSprite2D" parent="Button"]
+position = Vector2(65, 60)
+scale = Vector2(7.55882, 6.23684)
+sprite_frames = ExtResource("3_h8eq5")
+animation = &"black"
+
+[node name="name" type="RichTextLabel" parent="Button"]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 21.0
+offset_right = 592.0
+offset_bottom = 63.0
+mouse_filter = 1
+bbcode_enabled = true
+text = "Horse Name"
+
+[node name="pregnant" type="RichTextLabel" parent="Button"]
+visible = false
+layout_mode = 0
+offset_left = 159.0
+offset_top = 76.0
+offset_right = 594.0
+offset_bottom = 118.0
+mouse_filter = 1
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+bbcode_enabled = true
+text = "Breeding"
+
+[connection signal="pressed" from="Button" to="." method="_pressed"]

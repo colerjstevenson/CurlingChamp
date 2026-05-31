@@ -1,179 +1,230 @@
-[gd_scene load_steps=10 format=3 uid="uid://c54ohpylo44a5"]
+[gd_scene load_steps=17 format=3 uid="uid://svfq12wsnmjx"]
 
-[ext_resource type="Texture2D" uid="uid://dkbppwjcbhyu7" path="res://assets/curling/rinkLong.png" id="2_rvslj"]
-[ext_resource type="Texture2D" uid="uid://c0ylw76defigq" path="res://assets/curling/e0380555-65b2-45fb-bb7d-2c546790c21f.png" id="3_0bbpv"]
-[ext_resource type="FontFile" uid="uid://mfdjupiwfar2" path="res://Fonts/PixeloidSans-mLxMm.ttf" id="4_rarhs"]
-[ext_resource type="Script" uid="uid://dd48i4ht0jjf7" path="res://scenes/main.gd" id="6_main"]
+[ext_resource type="Texture2D" uid="uid://djm3quu42whg4" path="res://assets/curling/main_bg.png" id="1_vcsgt"]
+[ext_resource type="Texture2D" uid="uid://70tj4avbinmn" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/UI_Gradient.png" id="2_c01mt"]
+[ext_resource type="Texture2D" uid="uid://nbsea4fby677" path="res://assets/icons/rock.png" id="3_nxtc6"]
+[ext_resource type="Texture2D" uid="uid://drmricagdhfd6" path="res://assets/icons/love.png" id="4_jlsqs"]
+[ext_resource type="Texture2D" uid="uid://blwy6v3f12q82" path="res://assets/icons/dumbbell.png" id="5_q8u5g"]
+[ext_resource type="Texture2D" uid="uid://cfll43nlddjou" path="res://assets/icons/gavel.png" id="6_q8u5g"]
+[ext_resource type="Texture2D" uid="uid://djac440jdw8uv" path="res://assets/icons/calendar.png" id="7_lhr70"]
+[ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="8_wp0k4"]
+[ext_resource type="Texture2D" uid="uid://dqs6wcefuc76h" path="res://assets/icons/cogwheel.png" id="9_bjd11"]
+[ext_resource type="Script" uid="uid://2eu6arni0ih4" path="res://scripts/main_menu.gd" id="10_u3uon"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_walls"]
-friction = 0.05
-bounce = 0.45
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhr70"]
+atlas = ExtResource("2_c01mt")
+region = Rect2(415.919, 33.0145, 31.3806, 30.1808)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rarhs"]
-size = Vector2(175.938, 1461.5)
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmy6f"]
+atlas = ExtResource("2_c01mt")
+region = Rect2(291.038, 34.9628, 90.1539, 26.0947)
 
-[sub_resource type="Theme" id="Theme_rarhs"]
-RichTextLabel/colors/default_color = Color(0.851391, 0, 0.169515, 1)
-RichTextLabel/fonts/bold_font = ExtResource("4_rarhs")
-RichTextLabel/fonts/normal_font = ExtResource("4_rarhs")
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwfav"]
+atlas = ExtResource("2_c01mt")
+region = Rect2(228.044, 35.9097, 24.0893, 24.2739)
 
-[sub_resource type="Theme" id="Theme_vcsgt"]
-RichTextLabel/font_sizes/normal_font_size = 35
-RichTextLabel/fonts/normal_font = ExtResource("4_rarhs")
+[sub_resource type="CircleShape2D" id="CircleShape2D_lhr70"]
+radius = 172.838
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rvslj"]
-radius = 111.005
+[sub_resource type="AtlasTexture" id="AtlasTexture_3p2gp"]
+atlas = ExtResource("2_c01mt")
+region = Rect2(351.975, 109.095, 32.0871, 5.92571)
 
-[node name="Main" type="Node2D"]
-position = Vector2(0, 84)
-script = ExtResource("6_main")
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvmbd"]
+atlas = ExtResource("2_c01mt")
+region = Rect2(415.799, 102.809, 32.4673, 19.2973)
 
-[node name="Rink" type="Sprite2D" parent="."]
-position = Vector2(359.5, 559)
-scale = Vector2(0.990278, 0.998438)
-texture = ExtResource("2_rvslj")
+[node name="Control" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_u3uon")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(360, 559)
-limit_left = -4420
-limit_top = 0
-limit_right = 5350
-limit_bottom = 1280
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.001
+anchor_bottom = 0.997
+offset_right = 0.279968
+offset_bottom = -0.160034
+texture = ExtResource("1_vcsgt")
 
-[node name="walls" type="StaticBody2D" parent="."]
-position = Vector2(14, -22)
-physics_material_override = SubResource("PhysicsMaterial_walls")
+[node name="RocksButton" type="TextureButton" parent="BG"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 161.0
+offset_right = 221.0
+offset_bottom = 364.0
+texture_normal = SubResource("AtlasTexture_lhr70")
+stretch_mode = 0
 
-[node name="left_wall" type="CollisionShape2D" parent="walls"]
-position = Vector2(110, 658.75)
-shape = SubResource("RectangleShape2D_rarhs")
+[node name="icon" type="TextureRect" parent="BG/RocksButton"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 47.0
+offset_right = 151.0
+offset_bottom = 153.0
+texture = ExtResource("3_nxtc6")
+expand_mode = 1
 
-[node name="right_wall" type="CollisionShape2D" parent="walls"]
-position = Vector2(580.031, 664)
-shape = SubResource("RectangleShape2D_rarhs")
+[node name="BreedingButton" type="TextureButton" parent="BG"]
+layout_mode = 0
+offset_left = 498.0
+offset_top = 171.0
+offset_right = 695.0
+offset_bottom = 374.0
+texture_normal = SubResource("AtlasTexture_lhr70")
+stretch_mode = 0
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="icon" type="TextureRect" parent="BG/BreedingButton"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 47.0
+offset_right = 151.0
+offset_bottom = 153.0
+texture = ExtResource("4_jlsqs")
+expand_mode = 1
 
-[node name="EndScoreLabel" type="Label" parent="CanvasLayer"]
-offset_left = 97.0
-offset_top = 312.0
-offset_right = 621.0
-offset_bottom = 545.0
-theme = SubResource("Theme_rarhs")
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("4_rarhs")
-theme_override_font_sizes/font_size = 60
+[node name="TrainingButton" type="TextureButton" parent="BG"]
+layout_mode = 0
+offset_left = 494.0
+offset_top = 866.0
+offset_right = 691.0
+offset_bottom = 1069.0
+texture_normal = SubResource("AtlasTexture_lhr70")
+stretch_mode = 0
+
+[node name="icon" type="TextureRect" parent="BG/TrainingButton"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 47.0
+offset_right = 151.0
+offset_bottom = 153.0
+texture = ExtResource("5_q8u5g")
+expand_mode = 1
+
+[node name="AuctionButton" type="TextureButton" parent="BG"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 870.0
+offset_right = 226.0
+offset_bottom = 1073.0
+texture_normal = SubResource("AtlasTexture_lhr70")
+stretch_mode = 0
+
+[node name="icon" type="TextureRect" parent="BG/AuctionButton"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 47.0
+offset_right = 151.0
+offset_bottom = 153.0
+texture = ExtResource("6_q8u5g")
+expand_mode = 1
+
+[node name="GameButton" type="TextureButton" parent="BG"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 1100.0
+offset_right = 526.0
+offset_bottom = 1235.0
+texture_normal = SubResource("AtlasTexture_qmy6f")
+stretch_mode = 0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="BG/GameButton"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 21.0
+offset_right = 458.0
+offset_bottom = 116.0
+mouse_filter = 2
+theme = ExtResource("8_wp0k4")
+theme_override_font_sizes/normal_font_size = 52
+text = "Start Match"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="scoreboard" type="TextureRect" parent="CanvasLayer"]
-texture_filter = 1
-offset_left = -60.0
-offset_top = 1017.0
-offset_right = 765.0
-offset_bottom = 1444.0
-texture = ExtResource("3_0bbpv")
+[node name="CalenderButton" type="TextureButton" parent="BG"]
+layout_mode = 0
+offset_left = 559.0
+offset_top = 1095.0
+offset_right = 690.0
+offset_bottom = 1230.0
+texture_normal = SubResource("AtlasTexture_mwfav")
+stretch_mode = 0
+
+[node name="icon2" type="TextureRect" parent="BG/CalenderButton"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 29.0
+offset_right = 107.0
+offset_bottom = 109.0
+texture = ExtResource("7_lhr70")
 expand_mode = 1
 
-[node name="name1" type="RichTextLabel" parent="CanvasLayer/scoreboard"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.112
-anchor_top = 0.393
-anchor_right = 0.322
-anchor_bottom = 0.5
-offset_left = -0.400002
-offset_top = 0.188995
-offset_right = 0.349976
-offset_bottom = -0.5
-theme = SubResource("Theme_vcsgt")
-text = "Player 1"
+[node name="house" type="Area2D" parent="BG"]
+position = Vector2(360, 623)
 
-[node name="score1" type="RichTextLabel" parent="CanvasLayer/scoreboard"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.048
-anchor_bottom = 0.094
-offset_left = 302.0
-offset_top = 165.0
-offset_right = 319.4
-offset_bottom = 185.862
-theme = SubResource("Theme_vcsgt")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 48
-text = "0"
-
-[node name="score2" type="RichTextLabel" parent="CanvasLayer/scoreboard"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.048
-anchor_bottom = 0.094
-offset_left = 596.0
-offset_top = 164.0
-offset_right = 613.4
-offset_bottom = 184.862
-theme = SubResource("Theme_vcsgt")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 48
-text = "0"
-
-[node name="end" type="RichTextLabel" parent="CanvasLayer/scoreboard"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.048
-anchor_bottom = 0.094
-offset_left = 668.0
-offset_top = 161.0
-offset_right = 698.4
-offset_bottom = 187.862
-theme = SubResource("Theme_vcsgt")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 27
-text = "End
-1"
-horizontal_alignment = 1
-
-[node name="name2" type="RichTextLabel" parent="CanvasLayer/scoreboard"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.048
-anchor_bottom = 0.094
-offset_left = 380.0
-offset_top = 167.0
-offset_right = 516.4
-offset_bottom = 171.862
-theme = SubResource("Theme_vcsgt")
-text = "Player 1"
-
-[node name="rocks1" type="HBoxContainer" parent="CanvasLayer/scoreboard"]
-layout_mode = 0
-offset_left = 88.0
-offset_top = 118.0
-offset_right = 178.0
-offset_bottom = 142.0
-scale = Vector2(1.97045, 1.53371)
-
-[node name="rocks2" type="HBoxContainer" parent="CanvasLayer/scoreboard"]
-layout_mode = 0
-offset_left = 372.0
-offset_top = 112.0
-offset_right = 462.0
-offset_bottom = 136.0
-scale = Vector2(1.97045, 1.53371)
-
-[node name="house" type="Area2D" parent="."]
-position = Vector2(360, 64)
-
-[node name="houseArea" type="CollisionShape2D" parent="house"]
+[node name="houseArea" type="CollisionShape2D" parent="BG/house"]
 position = Vector2(0, 1)
-shape = SubResource("CircleShape2D_rvslj")
+shape = SubResource("CircleShape2D_lhr70")
 
-[node name="scratchline" type="Line2D" parent="house"]
-points = PackedVector2Array(359, 390, -364, 390)
-default_color = Color(1, 1, 1, 0)
+[node name="TopBar" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_right = 721.0
+offset_bottom = 129.0
+texture = SubResource("AtlasTexture_3p2gp")
+
+[node name="money" type="TextureRect" parent="TopBar"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 24.0
+offset_right = 241.0
+offset_bottom = 108.0
+texture = SubResource("AtlasTexture_cvmbd")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TopBar/money"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 17.0
+offset_right = 202.0
+offset_bottom = 71.0
+theme = ExtResource("8_wp0k4")
+theme_override_font_sizes/normal_font_size = 32
+text = "$100000"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Date" type="TextureRect" parent="TopBar"]
+layout_mode = 0
+offset_left = 273.0
+offset_top = 22.0
+offset_right = 601.0
+offset_bottom = 108.0
+texture = SubResource("AtlasTexture_cvmbd")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TopBar/Date"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 18.0
+offset_right = 297.0
+offset_bottom = 72.0
+theme = ExtResource("8_wp0k4")
+theme_override_font_sizes/normal_font_size = 32
+text = "Year 1 Week 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SettingButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 633.0
+offset_top = 26.0
+offset_right = 709.0
+offset_bottom = 100.0
+texture_normal = ExtResource("9_bjd11")
+ignore_texture_size = true
+stretch_mode = 4

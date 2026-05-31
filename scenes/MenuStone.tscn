@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfh851xvv2lmq"]
+
+[ext_resource type="Texture2D" uid="uid://c2jwp3lujvh3m" path="res://assets/curling/stones/stone_blue_top.png" id="1_menu_tex"]
+[ext_resource type="Script" uid="uid://blwddi75ayn3q" path="res://scripts/menu_stone.gd" id="2_menu_script"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_menu_stone"]
+friction = 0.05
+bounce = 0.38
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_menu_stone"]
+radius = 36.0867
+
+[node name="MenuStone" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_menu_stone")
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 8
+script = ExtResource("2_menu_script")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(9.53674e-07, 1.90735e-06)
+scale = Vector2(0.109201, 0.111111)
+texture = ExtResource("1_menu_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("CircleShape2D_menu_stone")

@@ -1,0 +1,93 @@
+[gd_scene load_steps=11 format=3 uid="uid://ds58fx2qf3sr2"]
+
+[ext_resource type="Script" uid="uid://bd341ngfiy6iq" path="res://scripts/auction.gd" id="1_uqqol"]
+[ext_resource type="Texture2D" uid="uid://cpbfujbi2ibp5" path="res://art/Auction/auction_bg.png" id="2_wj3xd"]
+[ext_resource type="SpriteFrames" uid="uid://wfq4eygnwjs1" path="res://animation/horse.tres" id="3_n2tqr"]
+[ext_resource type="Texture2D" uid="uid://dpol7x3hi2juh" path="res://art/UI/UI Pixel Art-Update New BG .png" id="4_c2064"]
+[ext_resource type="Texture2D" uid="uid://deok2v6fn8pdd" path="res://art/UI/Pixel UI/Colors/Yellow/yellow_spritesheet.png" id="5_bqxek"]
+[ext_resource type="Theme" uid="uid://dkt0vm3hsq417" path="res://themes/general_text.tres" id="6_tobdt"]
+[ext_resource type="Theme" uid="uid://04h0bha3cylt" path="res://themes/stat_window.tres" id="6_xi5ty"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6i4b"]
+atlas = ExtResource("4_c2064")
+region = Rect2(432, 48, 112, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2r0b"]
+atlas = ExtResource("5_bqxek")
+region = Rect2(0, 0, 70, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv3y2"]
+atlas = ExtResource("5_bqxek")
+region = Rect2(0, 98, 70, 15)
+
+[node name="Auction" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_uqqol")
+
+[node name="background" type="TextureRect" parent="."]
+offset_right = 719.0
+offset_bottom = 1278.0
+texture = ExtResource("2_wj3xd")
+
+[node name="horseImg" type="AnimatedSprite2D" parent="."]
+position = Vector2(374, 502)
+scale = Vector2(8.92188, 9.27083)
+sprite_frames = ExtResource("3_n2tqr")
+animation = &"black_left_eating"
+
+[node name="Audience" type="HBoxContainer" parent="."]
+offset_left = 13.0
+offset_top = 808.0
+offset_right = 698.0
+offset_bottom = 1019.0
+alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="pane" type="TextureRect" parent="."]
+texture_filter = 3
+offset_left = 87.0
+offset_top = 161.0
+offset_right = 621.0
+offset_bottom = 347.0
+texture = SubResource("AtlasTexture_j6i4b")
+
+[node name="BidButton" type="TextureButton" parent="."]
+offset_left = 173.0
+offset_top = 1127.0
+offset_right = 559.0
+offset_bottom = 1233.0
+texture_normal = SubResource("AtlasTexture_p2r0b")
+texture_pressed = SubResource("AtlasTexture_hv3y2")
+texture_disabled = SubResource("AtlasTexture_hv3y2")
+stretch_mode = 0
+
+[node name="text" type="RichTextLabel" parent="BidButton"]
+layout_mode = 0
+offset_left = 153.0
+offset_top = 22.0
+offset_right = 387.0
+offset_bottom = 64.0
+mouse_filter = 2
+theme = ExtResource("6_xi5ty")
+theme_override_font_sizes/normal_font_size = 31
+text = "Bid"
+
+[node name="message" type="RichTextLabel" parent="."]
+clip_contents = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 98.0
+offset_top = 199.0
+offset_right = 610.0
+offset_bottom = 333.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_tobdt")
+bbcode_enabled = true
+text = "[center]going once...[center]"
+fit_content = true
+
+[connection signal="pressed" from="BidButton" to="." method="player_bid"]

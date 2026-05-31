@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbb3rlmrua0jh"]
+
+[ext_resource type="Script" uid="uid://bs5mcxa35kdpt" path="res://scripts/calender.gd" id="1_f83ew"]
+[ext_resource type="Texture2D" uid="uid://dpol7x3hi2juh" path="res://art/UI/UI Pixel Art-Update New BG .png" id="2_kd4qu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3fe1"]
+atlas = ExtResource("2_kd4qu")
+region = Rect2(257, 274, 14, 14)
+
+[node name="SelectorWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 720.0
+offset_bottom = 1280.0
+script = ExtResource("1_f83ew")
+
+[node name="Selector" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
+color = Color(0.237697, 0.0847743, 0.00845987, 1)
+
+[node name="Close" type="TextureButton" parent="Selector"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.534
+anchor_top = -0.462
+anchor_right = -0.534
+anchor_bottom = -0.462
+offset_left = 399.616
+offset_top = 611.056
+offset_right = 477.616
+offset_bottom = 685.056
+texture_normal = SubResource("AtlasTexture_y3fe1")
+stretch_mode = 0
+
+[node name="vBox" type="VBoxContainer" parent="Selector"]
+clip_contents = true
+layout_mode = 0
+offset_left = 27.0
+offset_top = 102.0
+offset_right = 702.0
+offset_bottom = 1241.0
+
+[connection signal="pressed" from="Selector/Close" to="." method="_close_window"]

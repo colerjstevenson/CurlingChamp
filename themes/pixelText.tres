@@ -1,0 +1,11 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://gqyid25k0itd"]
+
+[ext_resource type="FontFile" uid="uid://mfdjupiwfar2" path="res://Fonts/PixeloidSans-mLxMm.ttf" id="1_014c2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_014c2"]
+bg_color = Color(0.853706, 0.872212, 0, 1)
+
+[resource]
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_014c2")
+RichTextLabel/font_sizes/normal_font_size = 35
+RichTextLabel/fonts/normal_font = ExtResource("1_014c2")

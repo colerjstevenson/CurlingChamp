@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cgtccu3an8s4r"]
 
 [ext_resource type="Texture2D" uid="uid://dm6diy0o68jyk" path="res://assets/curling/stones/stone_red_top.png" id="1"]
-[ext_resource type="Script" uid="uid://dekapo6fw7t12" path="res://scenes/stone.gd" id="2"]
+[ext_resource type="Script" uid="uid://dekapo6fw7t12" path="res://scripts/stone.gd" id="2"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_stone"]
 friction = 0.05

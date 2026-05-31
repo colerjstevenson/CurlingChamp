@@ -34,7 +34,7 @@ func setup_from_stone(stone: Stone) -> void:
 		age_label.text = "Age: %d" % stone.age
 	if is_instance_valid(wins_label):
 		wins_label.text = "Wins: %d" % stone.wins
-	_set_rock_sprite_color(stone.color)
+	_set_rock_sprite_color(_get_player_stone_color())
 
 	_set_bar_value(power_bar, stone.power)
 	_set_bar_value(spin_bar, stone.spin)
@@ -61,6 +61,13 @@ func _set_rock_sprite_color(stone_color: String) -> void:
 			rock_sprite.texture = YELLOW_SIDE_TEXTURE
 		_:
 			rock_sprite.texture = RED_SIDE_TEXTURE
+
+
+func _get_player_stone_color() -> String:
+	var manager := get_node_or_null("/root/game_manager")
+	if manager != null and "player_color" in manager:
+		return String(manager.player_color)
+	return "red"
 
 
 func _close_window() -> void:

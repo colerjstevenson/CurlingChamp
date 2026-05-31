@@ -2,7 +2,6 @@ extends RefCounted
 class_name Stone
 
 var name: String
-var color: String
 var age: int
 var wins: int
 
@@ -14,7 +13,6 @@ var condition: int
 
 func _init(
 	stone_name: String = "",
-	stone_color: String = "red",
 	stone_power: int = 0,
 	stone_spin: int = 0,
 	stone_precision: int = 0,
@@ -23,7 +21,6 @@ func _init(
 	stone_wins: int = 0
 ) -> void:
 	name = stone_name
-	color = stone_color
 	power = _clamp_stat(stone_power)
 	spin = _clamp_stat(stone_spin)
 	precision = _clamp_stat(stone_precision)

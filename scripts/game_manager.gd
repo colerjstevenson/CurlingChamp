@@ -5,9 +5,11 @@ signal state_changed
 const Stone = preload("res://scripts/stone_data.gd")
 const ROCK_NAMES_PATH := "res://lists/rockNames.txt"
 const STARTING_STONE_COUNT := 4
-const STONE_COLORS := ["red", "blue", "yellow"]
+const VALID_STONE_COLORS := ["red", "blue", "yellow"]
 
 var player_name: String = "John Smith"
+var player_color: String = "yellow"
+var opponent_color: String = "red"
 
 var week: int = 1
 var year: int = 1
@@ -32,6 +34,16 @@ func set_year(new_year: int) -> void:
 
 func set_money(new_money: int) -> void:
 	money = new_money
+	emit_signal("state_changed")
+
+
+func set_player_color(new_color: String) -> void:
+	player_color = _normalize_stone_color(new_color, player_color)
+	emit_signal("state_changed")
+
+
+func set_opponent_color(new_color: String) -> void:
+	opponent_color = _normalize_stone_color(new_color, opponent_color)
 	emit_signal("state_changed")
 
 
@@ -68,11 +80,9 @@ func _ensure_starting_stones() -> void:
 	for i in range(STARTING_STONE_COUNT):
 		var stone_name := _pick_random_name(names, used_names, i)
 		used_names[stone_name] = true
-		var stone_color := _pick_random_stone_color()
 
 		var new_stone: Stone = Stone.new(
 			stone_name,
-			stone_color,
 			_roll_stat(),
 			_roll_stat(),
 			_roll_stat(),
@@ -121,5 +131,9 @@ func _roll_stat() -> int:
 	return randi_range(0, 100)
 
 
-func _pick_random_stone_color() -> String:
-	return STONE_COLORS[randi() % STONE_COLORS.size()]
+func _normalize_stone_color(requested_color: String, fallback_color: String) -> String:
+	if VALID_STONE_COLORS.has(requested_color):
+		return requested_color
+	if VALID_STONE_COLORS.has(fallback_color):
+		return fallback_color
+	return VALID_STONE_COLORS[0]

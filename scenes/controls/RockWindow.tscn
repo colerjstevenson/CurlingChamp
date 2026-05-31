@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddtpc341fn5u3"]
+[gd_scene load_steps=10 format=3 uid="uid://ddtpc341fn5u3"]
 
 [ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="1_sx757"]
 [ext_resource type="Texture2D" uid="uid://70tj4avbinmn" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/UI_Gradient.png" id="2_45s63"]
 [ext_resource type="FontFile" uid="uid://mfdjupiwfar2" path="res://Fonts/PixeloidSans-mLxMm.ttf" id="3_p8rih"]
 [ext_resource type="Texture2D" uid="uid://cakwv8k8cjr12" path="res://assets/curling/stones/stone_red_side.png" id="4_qi5qn"]
-[ext_resource type="Texture2D" uid="uid://dpol7x3hi2juh" path="res://assets/UI/UI Pixel Art-Update New BG .png" id="5_e4ehg"]
 [ext_resource type="Texture2D" uid="uid://bplnnq7kmkcwf" path="res://assets/UI/Pixel UI/Colors/Red/red_spritesheet.png" id="6_3qrai"]
+[ext_resource type="Script" uid="uid://cql4hu0rkainr" path="res://scripts/rock_window.gd" id="7_52n0h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eh5pr"]
 atlas = ExtResource("2_45s63")
@@ -14,10 +14,6 @@ region = Rect2(160.322, 224.65, 63.135, 62.3959)
 [sub_resource type="Theme" id="Theme_34pxo"]
 default_font_size = 37
 RichTextLabel/fonts/normal_font = ExtResource("3_p8rih")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dp3w1"]
-atlas = ExtResource("5_e4ehg")
-region = Rect2(257, 274, 14, 14)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q24dl"]
 atlas = ExtResource("6_3qrai")
@@ -36,23 +32,25 @@ offset_bottom = 252.16
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_sx757")
+script = ExtResource("7_52n0h")
 
 [node name="Panel" type="TextureRect" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 46.0
-offset_top = 107.0
-offset_right = 631.0
-offset_bottom = 1027.0
+offset_top = 1.0
+offset_right = 585.0
+offset_bottom = 921.0
 texture = SubResource("AtlasTexture_eh5pr")
+metadata/_edit_use_anchors_ = true
 
 [node name="Name" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
-offset_left = 106.0
-offset_top = 82.0
-offset_right = 488.0
+offset_left = 71.0
+offset_top = 73.0
+offset_right = 531.0
 offset_bottom = 147.0
 theme = SubResource("Theme_34pxo")
+theme_override_font_sizes/normal_font_size = 48
 text = "HORSE NAME"
 fit_content = true
 scroll_active = false
@@ -70,8 +68,8 @@ layout_mode = 0
 offset_left = 61.0
 offset_top = 500.0
 offset_right = 533.0
-offset_bottom = 866.0
-theme_override_constants/separation = 45
+offset_bottom = 772.0
+theme_override_constants/separation = 29
 alignment = 1
 
 [node name="Power" type="RichTextLabel" parent="Panel/VBoxContainer"]
@@ -87,9 +85,9 @@ fit_content = true
 layout_mode = 0
 offset_left = 226.0
 offset_top = 1.0
-offset_right = 504.0
+offset_right = 472.855
 offset_bottom = 29.0
-value = 28.04
+value = 91.73
 show_percentage = false
 
 [node name="Spin" type="RichTextLabel" parent="Panel/VBoxContainer"]
@@ -105,7 +103,7 @@ fit_content = true
 layout_mode = 0
 offset_left = 227.0
 offset_top = 1.0
-offset_right = 504.0
+offset_right = 473.855
 offset_bottom = 30.0
 value = 28.04
 show_percentage = false
@@ -123,7 +121,7 @@ fit_content = true
 layout_mode = 0
 offset_left = 226.0
 offset_top = 1.0
-offset_right = 504.0
+offset_right = 472.855
 offset_bottom = 30.0
 value = 28.04
 show_percentage = false
@@ -141,25 +139,10 @@ fit_content = true
 layout_mode = 0
 offset_left = 226.0
 offset_top = 1.0
-offset_right = 504.0
+offset_right = 472.855
 offset_bottom = 30.0
 value = 28.04
 show_percentage = false
-
-[node name="Close" type="TextureButton" parent="Panel"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.534
-anchor_top = -0.462
-anchor_right = -0.534
-anchor_bottom = -0.462
-offset_left = 352.39
-offset_top = 481.04
-offset_right = 410.39
-offset_bottom = 540.04
-texture_normal = SubResource("AtlasTexture_dp3w1")
-stretch_mode = 0
 
 [node name="wins" type="RichTextLabel" parent="Panel"]
 layout_mode = 0
@@ -184,10 +167,10 @@ scroll_active = false
 [node name="auctionButton" type="TextureButton" parent="Panel"]
 visible = false
 layout_mode = 0
-offset_left = 147.0
-offset_top = 805.0
-offset_right = 424.0
-offset_bottom = 868.0
+offset_left = 149.0
+offset_top = 793.0
+offset_right = 426.0
+offset_bottom = 856.0
 texture_normal = SubResource("AtlasTexture_q24dl")
 stretch_mode = 0
 
@@ -211,5 +194,4 @@ mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 31
 text = "Buy"
 
-[connection signal="pressed" from="Panel/Close" to="." method="_close_window"]
 [connection signal="pressed" from="Panel/auctionButton" to="." method="_launch_auction"]

@@ -33,7 +33,7 @@ const YELLOW_STONE_ICON := preload("res://assets/curling/stones/stone_yellow_top
 @export var ai_difficulty: int = 5
 @export var auto_return_to_menu := true
 @export var match_result_hold_seconds := 3.0
-@export_file("*.tscn") var return_to_scene_path: String = "res://scenes/Main.tscn"
+@export_file("*.tscn") var return_to_scene_path: String = "res://scenes/main.tscn"
 var house_center
 var house_radius
 

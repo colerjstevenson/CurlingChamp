@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://svfq12wsnmjx"]
+[gd_scene load_steps=17 format=3 uid="uid://57oe2ooyua51"]
 
 [ext_resource type="Texture2D" uid="uid://djm3quu42whg4" path="res://assets/curling/main_bg.png" id="1_vcsgt"]
 [ext_resource type="Texture2D" uid="uid://70tj4avbinmn" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/UI_Gradient.png" id="2_c01mt"]
@@ -34,7 +34,7 @@ region = Rect2(351.975, 109.095, 32.0871, 5.92571)
 atlas = ExtResource("2_c01mt")
 region = Rect2(415.799, 102.809, 32.4673, 19.2973)
 
-[node name="Control" type="Control"]
+[node name="Control2" type="Control"]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15

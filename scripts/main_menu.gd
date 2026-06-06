@@ -34,14 +34,12 @@ const STRATEGIC_NEIGHBOR_RADIUS := 130.0
 @onready var background_root: CanvasItem = $BG
 @onready var house_node: Area2D = $BG/house
 @onready var house_area: CollisionShape2D = $BG/house/houseArea
-@onready var money_label: RichTextLabel = $TopBar/money/RichTextLabel
-@onready var date_label: RichTextLabel = $TopBar/Date/RichTextLabel
+@onready var money_label: RichTextLabel = $BG/TopBar/money/RichTextLabel
+@onready var date_label: RichTextLabel = $BG/TopBar/Date/RichTextLabel
 
 var _spawn_timer: Timer
 var _menu_stones: Array[RigidBody2D] = []
 var _stone_layer: Node2D
-var _cached_money_text: String = ""
-var _cached_date_text: String = ""
 
 
 func _ready() -> void:
@@ -87,21 +85,10 @@ func _refresh_header_text() -> void:
 		return
 
 	if is_instance_valid(money_label) and manager.has_method("get_money_text"):
-		var money_text: String = manager.get_money_text()
-		if money_text != _cached_money_text:
-			_cached_money_text = money_text
-			money_label.text = money_text
+		money_label.text = manager.get_money_text()
 
 	if is_instance_valid(date_label) and manager.has_method("get_date_text"):
-		var date_text: String = manager.get_date_text()
-		if date_text != _cached_date_text:
-			_cached_date_text = date_text
-			date_label.text = date_text
-
-
-func _process(_delta: float) -> void:
-	# Keep header text in sync in case a state_changed signal is missed during scene transitions.
-	_refresh_header_text()
+		date_label.text = manager.get_date_text()
 
 
 func _setup_stone_layer() -> void:

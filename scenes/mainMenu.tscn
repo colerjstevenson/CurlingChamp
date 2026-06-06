@@ -1,0 +1,187 @@
+[gd_scene load_steps=13 format=3 uid="uid://b0sfh0e3t0je1"]
+
+[ext_resource type="Texture2D" uid="uid://4fhwaajou2lp" path="res://assets/UI/UI_Wood_Flat.png" id="3_6b2wv"]
+[ext_resource type="Texture2D" uid="uid://blwy6v3f12q82" path="res://assets/icons/dumbbell.png" id="3_tov5d"]
+[ext_resource type="Texture2D" uid="uid://cfll43nlddjou" path="res://assets/icons/gavel.png" id="4_epn8x"]
+[ext_resource type="Texture2D" uid="uid://bplnnq7kmkcwf" path="res://assets/UI/Pixel UI/Colors/Red/red_spritesheet.png" id="4_tov5d"]
+[ext_resource type="Texture2D" uid="uid://drmricagdhfd6" path="res://assets/icons/love.png" id="5_vt84v"]
+[ext_resource type="Texture2D" uid="uid://qfs4pj0fpjpq" path="res://assets/icons/horseshoe.png" id="6_lam2r"]
+[ext_resource type="Texture2D" uid="uid://dpol7x3hi2juh" path="res://assets/UI/UI Pixel Art-Update New BG .png" id="7_lam2r"]
+[ext_resource type="Texture2D" uid="uid://djac440jdw8uv" path="res://assets/icons/calendar.png" id="9_amia2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtx8o"]
+atlas = ExtResource("3_6b2wv")
+region = Rect2(163.479, 339.476, 40.877, 39.8959)
+
+[sub_resource type="GDScript" id="GDScript_ldpc3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya4ey"]
+atlas = ExtResource("4_tov5d")
+region = Rect2(0, 0, 70, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbgi4"]
+atlas = ExtResource("7_lam2r")
+region = Rect2(191.877, 271.558, 16.2776, 16.6972)
+
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="BG" type="ColorRect" parent="."]
+z_index = -5
+layout_mode = 0
+offset_right = 718.0
+offset_bottom = 1278.0
+color = Color(0.346927, 0.696642, 0.28573, 1)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TrainerButton" type="TextureButton" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 513.0
+offset_top = 917.0
+offset_right = 672.0
+offset_bottom = 1073.0
+texture_normal = SubResource("AtlasTexture_wtx8o")
+stretch_mode = 0
+script = SubResource("GDScript_ldpc3")
+
+[node name="TextureRect3" type="TextureRect" parent="Control/TrainerButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 27.0
+offset_top = 25.0
+offset_right = 136.0
+offset_bottom = 134.0
+texture = ExtResource("3_tov5d")
+expand_mode = 1
+
+[node name="AuctionButton" type="TextureButton" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 48.0
+offset_top = 115.0
+offset_right = 207.0
+offset_bottom = 271.0
+texture_normal = SubResource("AtlasTexture_wtx8o")
+stretch_mode = 0
+script = SubResource("GDScript_ldpc3")
+
+[node name="TextureRect2" type="TextureRect" parent="Control/AuctionButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 31.0
+offset_top = 26.0
+offset_right = 140.0
+offset_bottom = 135.0
+texture = ExtResource("4_epn8x")
+expand_mode = 1
+
+[node name="BreederButton" type="TextureButton" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 522.0
+offset_top = 110.0
+offset_right = 681.0
+offset_bottom = 266.0
+texture_normal = SubResource("AtlasTexture_wtx8o")
+stretch_mode = 0
+script = SubResource("GDScript_ldpc3")
+
+[node name="TextureRect" type="TextureRect" parent="Control/BreederButton"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 29.0
+offset_top = 23.0
+offset_right = 138.0
+offset_bottom = 132.0
+texture = ExtResource("5_vt84v")
+expand_mode = 1
+
+[node name="StableButton" type="TextureButton" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 915.0
+offset_right = 183.0
+offset_bottom = 1071.0
+texture_normal = SubResource("AtlasTexture_wtx8o")
+stretch_mode = 0
+script = SubResource("GDScript_ldpc3")
+
+[node name="TextureRect" type="TextureRect" parent="Control/StableButton"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 29.0
+offset_right = 131.0
+offset_bottom = 126.0
+texture = ExtResource("6_lam2r")
+expand_mode = 1
+
+[node name="RaceButton" type="TextureButton" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 38.0
+offset_top = 1108.0
+offset_right = 553.0
+offset_bottom = 1230.0
+texture_normal = SubResource("AtlasTexture_ya4ey")
+stretch_mode = 0
+script = SubResource("GDScript_ldpc3")
+
+[node name="text" type="RichTextLabel" parent="Control/RaceButton"]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 25.0
+offset_right = 479.0
+offset_bottom = 67.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 31
+text = "Start this weeks race"
+
+[node name="Calender" type="TextureButton" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 579.0
+offset_top = 1110.0
+offset_right = 684.0
+offset_bottom = 1225.0
+texture_normal = ExtResource("9_amia2")
+ignore_texture_size = true
+stretch_mode = 0
+script = SubResource("GDScript_ldpc3")
+
+[node name="SettingsButton" type="TextureButton" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 607.0
+offset_top = 308.0
+offset_right = 686.0
+offset_bottom = 388.0
+texture_normal = SubResource("AtlasTexture_tbgi4")
+stretch_mode = 0
+
+[node name="MoneyLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 13.0
+offset_right = 362.0
+offset_bottom = 67.0
+text = "Money: 0"
+
+[node name="DateLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 313.0
+offset_top = 11.0
+offset_right = 712.0
+offset_bottom = 65.0
+bbcode_enabled = true
+text = "[right]Season 0   Week 0"
+
+[connection signal="ready" from="." to="." method="_setup"]
+[connection signal="tree_entered" from="Control/SettingsButton" to="." method="setup"]

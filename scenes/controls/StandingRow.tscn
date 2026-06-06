@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="1_ajk7l"]
 
-[node name="Control" type="Control"]
+[node name="Control2" type="Control"]
 custom_minimum_size = Vector2(0, 68)
 layout_mode = 3
 anchors_preset = 0

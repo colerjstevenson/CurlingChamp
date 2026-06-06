@@ -291,7 +291,7 @@ func text_input(event: InputEvent) -> void:
 				var item = parent_column.add_item()
 				item.text_field.grab_focus()
 				item.text_field.select_all()
-				accept_event()
+				get_viewport().set_input_as_handled()
 			elif event.keycode == KEY_ESCAPE:
 				text_field.release_focus()
-				accept_event()
+				get_viewport().set_input_as_handled()

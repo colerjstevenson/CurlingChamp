@@ -32,7 +32,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and _is_drag_scrolling:
 		_scroll_by_delta(event.relative.x)
 		_last_drag_position = event.position
-		accept_event()
+		get_viewport().set_input_as_handled()
 
 	if event is InputEventScreenTouch:
 		if event.pressed and _is_pointer_over_scroll(event.position):
@@ -44,7 +44,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventScreenDrag and _is_drag_scrolling:
 		_scroll_by_delta(event.relative.x)
 		_last_drag_position = event.position
-		accept_event()
+		get_viewport().set_input_as_handled()
 
 
 func _populate_stone_collection() -> void:

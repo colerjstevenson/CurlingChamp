@@ -72,6 +72,7 @@ var hammer_icon_texture: Texture2D
 
 func _ready() -> void:
 	randomize()
+	_load_week_settings_from_manager()
 	starting_player_index = randi_range(0, PLAYER_COLORS.size() - 1)
 	current_player_index = starting_player_index
 	hammer_icon_texture = _load_hammer_icon_texture()
@@ -396,6 +397,11 @@ func _end_match() -> void:
 			end_score_label.add_theme_color_override("font_color", Color.BLACK)
 		end_score_label.visible = true
 
+	# Notify game_manager: record result, simulate league, advance week.
+	var manager := get_node_or_null("/root/game_manager")
+	if manager != null and manager.has_method("complete_week_after_match"):
+		manager.complete_week_after_match(human_score > ai_score)
+
 	if auto_return_to_menu and return_to_scene_path != "":
 		_schedule_return_to_menu()
 
@@ -435,6 +441,27 @@ func _apply_player_names() -> void:
 		name_1_label.text = human_player_name
 	if is_instance_valid(name_2_label):
 		name_2_label.text = ai_player_name
+
+
+## Reads the current week from game_manager and updates ai_difficulty and
+## ai_player_name to match the scheduled opponent.
+func _load_week_settings_from_manager() -> void:
+	var manager := get_node_or_null("/root/game_manager")
+	if manager == null:
+		return
+
+	var gm_week := int(manager.get("week"))
+	var gm_player_name := String(manager.get("player_name"))
+	if gm_player_name != "":
+		human_player_name = gm_player_name
+
+	if manager.has_method("get_opponent_skill_for_week"):
+		ai_difficulty = int(manager.get_opponent_skill_for_week(gm_week))
+
+	if manager.has_method("get_opponent_name_for_week"):
+		var opp_name: String = manager.get_opponent_name_for_week(gm_week)
+		if opp_name != "":
+			ai_player_name = opp_name
 
 
 func _on_spin_selection_started(_stone: RigidBody2D) -> void:

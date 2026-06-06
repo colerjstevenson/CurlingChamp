@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0m7cjnhsh4lp"]
+
+[ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="1_ajk7l"]
+
+[node name="Control" type="Control"]
+custom_minimum_size = Vector2(0, 68)
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+
+[node name="Rank" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_right = 62.0
+offset_bottom = 67.0
+theme = ExtResource("1_ajk7l")
+theme_override_font_sizes/normal_font_size = 36
+text = "1."
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Name" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 1.0
+offset_right = 371.0
+offset_bottom = 68.0
+theme = ExtResource("1_ajk7l")
+theme_override_font_sizes/normal_font_size = 31
+text = "Cole Stevenson"
+vertical_alignment = 1
+
+[node name="Record" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 385.0
+offset_top = -0.28
+offset_right = 551.765
+offset_bottom = 66.72
+theme = ExtResource("1_ajk7l")
+theme_override_font_sizes/normal_font_size = 40
+text = "16 - 0"
+vertical_alignment = 1

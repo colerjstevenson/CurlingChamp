@@ -24,29 +24,6 @@ radius = 111.005
 [node name="CurlingGame" type="Node2D"]
 position = Vector2(0, 84)
 script = ExtResource("6_main")
-stones_per_player = null
-ai_enabled = null
-ai_player_color = null
-human_player_color = null
-human_player_name = null
-ai_player_name = null
-human_player_stones = null
-stone_spawn_position = null
-settled_speed_threshold = null
-settled_frames_required = null
-scratch_line_fallback_y = null
-rink_end_y = null
-camera_overview_position = null
-camera_overview_zoom = null
-camera_follow_zoom = null
-camera_follow_lerp_speed = null
-camera_overview_delay = null
-max_ends = null
-end_score_extra_hold_seconds = null
-ai_difficulty = null
-auto_return_to_menu = null
-match_result_hold_seconds = null
-return_to_scene_path = null
 
 [node name="Rink" type="Sprite2D" parent="."]
 position = Vector2(359.5, 559)

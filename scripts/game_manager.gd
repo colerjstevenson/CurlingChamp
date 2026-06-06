@@ -3,8 +3,13 @@ extends Node
 signal state_changed
 
 const ROCK_NAMES_PATH := "res://lists/rockNames.txt"
+const FIRST_NAMES_PATH := "res://lists/first-names.txt"
+const LAST_NAMES_PATH := "res://lists/last-names.txt"
+const RINK_NAMES_PATH := "res://lists/rink_names.txt"
 const STARTING_STONE_COUNT := 4
 const STORE_STONE_COUNT := 4
+const DEFAULT_SEASON_WEEKS := 21
+const DEFAULT_LEAGUE_PLAYER_COUNT := 25
 const STONE_VARIANT_MIN := 1
 const STONE_VARIANT_MAX := 51
 const VALID_STONE_COLORS := ["red", "blue", "yellow"]
@@ -18,12 +23,25 @@ var year: int = 1
 var money: int = 100
 var player_stones: Array[Stone] = []
 var store_stones: Array[Stone] = []
+var Schedule: Array[Dictionary] = []
+var LeaguePlayers: Array[Dictionary] = []
+var HumanSeasonRecord: Dictionary = {
+	"wins": 0,
+	"losses": 0,
+}
+var HumanAllTimeRecord: Dictionary = {
+	"wins": 0,
+	"losses": 0,
+}
+var HumanMajorsWon: Array[Dictionary] = []
 
 
 func _ready() -> void:
 	randomize()
 	_ensure_starting_stones()
 	_ensure_store_stones()
+	_ensure_league_players()
+	_ensure_schedule()
 
 
 func set_week(new_week: int) -> void:
@@ -78,8 +96,224 @@ func get_store_stones() -> Array[Stone]:
 	return store_stones
 
 
+func get_schedule() -> Array[Dictionary]:
+	return Schedule
+
+
+func get_league_players() -> Array[Dictionary]:
+	return LeaguePlayers
+
+
+func get_human_season_record() -> Dictionary:
+	return HumanSeasonRecord.duplicate(true)
+
+
+func get_human_all_time_record() -> Dictionary:
+	return HumanAllTimeRecord.duplicate(true)
+
+
+func get_human_majors_won() -> Array[Dictionary]:
+	return HumanMajorsWon.duplicate(true)
+
+
+func record_human_match_result(did_win: bool, is_major: bool = false, major_event_name: String = "") -> void:
+	if did_win:
+		HumanSeasonRecord["wins"] = int(HumanSeasonRecord.get("wins", 0)) + 1
+		HumanAllTimeRecord["wins"] = int(HumanAllTimeRecord.get("wins", 0)) + 1
+	else:
+		HumanSeasonRecord["losses"] = int(HumanSeasonRecord.get("losses", 0)) + 1
+		HumanAllTimeRecord["losses"] = int(HumanAllTimeRecord.get("losses", 0)) + 1
+
+	if did_win and is_major and major_event_name != "":
+		HumanMajorsWon.append({
+			"event_name": major_event_name,
+			"year": year,
+			"week": week,
+		})
+
+	emit_signal("state_changed")
+
+
+func reset_human_season_record() -> void:
+	HumanSeasonRecord["wins"] = 0
+	HumanSeasonRecord["losses"] = 0
+	emit_signal("state_changed")
+
+
+func set_schedule_week_match(week_number: int, opponent: String, venue: String, result: String = "", rink_name: String = "") -> void:
+	var entry := _get_schedule_entry(week_number)
+	if entry.is_empty():
+		return
+
+	entry["is_major"] = false
+	entry["opponent"] = opponent
+	entry["venue"] = venue
+	entry["result"] = result
+	entry["event_name"] = ""
+	entry["rounds"] = 0
+	if rink_name != "":
+		entry["rink_name"] = rink_name
+	Schedule[week_number - 1] = entry
+	emit_signal("state_changed")
+
+
+func set_schedule_week_major(week_number: int, event_name: String, venue: String, rounds: int, result: String = "", rink_name: String = "") -> void:
+	var entry := _get_schedule_entry(week_number)
+	if entry.is_empty():
+		return
+
+	entry["is_major"] = true
+	entry["opponent"] = ""
+	entry["venue"] = venue
+	entry["result"] = result
+	entry["event_name"] = event_name
+	entry["rounds"] = max(rounds, 1)
+	if rink_name != "":
+		entry["rink_name"] = rink_name
+	Schedule[week_number - 1] = entry
+	emit_signal("state_changed")
+
+
+func set_schedule_week_result(week_number: int, result: String) -> void:
+	var entry := _get_schedule_entry(week_number)
+	if entry.is_empty():
+		return
+
+	entry["result"] = result
+	Schedule[week_number - 1] = entry
+	emit_signal("state_changed")
+
+
+func set_schedule_week_rink(week_number: int, rink_name: String) -> void:
+	var entry := _get_schedule_entry(week_number)
+	if entry.is_empty():
+		return
+
+	entry["rink_name"] = rink_name
+	Schedule[week_number - 1] = entry
+	emit_signal("state_changed")
+
+
 func reroll_store_stones() -> void:
 	_refresh_store_stones()
+	emit_signal("state_changed")
+
+
+## Returns the skill (1–10) of the opponent scheduled for the given week.
+## Falls back to 5 if the opponent is not found in the league player list.
+func get_opponent_skill_for_week(week_number: int) -> int:
+	var entry := _get_schedule_entry(week_number)
+	if entry.is_empty():
+		return 5
+	var opponent_name := String(entry.get("opponent", ""))
+	if opponent_name == "":
+		return 5
+	for player in LeaguePlayers:
+		if String(player.get("name", "")) == opponent_name:
+			return int(player.get("skill", 5))
+	return 5
+
+
+## Returns the name of the opponent scheduled for the given week.
+## Returns an empty string if the week is a major or has no opponent.
+func get_opponent_name_for_week(week_number: int) -> String:
+	var entry := _get_schedule_entry(week_number)
+	if entry.is_empty():
+		return ""
+	if bool(entry.get("is_major", false)):
+		return ""
+	return String(entry.get("opponent", ""))
+
+
+## Simulates all league player games for the given week.
+## Players are randomly paired; each pair's winner is determined by
+## a skill-weighted probability. The human player is excluded since
+## their result is recorded separately via complete_week_after_match().
+func simulate_other_league_games_for_week(week_number: int) -> void:
+	if LeaguePlayers.is_empty():
+		return
+
+	# Collect indices of all non-human league players.
+	var sim_indices: Array[int] = []
+	for i in range(LeaguePlayers.size()):
+		sim_indices.append(i)
+	sim_indices.shuffle()
+
+	# Pair them up and simulate.
+	var idx := 0
+	while idx + 1 < sim_indices.size():
+		var a_idx: int = sim_indices[idx]
+		var b_idx: int = sim_indices[idx + 1]
+
+		var a_skill: float = float(int(LeaguePlayers[a_idx].get("skill", 5)))
+		var b_skill: float = float(int(LeaguePlayers[b_idx].get("skill", 5)))
+		var a_win_prob: float = a_skill / (a_skill + b_skill)
+		var a_wins: bool = randf() < a_win_prob
+
+		var a_record: Dictionary = LeaguePlayers[a_idx].get("record", {"wins": 0, "losses": 0}).duplicate()
+		var b_record: Dictionary = LeaguePlayers[b_idx].get("record", {"wins": 0, "losses": 0}).duplicate()
+
+		if a_wins:
+			a_record["wins"] = int(a_record.get("wins", 0)) + 1
+			b_record["losses"] = int(b_record.get("losses", 0)) + 1
+		else:
+			b_record["wins"] = int(b_record.get("wins", 0)) + 1
+			a_record["losses"] = int(a_record.get("losses", 0)) + 1
+
+		var a_player: Dictionary = LeaguePlayers[a_idx].duplicate()
+		var b_player: Dictionary = LeaguePlayers[b_idx].duplicate()
+		a_player["record"] = a_record
+		b_player["record"] = b_record
+		LeaguePlayers[a_idx] = a_player
+		LeaguePlayers[b_idx] = b_player
+
+		idx += 2
+
+	emit_signal("state_changed")
+
+
+## Records the human match result, sets the schedule result text, simulates
+## other league games, and advances to the next week. Call this after a match ends.
+func complete_week_after_match(did_win: bool) -> void:
+	var current_entry := _get_schedule_entry(week)
+	var is_major := bool(current_entry.get("is_major", false))
+	var major_name := String(current_entry.get("event_name", ""))
+	var opponent_name := String(current_entry.get("opponent", ""))
+
+	# Update human record.
+	if did_win:
+		HumanSeasonRecord["wins"] = int(HumanSeasonRecord.get("wins", 0)) + 1
+		HumanAllTimeRecord["wins"] = int(HumanAllTimeRecord.get("wins", 0)) + 1
+		if is_major and major_name != "":
+			HumanMajorsWon.append({
+				"event_name": major_name,
+				"year": year,
+				"week": week,
+			})
+	else:
+		HumanSeasonRecord["losses"] = int(HumanSeasonRecord.get("losses", 0)) + 1
+		HumanAllTimeRecord["losses"] = int(HumanAllTimeRecord.get("losses", 0)) + 1
+
+	# Write result text into the schedule entry.
+	var result_text: String
+	if is_major:
+		result_text = "Win" if did_win else "Loss"
+	elif opponent_name != "":
+		result_text = ("W - Beat " if did_win else "L - Lost to ") + opponent_name
+	else:
+		result_text = "Win" if did_win else "Loss"
+
+	if week >= 1 and week <= Schedule.size():
+		var entry := Schedule[week - 1].duplicate()
+		entry["result"] = result_text
+		Schedule[week - 1] = entry
+
+	# Simulate the rest of the league for this week.
+	simulate_other_league_games_for_week(week)
+
+	# Advance to next week (cap at season length so it doesn't overflow).
+	week = mini(week + 1, Schedule.size())
+
 	emit_signal("state_changed")
 
 
@@ -117,6 +351,127 @@ func _refresh_store_stones() -> void:
 		store_stones.append(_build_random_stone(stone_name))
 
 
+func _ensure_schedule() -> void:
+	if not Schedule.is_empty():
+		return
+
+	for i in range(DEFAULT_SEASON_WEEKS):
+		Schedule.append(_build_default_schedule_week(i + 1))
+
+	_assign_schedule_opponents_from_league()
+	_assign_schedule_rinks_from_list()
+
+	emit_signal("state_changed")
+
+
+func _build_default_schedule_week(week_number: int) -> Dictionary:
+	return {
+		"week": week_number,
+		"is_major": false,
+		"opponent": "",
+		"venue": "",
+		"rink_name": "",
+		"result": "",
+		"event_name": "",
+		"rounds": 0,
+	}
+
+
+func _ensure_league_players() -> void:
+	if not LeaguePlayers.is_empty():
+		return
+
+	var first_names := _load_name_list(FIRST_NAMES_PATH)
+	var last_names := _load_name_list(LAST_NAMES_PATH)
+	var used_names: Dictionary = {}
+
+	for i in range(DEFAULT_LEAGUE_PLAYER_COUNT):
+		var full_name := _build_unique_full_name(first_names, last_names, used_names, i)
+		used_names[full_name] = true
+		LeaguePlayers.append({
+			"name": full_name,
+			"record": {
+				"wins": 0,
+				"losses": 0,
+			},
+			"skill": randi_range(1, 10),
+		})
+
+	emit_signal("state_changed")
+
+
+func _assign_schedule_opponents_from_league() -> void:
+	if Schedule.is_empty() or LeaguePlayers.is_empty():
+		return
+
+	var opponent_names: Array[String] = []
+	for player in LeaguePlayers:
+		opponent_names.append(String(player.get("name", "")))
+
+	if opponent_names.is_empty():
+		return
+
+	opponent_names.shuffle()
+	var opponent_index := 0
+
+	for i in range(Schedule.size()):
+		var entry: Dictionary = Schedule[i].duplicate()
+		if bool(entry.get("is_major", false)):
+			continue
+
+		entry["opponent"] = opponent_names[opponent_index]
+		Schedule[i] = entry
+		opponent_index = (opponent_index + 1) % opponent_names.size()
+
+
+func _assign_schedule_rinks_from_list() -> void:
+	if Schedule.is_empty():
+		return
+
+	var rink_names := _load_name_list(RINK_NAMES_PATH)
+	if rink_names.is_empty():
+		return
+
+	rink_names.shuffle()
+	var rink_index := 0
+
+	for i in range(Schedule.size()):
+		var entry: Dictionary = Schedule[i].duplicate()
+		var rink_name := rink_names[rink_index]
+		entry["rink_name"] = rink_name
+
+		# Keep venue populated for any legacy UI paths that still read this field.
+		if String(entry.get("venue", "")) == "":
+			entry["venue"] = rink_name
+
+		Schedule[i] = entry
+		rink_index = (rink_index + 1) % rink_names.size()
+
+
+func _build_unique_full_name(first_names: Array[String], last_names: Array[String], used_names: Dictionary, index: int) -> String:
+	var first_name := _pick_random_name(first_names, {}, index)
+	var last_name := _pick_random_name(last_names, {}, index)
+	var full_name := "%s %s" % [first_name, last_name]
+
+	if not used_names.has(full_name):
+		return full_name
+
+	for i in range(10):
+		first_name = _pick_random_name(first_names, {}, index + i)
+		last_name = _pick_random_name(last_names, {}, index + i)
+		full_name = "%s %s" % [first_name, last_name]
+		if not used_names.has(full_name):
+			return full_name
+
+	return "%s %d" % [full_name, index + 1]
+
+
+func _get_schedule_entry(week_number: int) -> Dictionary:
+	if week_number < 1 or week_number > Schedule.size():
+		return {}
+	return Schedule[week_number - 1].duplicate()
+
+
 func _build_random_stone(stone_name: String) -> Stone:
 	var power_potential := _roll_potential()
 	var spin_potential := _roll_potential()
@@ -138,10 +493,14 @@ func _build_random_stone(stone_name: String) -> Stone:
 
 
 func _load_rock_names() -> Array[String]:
-	if not FileAccess.file_exists(ROCK_NAMES_PATH):
+	return _load_name_list(ROCK_NAMES_PATH)
+
+
+func _load_name_list(path: String) -> Array[String]:
+	if not FileAccess.file_exists(path):
 		return []
 
-	var file := FileAccess.open(ROCK_NAMES_PATH, FileAccess.READ)
+	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
 		return []
 

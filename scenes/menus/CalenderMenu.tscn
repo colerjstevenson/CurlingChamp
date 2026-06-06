@@ -1,0 +1,447 @@
+[gd_scene load_steps=16 format=3 uid="uid://1gv6ikng0kr"]
+
+[ext_resource type="Script" uid="uid://cttpdy67qdxem" path="res://scripts/calendar_menu.gd" id="1_kin2q"]
+[ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="2_hckl6"]
+[ext_resource type="Texture2D" uid="uid://1tfd0w1xcib4" path="res://assets/UI/Pixel UI/Panels/Panels_Sheetl.png" id="3_3o4tx"]
+[ext_resource type="Texture2D" uid="uid://cevg37urke3ky" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/Spritesheet_UI_Gradient_Button.png" id="3_hckl6"]
+[ext_resource type="Texture2D" uid="uid://70tj4avbinmn" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/UI_Gradient.png" id="3_isy1x"]
+[ext_resource type="Script" uid="uid://cv0f7wmfbqm32" path="res://scripts/backButton.gd" id="4_3o4tx"]
+[ext_resource type="Texture2D" uid="uid://dpol7x3hi2juh" path="res://assets/UI/UI Pixel Art-Update New BG .png" id="4_47u8q"]
+[ext_resource type="Texture2D" uid="uid://bb5wnhegywdky" path="res://assets/UI/Essential UI/01_Flat_Theme/Spritesheets/UI_Flat.png" id="4_abowp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47u8q"]
+atlas = ExtResource("3_3o4tx")
+region = Rect2(114, 3, 76, 76)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dluy"]
+atlas = ExtResource("4_47u8q")
+region = Rect2(21.7831, 7.8376, 18.7832, 17.567)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yp1jc"]
+atlas = ExtResource("4_abowp")
+region = Rect2(128, 528, 16, 12)
+
+[sub_resource type="Theme" id="Theme_lm74a"]
+HBoxContainer/constants/separation = 14
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adlkw"]
+atlas = ExtResource("3_hckl6")
+region = Rect2(0.181561, 227.031, 95.8526, 26.5965)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vs8a8"]
+atlas = ExtResource("3_hckl6")
+region = Rect2(96.6608, 261.102, 95.3216, 24.3745)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwg8e"]
+atlas = ExtResource("3_isy1x")
+region = Rect2(293.781, 230.513, 20.9453, 19.4588)
+
+[node name="Node2D" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("2_hckl6")
+script = ExtResource("1_kin2q")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 721.0
+offset_bottom = 1285.0
+color = Color(0.191727, 0.678146, 0.795431, 1)
+
+[node name="Schedule" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="TextureRect" parent="Schedule"]
+texture_filter = 1
+anchors_preset = -1
+anchor_left = -0.0696886
+anchor_top = -0.566045
+anchor_right = 0.0511905
+anchor_bottom = -0.566045
+offset_left = 75.1758
+offset_top = 857.187
+offset_right = 660.176
+offset_bottom = 1777.19
+theme = ExtResource("2_hckl6")
+texture = SubResource("AtlasTexture_47u8q")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Week" type="RichTextLabel" parent="Schedule/Panel"]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 60.3502
+offset_right = 566.0
+offset_bottom = 156.35
+theme = ExtResource("2_hckl6")
+theme_override_font_sizes/normal_font_size = 56
+text = "Week 1 of 21"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Labels" type="RichTextLabel" parent="Schedule/Panel"]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 237.35
+offset_right = 550.0
+offset_bottom = 587.35
+theme = ExtResource("2_hckl6")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 55
+text = "Opponent:
+
+
+
+Venue:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Opponent" type="RichTextLabel" parent="Schedule/Panel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 354.0
+offset_right = 423.0
+offset_bottom = 450.0
+theme = ExtResource("2_hckl6")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 41
+text = "Cole Stevenson"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Record" type="RichTextLabel" parent="Schedule/Panel"]
+layout_mode = 0
+offset_left = 451.0
+offset_top = 356.0
+offset_right = 649.0
+offset_bottom = 452.0
+theme = ExtResource("2_hckl6")
+theme_override_colors/default_color = Color(0, 0.620387, 0.930961, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.52549)
+theme_override_font_sizes/normal_font_size = 41
+text = "16 - 0"
+vertical_alignment = 1
+
+[node name="Major" type="ColorRect" parent="Schedule/Panel"]
+visible = false
+layout_mode = 0
+offset_left = 55.0
+offset_top = 233.0
+offset_right = 607.0
+offset_bottom = 456.0
+color = Color(0.227451, 0.247059, 0.368627, 1)
+
+[node name="Title" type="RichTextLabel" parent="Schedule/Panel/Major"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = -33.6498
+offset_right = 473.0
+offset_bottom = 78.3502
+theme = ExtResource("2_hckl6")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 55
+text = "Tournament"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Event" type="RichTextLabel" parent="Schedule/Panel/Major"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 68.0
+offset_right = 558.0
+offset_bottom = 182.0
+theme = ExtResource("2_hckl6")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 41
+text = "The Beer Cup"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rounds" type="RichTextLabel" parent="Schedule/Panel/Major"]
+layout_mode = 0
+offset_left = 171.0
+offset_top = 200.35
+offset_right = 379.0
+offset_bottom = 262.35
+theme = ExtResource("2_hckl6")
+theme_override_colors/default_color = Color(0.450825, 0.625867, 1, 1)
+theme_override_font_sizes/normal_font_size = 36
+text = "3 Rounds"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="star" type="TextureRect" parent="Schedule/Panel/Major"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 2.35016
+offset_right = 72.0
+offset_bottom = 42.3502
+texture = SubResource("AtlasTexture_4dluy")
+
+[node name="star2" type="TextureRect" parent="Schedule/Panel/Major"]
+layout_mode = 0
+offset_left = 488.0
+offset_top = 3.35016
+offset_right = 528.0
+offset_bottom = 43.3502
+texture = SubResource("AtlasTexture_4dluy")
+
+[node name="Venue" type="RichTextLabel" parent="Schedule/Panel"]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 564.0
+offset_right = 618.0
+offset_bottom = 740.0
+theme = ExtResource("2_hckl6")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 41
+text = "Monreal Civic Center"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Result" type="RichTextLabel" parent="Schedule/Panel"]
+visible = false
+layout_mode = 0
+offset_left = 109.0
+offset_top = 670.35
+offset_right = 555.0
+offset_bottom = 780.35
+theme = ExtResource("2_hckl6")
+theme_override_colors/default_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/normal_font_size = 41
+text = "Win	2 - 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PrevWeek" type="TextureButton" parent="Schedule"]
+texture_filter = 1
+offset_left = 82.0
+offset_top = 900.0
+offset_right = 219.0
+offset_bottom = 1002.0
+theme = ExtResource("2_hckl6")
+texture_normal = SubResource("AtlasTexture_yp1jc")
+stretch_mode = 0
+flip_h = true
+
+[node name="NextWeek" type="TextureButton" parent="Schedule"]
+texture_filter = 1
+offset_left = 487.0
+offset_top = 901.0
+offset_right = 631.0
+offset_bottom = 1008.0
+theme = ExtResource("2_hckl6")
+texture_normal = SubResource("AtlasTexture_yp1jc")
+stretch_mode = 0
+
+[node name="Stats" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Panel" type="TextureRect" parent="Stats"]
+texture_filter = 1
+anchors_preset = -1
+anchor_left = -0.0696886
+anchor_top = -0.566045
+anchor_right = 0.0511905
+anchor_bottom = -0.566045
+offset_left = 74.1758
+offset_top = 860.537
+offset_right = 659.176
+offset_bottom = 1780.54
+theme = ExtResource("2_hckl6")
+texture = SubResource("AtlasTexture_47u8q")
+expand_mode = 1
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Week" type="RichTextLabel" parent="Stats/Panel"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 58.0
+offset_right = 577.0
+offset_bottom = 154.0
+theme = ExtResource("2_hckl6")
+theme_override_font_sizes/normal_font_size = 56
+text = "Career Stats"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Labels" type="RichTextLabel" parent="Stats/Panel"]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 199.0
+offset_right = 597.0
+offset_bottom = 575.0
+theme = ExtResource("2_hckl6")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 55
+text = "Career Record:
+
+
+Major wins:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Record" type="RichTextLabel" parent="Stats/Panel"]
+layout_mode = 0
+offset_left = 233.0
+offset_top = 331.0
+offset_right = 431.0
+offset_bottom = 427.0
+theme = ExtResource("2_hckl6")
+theme_override_colors/default_color = Color(0, 0.620387, 0.930961, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.52549)
+theme_override_font_sizes/normal_font_size = 56
+text = "16 - 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Majors" type="ScrollContainer" parent="Stats/Panel"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 531.0
+offset_right = 606.0
+offset_bottom = 859.1
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Stats/Panel/Majors"]
+clip_contents = true
+custom_minimum_size = Vector2(537.685, 328.1)
+layout_mode = 2
+theme = SubResource("Theme_lm74a")
+theme_override_constants/separation = 5
+
+[node name="Standings" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="TextureRect" parent="Standings"]
+texture_filter = 1
+anchors_preset = -1
+anchor_left = -0.0696886
+anchor_top = -0.566045
+anchor_right = 0.0511447
+anchor_bottom = -0.566045
+offset_left = 74.1758
+offset_top = 862.537
+offset_right = 659.176
+offset_bottom = 1782.54
+theme = ExtResource("2_hckl6")
+texture = SubResource("AtlasTexture_47u8q")
+expand_mode = 1
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="title" type="RichTextLabel" parent="Standings/Panel"]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 53.0
+offset_right = 653.0
+offset_bottom = 149.0
+theme = ExtResource("2_hckl6")
+theme_override_font_sizes/normal_font_size = 56
+text = "Season Standings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Standings/Panel"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 245.0
+offset_right = 606.0
+offset_bottom = 855.0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Standings/Panel/ScrollContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(537.685, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_lm74a")
+theme_override_constants/separation = 6
+
+[node name="ScheduleButton" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 21.0
+offset_top = 1109.0
+offset_right = 191.0
+offset_bottom = 1175.0
+scale = Vector2(1.17551, 1.16)
+theme = ExtResource("2_hckl6")
+disabled = true
+texture_normal = SubResource("AtlasTexture_adlkw")
+texture_disabled = SubResource("AtlasTexture_vs8a8")
+stretch_mode = 0
+
+[node name="text" type="RichTextLabel" parent="ScheduleButton"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 11.0
+offset_right = 185.0
+offset_bottom = 68.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 27
+text = "Schedule"
+
+[node name="StandingsButton" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 255.0
+offset_top = 1112.0
+offset_right = 425.0
+offset_bottom = 1178.0
+scale = Vector2(1.17551, 1.16)
+theme = ExtResource("2_hckl6")
+texture_normal = SubResource("AtlasTexture_adlkw")
+texture_disabled = SubResource("AtlasTexture_vs8a8")
+stretch_mode = 1
+
+[node name="text" type="RichTextLabel" parent="StandingsButton"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 10.0
+offset_right = 190.0
+offset_bottom = 57.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 25
+text = "Standings"
+
+[node name="StatsButton" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 499.0
+offset_top = 1114.0
+offset_right = 669.0
+offset_bottom = 1180.0
+scale = Vector2(1.17551, 1.16)
+theme = ExtResource("2_hckl6")
+texture_normal = SubResource("AtlasTexture_adlkw")
+texture_disabled = SubResource("AtlasTexture_vs8a8")
+stretch_mode = 0
+
+[node name="text" type="RichTextLabel" parent="StatsButton"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 6.0
+offset_right = 154.0
+offset_bottom = 53.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 31
+text = "Stats"
+
+[node name="TextureButton" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 25.0
+offset_top = 22.0
+offset_right = 119.0
+offset_bottom = 111.0
+texture_normal = SubResource("AtlasTexture_cwg8e")
+stretch_mode = 0
+script = ExtResource("4_3o4tx")
+
+[connection signal="pressed" from="Schedule/PrevWeek" to="." method="_on_prev_week_pressed"]
+[connection signal="pressed" from="Schedule/NextWeek" to="." method="_on_next_week_pressed"]
+[connection signal="pressed" from="ScheduleButton" to="." method="_show_schedule"]
+[connection signal="pressed" from="StandingsButton" to="." method="_show_standings"]
+[connection signal="pressed" from="StatsButton" to="." method="_show_stats"]
+[connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

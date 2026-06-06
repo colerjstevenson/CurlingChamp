@@ -4,6 +4,7 @@ const CURLING_GAME_SCENE := preload("res://scenes/CurlingGame.tscn")
 const MENU_STONE_SCENE := preload("res://scenes/MenuStone.tscn")
 const COLLECTION_SCENE := preload("res://scenes/menus/collection.tscn")
 const AUCTION_SCENE := preload("res://scenes/menus/auctionMenu.tscn")
+const CALENDAR_SCENE := preload("res://scenes/menus/CalenderMenu.tscn")
 const MIN_SPAWN_INTERVAL := 2.6
 const MAX_SPAWN_INTERVAL := 3.4
 const TARGET_STONE_THRESHOLD := 3
@@ -29,6 +30,7 @@ const STRATEGIC_NEIGHBOR_RADIUS := 130.0
 @onready var game_button: BaseButton = $BG/GameButton
 @onready var rocks_button: BaseButton = $BG/RocksButton
 @onready var auction_button: BaseButton = $BG/AuctionButton
+@onready var calendar_button: BaseButton = $BG/CalenderButton
 @onready var background_root: CanvasItem = $BG
 @onready var house_node: Area2D = $BG/house
 @onready var house_area: CollisionShape2D = $BG/house/houseArea
@@ -38,6 +40,8 @@ const STRATEGIC_NEIGHBOR_RADIUS := 130.0
 var _spawn_timer: Timer
 var _menu_stones: Array[RigidBody2D] = []
 var _stone_layer: Node2D
+var _cached_money_text: String = ""
+var _cached_date_text: String = ""
 
 
 func _ready() -> void:
@@ -48,6 +52,8 @@ func _ready() -> void:
 		rocks_button.pressed.connect(_on_rocks_button_pressed)
 	if is_instance_valid(auction_button):
 		auction_button.pressed.connect(_on_auction_button_pressed)
+	if is_instance_valid(calendar_button):
+		calendar_button.pressed.connect(_on_calendar_button_pressed)
 
 	var manager := get_node_or_null("/root/game_manager")
 	if manager != null and manager.has_signal("state_changed"):
@@ -71,16 +77,31 @@ func _on_auction_button_pressed() -> void:
 	get_tree().change_scene_to_packed(AUCTION_SCENE)
 
 
+func _on_calendar_button_pressed() -> void:
+	get_tree().change_scene_to_packed(CALENDAR_SCENE)
+
+
 func _refresh_header_text() -> void:
 	var manager := get_node_or_null("/root/game_manager")
 	if manager == null:
 		return
 
 	if is_instance_valid(money_label) and manager.has_method("get_money_text"):
-		money_label.text = manager.get_money_text()
+		var money_text: String = manager.get_money_text()
+		if money_text != _cached_money_text:
+			_cached_money_text = money_text
+			money_label.text = money_text
 
 	if is_instance_valid(date_label) and manager.has_method("get_date_text"):
-		date_label.text = manager.get_date_text()
+		var date_text: String = manager.get_date_text()
+		if date_text != _cached_date_text:
+			_cached_date_text = date_text
+			date_label.text = date_text
+
+
+func _process(_delta: float) -> void:
+	# Keep header text in sync in case a state_changed signal is missed during scene transitions.
+	_refresh_header_text()
 
 
 func _setup_stone_layer() -> void:

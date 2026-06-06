@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://c2jwp3lujvh3m" path="res://assets/curling/stones/stone_blue_top.png" id="1_fr1hy"]
 [ext_resource type="Script" uid="uid://cwimigax0ft21" path="res://scripts/spin_setter.gd" id="1_mt75t"]
 [ext_resource type="Texture2D" uid="uid://dm6diy0o68jyk" path="res://assets/curling/stones/stone_red_top.png" id="2_6abum"]
+[ext_resource type="Texture2D" uid="uid://d3gdoil8lajie" path="res://assets/spin_graphic.png" id="2_ef3bd"]
 [ext_resource type="Texture2D" uid="uid://c1iwmuwlutomx" path="res://assets/curling/stones/stone_yellow_top.png" id="3_mt75t"]
-[ext_resource type="Texture2D" uid="uid://dp70ag0rjlvcu" path="res://assets/curling/spin_graphic.png" id="4_6abum"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3psav"]
 animations = [{
@@ -56,7 +56,7 @@ offset_bottom = 640.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.75)
+color = Color(0, 0, 0, 0.392157)
 
 [node name="Graphic" type="TextureRect" parent="."]
 layout_mode = 1
@@ -69,7 +69,7 @@ offset_right = 41.0
 offset_bottom = 82.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_6abum")
+texture = ExtResource("2_ef3bd")
 expand_mode = 1
 
 [node name="StoneSprite" type="AnimatedSprite2D" parent="."]

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://hxuko5phfc8o"
 path.s3tc="res://.godot/imported/plastic-generic_diffuse.jpg-370a0c897492f927b6ab32600fef35b6.s3tc.ctex"
+path.etc2="res://.godot/imported/plastic-generic_diffuse.jpg-370a0c897492f927b6ab32600fef35b6.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/blender/textures/plastic-generic_diffuse.jpg"
-dest_files=["res://.godot/imported/plastic-generic_diffuse.jpg-370a0c897492f927b6ab32600fef35b6.s3tc.ctex"]
+dest_files=["res://.godot/imported/plastic-generic_diffuse.jpg-370a0c897492f927b6ab32600fef35b6.s3tc.ctex", "res://.godot/imported/plastic-generic_diffuse.jpg-370a0c897492f927b6ab32600fef35b6.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://er3mim2fm4v5"
 path.s3tc="res://.godot/imported/plastic-texture-normal-3.jpg-a6c72f0325a7c6f6c390d3dea17e176d.s3tc.ctex"
+path.etc2="res://.godot/imported/plastic-texture-normal-3.jpg-a6c72f0325a7c6f6c390d3dea17e176d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/blender/textures/plastic-texture-normal-3.jpg"
-dest_files=["res://.godot/imported/plastic-texture-normal-3.jpg-a6c72f0325a7c6f6c390d3dea17e176d.s3tc.ctex"]
+dest_files=["res://.godot/imported/plastic-texture-normal-3.jpg-a6c72f0325a7c6f6c390d3dea17e176d.s3tc.ctex", "res://.godot/imported/plastic-texture-normal-3.jpg-a6c72f0325a7c6f6c390d3dea17e176d.etc2.ctex"]
 
 [params]
 

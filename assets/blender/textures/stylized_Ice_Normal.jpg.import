@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dgs7fy5ngy8mo"
 path.s3tc="res://.godot/imported/stylized_Ice_Normal.jpg-7cbf6258ac8c5a8951c1f2eafc582462.s3tc.ctex"
+path.etc2="res://.godot/imported/stylized_Ice_Normal.jpg-7cbf6258ac8c5a8951c1f2eafc582462.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://assets/blender/textures/stylized_Ice_Normal.jpg"
-dest_files=["res://.godot/imported/stylized_Ice_Normal.jpg-7cbf6258ac8c5a8951c1f2eafc582462.s3tc.ctex"]
+dest_files=["res://.godot/imported/stylized_Ice_Normal.jpg-7cbf6258ac8c5a8951c1f2eafc582462.s3tc.ctex", "res://.godot/imported/stylized_Ice_Normal.jpg-7cbf6258ac8c5a8951c1f2eafc582462.etc2.ctex"]
 
 [params]
 

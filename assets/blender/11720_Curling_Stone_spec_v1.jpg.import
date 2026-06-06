@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://mtd7aytw3bcr"
 path.s3tc="res://.godot/imported/11720_Curling_Stone_spec_v1.jpg-15f44ce1d3666e7ffe877b8bdad3b0f1.s3tc.ctex"
+path.etc2="res://.godot/imported/11720_Curling_Stone_spec_v1.jpg-15f44ce1d3666e7ffe877b8bdad3b0f1.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/blender/11720_Curling_Stone_spec_v1.jpg"
-dest_files=["res://.godot/imported/11720_Curling_Stone_spec_v1.jpg-15f44ce1d3666e7ffe877b8bdad3b0f1.s3tc.ctex"]
+dest_files=["res://.godot/imported/11720_Curling_Stone_spec_v1.jpg-15f44ce1d3666e7ffe877b8bdad3b0f1.s3tc.ctex", "res://.godot/imported/11720_Curling_Stone_spec_v1.jpg-15f44ce1d3666e7ffe877b8bdad3b0f1.etc2.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://djd5o55jkcer3"]
 
 [ext_resource type="Texture2D" uid="uid://dkbppwjcbhyu7" path="res://assets/curling/rinkLong.png" id="2_rvslj"]
-[ext_resource type="Texture2D" uid="uid://c0ylw76defigq" path="res://assets/curling/e0380555-65b2-45fb-bb7d-2c546790c21f.png" id="3_0bbpv"]
+[ext_resource type="Texture2D" uid="uid://bvf0r15f3wgih" path="res://assets/scoreboard.tres" id="4_p15o0"]
 [ext_resource type="FontFile" uid="uid://mfdjupiwfar2" path="res://Fonts/PixeloidSans-mLxMm.ttf" id="4_rarhs"]
 [ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="5_p15o0"]
 [ext_resource type="Script" uid="uid://dd48i4ht0jjf7" path="res://scripts/curlinggame.gd" id="6_main"]
@@ -93,7 +93,7 @@ offset_left = -60.0
 offset_top = 1017.0
 offset_right = 765.0
 offset_bottom = 1444.0
-texture = ExtResource("3_0bbpv")
+texture = ExtResource("4_p15o0")
 expand_mode = 1
 
 [node name="name1" type="RichTextLabel" parent="CanvasLayer/scoreboard"]

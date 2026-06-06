@@ -1,6 +1,6 @@
 extends Control
 
-const Stone = preload("res://scripts/stone_data.gd")
+const VARIANT_TEXTURE_PATH := "res://assets/curling/stones/variants/%s/stone_variant_%s%04d.png"
 const RED_SIDE_TEXTURE := preload("res://assets/curling/stones/stone_red_side.png")
 const BLUE_SIDE_TEXTURE := preload("res://assets/curling/stones/stone_blue_side.png")
 const YELLOW_SIDE_TEXTURE := preload("res://assets/curling/stones/stone_yellow_side.png")
@@ -34,7 +34,7 @@ func setup_from_stone(stone: Stone) -> void:
 		age_label.text = "Age: %d" % stone.age
 	if is_instance_valid(wins_label):
 		wins_label.text = "Wins: %d" % stone.wins
-	_set_rock_sprite_color(_get_player_stone_color())
+	_set_rock_sprite_variant(stone.variant, _get_player_stone_color())
 
 	_set_bar_value(power_bar, stone.power)
 	_set_bar_value(spin_bar, stone.spin)
@@ -50,11 +50,22 @@ func _set_bar_value(bar: ProgressBar, value: int) -> void:
 	bar.value = clampf(float(value), 0.0, 100.0)
 
 
-func _set_rock_sprite_color(stone_color: String) -> void:
+func _set_rock_sprite_variant(stone_variant: int, stone_color: String) -> void:
 	if not is_instance_valid(rock_sprite):
 		return
 
-	match stone_color:
+	var normalized_color := _normalize_variant_color(stone_color)
+	var texture_path := VARIANT_TEXTURE_PATH % [
+		normalized_color,
+		normalized_color,
+		clampi(stone_variant, Stone.MIN_VARIANT, Stone.MAX_VARIANT)
+	]
+	var texture := load(texture_path) as Texture2D
+	if texture != null:
+		rock_sprite.texture = texture
+		return
+
+	match normalized_color:
 		"blue":
 			rock_sprite.texture = BLUE_SIDE_TEXTURE
 		"yellow":
@@ -68,6 +79,14 @@ func _get_player_stone_color() -> String:
 	if manager != null and "player_color" in manager:
 		return String(manager.player_color)
 	return "red"
+
+
+func _normalize_variant_color(stone_color: String) -> String:
+	match stone_color:
+		"blue", "yellow", "red":
+			return stone_color
+		_:
+			return "red"
 
 
 func _close_window() -> void:

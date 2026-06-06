@@ -2,9 +2,11 @@ extends Node
 
 signal state_changed
 
-const Stone = preload("res://scripts/stone_data.gd")
 const ROCK_NAMES_PATH := "res://lists/rockNames.txt"
 const STARTING_STONE_COUNT := 4
+const STORE_STONE_COUNT := 4
+const STONE_VARIANT_MIN := 1
+const STONE_VARIANT_MAX := 51
 const VALID_STONE_COLORS := ["red", "blue", "yellow"]
 
 var player_name: String = "John Smith"
@@ -15,11 +17,13 @@ var week: int = 1
 var year: int = 1
 var money: int = 100
 var player_stones: Array[Stone] = []
+var store_stones: Array[Stone] = []
 
 
 func _ready() -> void:
 	randomize()
 	_ensure_starting_stones()
+	_ensure_store_stones()
 
 
 func set_week(new_week: int) -> void:
@@ -70,6 +74,15 @@ func get_player_stones() -> Array[Stone]:
 	return player_stones
 
 
+func get_store_stones() -> Array[Stone]:
+	return store_stones
+
+
+func reroll_store_stones() -> void:
+	_refresh_store_stones()
+	emit_signal("state_changed")
+
+
 func _ensure_starting_stones() -> void:
 	if not player_stones.is_empty():
 		return
@@ -80,19 +93,48 @@ func _ensure_starting_stones() -> void:
 	for i in range(STARTING_STONE_COUNT):
 		var stone_name := _pick_random_name(names, used_names, i)
 		used_names[stone_name] = true
-
-		var new_stone: Stone = Stone.new(
-			stone_name,
-			_roll_stat(),
-			_roll_stat(),
-			_roll_stat(),
-			_roll_stat(),
-			randi_range(1, 10),
-			0
-		)
+		var new_stone := _build_random_stone(stone_name)
 		player_stones.append(new_stone)
 
 	emit_signal("state_changed")
+
+
+func _ensure_store_stones() -> void:
+	if not store_stones.is_empty():
+		return
+	_refresh_store_stones()
+
+
+func _refresh_store_stones() -> void:
+	store_stones.clear()
+
+	var names := _load_rock_names()
+	var used_names: Dictionary = {}
+
+	for i in range(STORE_STONE_COUNT):
+		var stone_name := _pick_random_name(names, used_names, i)
+		used_names[stone_name] = true
+		store_stones.append(_build_random_stone(stone_name))
+
+
+func _build_random_stone(stone_name: String) -> Stone:
+	var power_potential := _roll_potential()
+	var spin_potential := _roll_potential()
+	var precision_potential := _roll_potential()
+
+	return Stone.new(
+		stone_name,
+		randi_range(0, power_potential),
+		randi_range(0, spin_potential),
+		randi_range(0, precision_potential),
+		_roll_stat(),
+		randi_range(1, 10),
+		0,
+		randi_range(STONE_VARIANT_MIN, STONE_VARIANT_MAX),
+		power_potential,
+		spin_potential,
+		precision_potential
+	)
 
 
 func _load_rock_names() -> Array[String]:
@@ -129,6 +171,10 @@ func _pick_random_name(names: Array[String], used_names: Dictionary, index: int)
 
 func _roll_stat() -> int:
 	return randi_range(0, 100)
+
+
+func _roll_potential() -> int:
+	return randi_range(1, 100)
 
 
 func _normalize_stone_color(requested_color: String, fallback_color: String) -> String:

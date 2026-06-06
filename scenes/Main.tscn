@@ -24,7 +24,7 @@ atlas = ExtResource("2_c01mt")
 region = Rect2(228.044, 35.9097, 24.0893, 24.2739)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lhr70"]
-radius = 172.838
+radius = 266.047
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3p2gp"]
 atlas = ExtResource("2_c01mt")
@@ -49,16 +49,18 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.001
 anchor_bottom = 0.997
-offset_right = 0.279968
-offset_bottom = -0.160034
+offset_left = -207.0
+offset_top = -351.0
+offset_right = 201.28
+offset_bottom = 376.84
 texture = ExtResource("1_vcsgt")
 
 [node name="RocksButton" type="TextureButton" parent="BG"]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 161.0
-offset_right = 221.0
-offset_bottom = 364.0
+offset_left = 231.0
+offset_top = 512.0
+offset_right = 428.0
+offset_bottom = 715.0
 texture_normal = SubResource("AtlasTexture_lhr70")
 stretch_mode = 0
 
@@ -73,10 +75,10 @@ expand_mode = 1
 
 [node name="BreedingButton" type="TextureButton" parent="BG"]
 layout_mode = 0
-offset_left = 498.0
-offset_top = 171.0
-offset_right = 695.0
-offset_bottom = 374.0
+offset_left = 705.0
+offset_top = 522.0
+offset_right = 902.0
+offset_bottom = 725.0
 texture_normal = SubResource("AtlasTexture_lhr70")
 stretch_mode = 0
 
@@ -91,10 +93,10 @@ expand_mode = 1
 
 [node name="TrainingButton" type="TextureButton" parent="BG"]
 layout_mode = 0
-offset_left = 494.0
-offset_top = 866.0
-offset_right = 691.0
-offset_bottom = 1069.0
+offset_left = 701.0
+offset_top = 1217.0
+offset_right = 898.0
+offset_bottom = 1420.0
 texture_normal = SubResource("AtlasTexture_lhr70")
 stretch_mode = 0
 
@@ -109,10 +111,10 @@ expand_mode = 1
 
 [node name="AuctionButton" type="TextureButton" parent="BG"]
 layout_mode = 0
-offset_left = 29.0
-offset_top = 870.0
-offset_right = 226.0
-offset_bottom = 1073.0
+offset_left = 236.0
+offset_top = 1221.0
+offset_right = 433.0
+offset_bottom = 1424.0
 texture_normal = SubResource("AtlasTexture_lhr70")
 stretch_mode = 0
 
@@ -127,10 +129,10 @@ expand_mode = 1
 
 [node name="GameButton" type="TextureButton" parent="BG"]
 layout_mode = 0
-offset_left = 39.0
-offset_top = 1100.0
-offset_right = 526.0
-offset_bottom = 1235.0
+offset_left = 246.0
+offset_top = 1451.0
+offset_right = 733.0
+offset_bottom = 1586.0
 texture_normal = SubResource("AtlasTexture_qmy6f")
 stretch_mode = 0
 
@@ -149,10 +151,10 @@ vertical_alignment = 1
 
 [node name="CalenderButton" type="TextureButton" parent="BG"]
 layout_mode = 0
-offset_left = 559.0
-offset_top = 1095.0
-offset_right = 690.0
-offset_bottom = 1230.0
+offset_left = 766.0
+offset_top = 1446.0
+offset_right = 897.0
+offset_bottom = 1581.0
 texture_normal = SubResource("AtlasTexture_mwfav")
 stretch_mode = 0
 
@@ -166,20 +168,21 @@ texture = ExtResource("7_lhr70")
 expand_mode = 1
 
 [node name="house" type="Area2D" parent="BG"]
-position = Vector2(360, 623)
+position = Vector2(567, 974)
 
 [node name="houseArea" type="CollisionShape2D" parent="BG/house"]
-position = Vector2(0, 1)
+position = Vector2(-1, 2)
 shape = SubResource("CircleShape2D_lhr70")
 
-[node name="TopBar" type="TextureRect" parent="."]
+[node name="TopBar" type="TextureRect" parent="BG"]
 layout_mode = 0
-offset_left = 2.0
-offset_right = 721.0
-offset_bottom = 129.0
+offset_left = 209.0
+offset_top = 351.0
+offset_right = 928.0
+offset_bottom = 480.0
 texture = SubResource("AtlasTexture_3p2gp")
 
-[node name="money" type="TextureRect" parent="TopBar"]
+[node name="money" type="TextureRect" parent="BG/TopBar"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 24.0
@@ -187,7 +190,7 @@ offset_right = 241.0
 offset_bottom = 108.0
 texture = SubResource("AtlasTexture_cvmbd")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TopBar/money"]
+[node name="RichTextLabel" type="RichTextLabel" parent="BG/TopBar/money"]
 layout_mode = 0
 offset_left = 28.0
 offset_top = 17.0
@@ -199,7 +202,7 @@ text = "$100000"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Date" type="TextureRect" parent="TopBar"]
+[node name="Date" type="TextureRect" parent="BG/TopBar"]
 layout_mode = 0
 offset_left = 273.0
 offset_top = 22.0
@@ -207,7 +210,7 @@ offset_right = 601.0
 offset_bottom = 108.0
 texture = SubResource("AtlasTexture_cvmbd")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TopBar/Date"]
+[node name="RichTextLabel" type="RichTextLabel" parent="BG/TopBar/Date"]
 layout_mode = 0
 offset_left = 35.0
 offset_top = 18.0
@@ -219,12 +222,12 @@ text = "Year 1 Week 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SettingButton" type="TextureButton" parent="."]
+[node name="SettingButton" type="TextureButton" parent="BG"]
 layout_mode = 0
-offset_left = 633.0
-offset_top = 26.0
-offset_right = 709.0
-offset_bottom = 100.0
+offset_left = 840.0
+offset_top = 377.0
+offset_right = 916.0
+offset_bottom = 451.0
 texture_normal = ExtResource("9_bjd11")
 ignore_texture_size = true
 stretch_mode = 4

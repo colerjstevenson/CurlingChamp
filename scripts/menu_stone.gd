@@ -7,11 +7,11 @@ const STONE_TEXTURES := [BLUE_TOP_TEXTURE, RED_TOP_TEXTURE, YELLOW_TOP_TEXTURE]
 
 @export var min_launch_speed := 580.0
 @export var max_launch_speed := 980.0
-@export var min_accuracy_error_degrees := 1.0
-@export var max_accuracy_error_degrees := 15.0
+@export var min_accuracy_error_degrees := 0.35
+@export var max_accuracy_error_degrees := 10.0
 @export var travel_deceleration := 170.0
 @export var stop_speed_cutoff := 16.0
-@export var offscreen_buffer := 180.0
+@export var offscreen_buffer := 10.0
 @export var offscreen_remove_delay := 1.6
 
 @onready var stone_sprite: Sprite2D = $Sprite
@@ -55,7 +55,7 @@ func _physics_process(_delta: float) -> void:
 		_was_ever_visible = true
 		return
 
-	if _was_ever_visible and not visible_rect.grow(offscreen_buffer).has_point(global_position):
+	if _was_ever_visible and not visible_rect.grow($CollisionShape2D.shape.radius + offscreen_buffer).has_point(global_position):
 		_queue_offscreen_cleanup()
 
 

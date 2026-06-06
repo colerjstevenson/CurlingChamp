@@ -1,43 +1,44 @@
 [gd_scene load_steps=12 format=3 uid="uid://cf05mjhcwgegs"]
 
-[ext_resource type="Script" uid="uid://bq83fxqlecu7x" path="res://scripts/auction_menu.gd" id="1_r0rxc"]
-[ext_resource type="Texture2D" uid="uid://nryt1is5p6vm" path="res://art/UI/UI_Wood_C_Border.png" id="1_ssq67"]
-[ext_resource type="Texture2D" uid="uid://ullende40irc" path="res://art/UI/Pixel UI/Colors/Cyan/cyan_spritesheet.png" id="2_crn7k"]
-[ext_resource type="Script" uid="uid://qu13ruvkc63x" path="res://scripts/backButton.gd" id="2_t4txg"]
-[ext_resource type="Theme" uid="uid://bjldftgjbp5df" path="res://themes/Button.tres" id="3_82xcy"]
-[ext_resource type="Theme" uid="uid://04h0bha3cylt" path="res://themes/stat_window.tres" id="3_nhffj"]
-[ext_resource type="Texture2D" uid="uid://deok2v6fn8pdd" path="res://art/UI/Pixel UI/Colors/Yellow/yellow_spritesheet.png" id="4_57w68"]
+[ext_resource type="Texture2D" uid="uid://70tj4avbinmn" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/UI_Gradient.png" id="1_lijkr"]
+[ext_resource type="Script" uid="uid://cv0f7wmfbqm32" path="res://scripts/backButton.gd" id="2_t4txg"]
+[ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="3_lijkr"]
+[ext_resource type="Script" uid="uid://byvj8i2ri1w06" path="res://scripts/auction_menu.gd" id="4_5nrv0"]
+
+[sub_resource type="Theme" id="Theme_lm74a"]
+HBoxContainer/constants/separation = 14
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_adlkw"]
-atlas = ExtResource("4_57w68")
-region = Rect2(0, 0, 70, 18)
+atlas = ExtResource("1_lijkr")
+region = Rect2(291.281, 35.0221, 90.0193, 26.709)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vs8a8"]
-atlas = ExtResource("4_57w68")
-region = Rect2(0, 98, 70, 15)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q7pv4"]
-atlas = ExtResource("2_crn7k")
-region = Rect2(0, 0, 70, 18)
+atlas = ExtResource("1_lijkr")
+region = Rect2(32.3876, 160.376, 95.7569, 31.8392)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cwg8e"]
-atlas = ExtResource("1_ssq67")
-region = Rect2(223.527, 287.623, 32.8422, 32.8422)
+atlas = ExtResource("1_lijkr")
+region = Rect2(293.781, 230.513, 20.9453, 19.4588)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lm74a"]
+atlas = ExtResource("1_lijkr")
+region = Rect2(160.322, 224.65, 63.135, 62.3959)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lijkr"]
+atlas = ExtResource("1_lijkr")
+region = Rect2(293.472, 167.831, 21.2233, 18.7053)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rn38"]
+atlas = ExtResource("1_lijkr")
+region = Rect2(294.799, 198.507, 19.2939, 21.7466)
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_r0rxc")
+script = ExtResource("4_5nrv0")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 713.0
 offset_bottom = 1285.0
 color = Color(0.191727, 0.678146, 0.795431, 1)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 281.0
-offset_top = 17.0
-offset_right = 526.0
-offset_bottom = 104.0
-text = "AUCTION HOUSE"
 
 [node name="Buy" type="Control" parent="."]
 layout_mode = 3
@@ -49,10 +50,10 @@ offset_bottom = 259.0
 
 [node name="GridContainer" type="GridContainer" parent="Buy"]
 layout_mode = 0
-offset_left = 13.0
-offset_top = 63.0
-offset_right = 687.0
-offset_bottom = 899.0
+offset_left = 47.0
+offset_top = 40.0
+offset_right = 672.0
+offset_bottom = 882.0
 columns = 2
 
 [node name="Sell" type="Control" parent="."]
@@ -63,49 +64,22 @@ offset_left = 20.0
 offset_top = 259.0
 offset_right = 20.0
 offset_bottom = 259.0
+theme = ExtResource("3_lijkr")
 
-[node name="StartButton" type="TextureButton" parent="Sell"]
-texture_filter = 1
+[node name="ScrollContainer" type="ScrollContainer" parent="Sell"]
 layout_mode = 0
-offset_left = 206.0
-offset_top = 537.0
-offset_right = 493.0
-offset_bottom = 634.0
-texture_normal = SubResource("AtlasTexture_adlkw")
-texture_disabled = SubResource("AtlasTexture_vs8a8")
-stretch_mode = 0
+offset_left = 8.0
+offset_top = -6.0
+offset_right = 678.0
+offset_bottom = 992.0
+vertical_scroll_mode = 0
 
-[node name="text" type="RichTextLabel" parent="Sell/StartButton"]
-layout_mode = 0
-offset_left = 118.0
-offset_top = 17.0
-offset_right = 228.0
-offset_bottom = 59.0
-mouse_filter = 2
-theme = ExtResource("3_nhffj")
-theme_override_font_sizes/normal_font_size = 31
-text = "Sell"
-
-[node name="chooseHorse" type="TextureButton" parent="Sell"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 140.0
-offset_top = 317.0
-offset_right = 555.0
-offset_bottom = 427.0
-texture_normal = SubResource("AtlasTexture_q7pv4")
-stretch_mode = 0
-
-[node name="horseName" type="RichTextLabel" parent="Sell/chooseHorse"]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 22.0
-offset_right = 398.0
-offset_bottom = 73.0
-mouse_filter = 1
-theme = ExtResource("3_82xcy")
-bbcode_enabled = true
-text = "[center]Pick Horse[center]"
+[node name="HBoxContainer" type="HBoxContainer" parent="Sell/ScrollContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_lm74a")
+theme_override_constants/separation = 5
 
 [node name="BuyButton" type="TextureButton" parent="."]
 texture_filter = 1
@@ -113,6 +87,7 @@ offset_left = 142.0
 offset_top = 152.0
 offset_right = 312.0
 offset_bottom = 218.0
+theme = ExtResource("3_lijkr")
 disabled = true
 texture_normal = SubResource("AtlasTexture_adlkw")
 texture_disabled = SubResource("AtlasTexture_vs8a8")
@@ -123,9 +98,8 @@ layout_mode = 0
 offset_left = 55.0
 offset_top = 6.0
 offset_right = 165.0
-offset_bottom = 48.0
+offset_bottom = 63.0
 mouse_filter = 2
-theme = ExtResource("3_nhffj")
 theme_override_font_sizes/normal_font_size = 31
 text = "Buy"
 
@@ -135,6 +109,7 @@ offset_left = 387.0
 offset_top = 151.0
 offset_right = 557.0
 offset_bottom = 217.0
+theme = ExtResource("3_lijkr")
 texture_normal = SubResource("AtlasTexture_adlkw")
 texture_disabled = SubResource("AtlasTexture_vs8a8")
 stretch_mode = 0
@@ -144,9 +119,8 @@ layout_mode = 0
 offset_left = 56.0
 offset_top = 7.0
 offset_right = 166.0
-offset_bottom = 49.0
+offset_bottom = 54.0
 mouse_filter = 2
-theme = ExtResource("3_nhffj")
 theme_override_font_sizes/normal_font_size = 31
 text = "Sell"
 
@@ -160,8 +134,57 @@ texture_normal = SubResource("AtlasTexture_cwg8e")
 stretch_mode = 0
 script = ExtResource("2_t4txg")
 
-[connection signal="pressed" from="Sell/StartButton" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="Sell/chooseHorse" to="." method="_on_selector_pressed"]
+[node name="Confirm" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Tint" type="Panel" parent="Confirm"]
+offset_right = 717.0
+offset_bottom = 1291.0
+
+[node name="Panel" type="TextureRect" parent="Confirm"]
+texture_filter = 1
+anchors_preset = -1
+anchor_top = -0.458594
+anchor_bottom = -0.458594
+offset_left = 68.0
+offset_top = 345.0
+offset_right = 653.0
+offset_bottom = 1265.0
+theme = ExtResource("3_lijkr")
+texture = SubResource("AtlasTexture_lm74a")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="RichTextLabel" parent="Confirm/Panel"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 29.0
+offset_right = 553.0
+offset_bottom = 207.0
+theme_override_font_sizes/normal_font_size = 26
+text = "Are you sure you want to auction off STONE_NAME?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Yes" type="TextureButton" parent="Confirm/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 113.0
+offset_top = 216.0
+offset_right = 207.0
+offset_bottom = 305.0
+texture_normal = SubResource("AtlasTexture_lijkr")
+stretch_mode = 0
+
+[node name="No" type="TextureButton" parent="Confirm/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 348.0
+offset_top = 219.0
+offset_right = 442.0
+offset_bottom = 308.0
+texture_normal = SubResource("AtlasTexture_1rn38")
+stretch_mode = 0
+
 [connection signal="pressed" from="BuyButton" to="." method="_buy_pressed"]
 [connection signal="pressed" from="SellButton" to="." method="_sell_pressed"]
 [connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

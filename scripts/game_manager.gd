@@ -40,20 +40,15 @@ var HumanAllTimeRecord: Dictionary = {
 	"losses": 0,
 }
 var HumanMajorsWon: Array[Dictionary] = []
-var _is_loading_save := false
 
 
 func _ready() -> void:
 	randomize()
 	_seed_user_lists_from_res()
-	_load_state()
 	_ensure_starting_stones()
 	_ensure_store_stones()
 	_ensure_league_players()
 	_ensure_schedule()
-	if not state_changed.is_connected(_save_state):
-		state_changed.connect(_save_state)
-	_save_state()
 
 
 func set_week(new_week: int) -> void:
@@ -126,57 +121,6 @@ func get_human_all_time_record() -> Dictionary:
 
 func get_human_majors_won() -> Array[Dictionary]:
 	return HumanMajorsWon.duplicate(true)
-
-
-func set_player_name(new_player_name: String) -> void:
-	player_name = new_player_name.strip_edges()
-	if player_name == "":
-		player_name = "John Smith"
-	emit_signal("state_changed")
-
-
-func _save_state() -> void:
-	if _is_loading_save:
-		return
-
-	SaveFile.save_game_state({
-		"player_name": player_name,
-		"player_color": player_color,
-		"opponent_color": opponent_color,
-		"week": week,
-		"year": year,
-		"money": money,
-		"player_stones": player_stones,
-		"store_stones": store_stones,
-		"schedule": Schedule,
-		"league_players": LeaguePlayers,
-		"human_season_record": HumanSeasonRecord,
-		"human_all_time_record": HumanAllTimeRecord,
-		"human_majors_won": HumanMajorsWon,
-	})
-
-
-func _load_state() -> void:
-	_is_loading_save = true
-	var loaded_state := SaveFile.load_game_state()
-	if loaded_state.is_empty():
-		_is_loading_save = false
-		return
-
-	player_name = String(loaded_state.get("player_name", player_name))
-	player_color = _normalize_stone_color(String(loaded_state.get("player_color", player_color)), player_color)
-	opponent_color = _normalize_stone_color(String(loaded_state.get("opponent_color", opponent_color)), opponent_color)
-	week = max(int(loaded_state.get("week", week)), 1)
-	year = max(int(loaded_state.get("year", year)), 1)
-	money = int(loaded_state.get("money", money))
-	player_stones = loaded_state.get("player_stones", [])
-	store_stones = loaded_state.get("store_stones", [])
-	Schedule = loaded_state.get("schedule", [])
-	LeaguePlayers = loaded_state.get("league_players", [])
-	HumanSeasonRecord = Dictionary(loaded_state.get("human_season_record", HumanSeasonRecord)).duplicate(true)
-	HumanAllTimeRecord = Dictionary(loaded_state.get("human_all_time_record", HumanAllTimeRecord)).duplicate(true)
-	HumanMajorsWon = loaded_state.get("human_majors_won", [])
-	_is_loading_save = false
 
 
 func record_human_match_result(did_win: bool, is_major: bool = false, major_event_name: String = "") -> void:

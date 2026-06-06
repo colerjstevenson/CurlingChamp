@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://djd5o55jkcer3"]
 
 [ext_resource type="Texture2D" uid="uid://dkbppwjcbhyu7" path="res://assets/curling/rinkLong.png" id="2_rvslj"]
-[ext_resource type="Texture2D" uid="uid://bvf0r15f3wgih" path="res://assets/scoreboard.tres" id="4_p15o0"]
+[ext_resource type="Texture2D" uid="uid://conjylbqn2s2t" path="res://assets/e0380555-65b2-45fb-bb7d-2c546790c21f.png" id="4_p15o0"]
 [ext_resource type="FontFile" uid="uid://mfdjupiwfar2" path="res://Fonts/PixeloidSans-mLxMm.ttf" id="4_rarhs"]
 [ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="5_p15o0"]
 [ext_resource type="Script" uid="uid://dd48i4ht0jjf7" path="res://scripts/curlinggame.gd" id="6_main"]
@@ -90,9 +90,9 @@ vertical_alignment = 1
 [node name="scoreboard" type="TextureRect" parent="CanvasLayer"]
 texture_filter = 1
 offset_left = -60.0
-offset_top = 1017.0
+offset_top = 1031.0
 offset_right = 765.0
-offset_bottom = 1444.0
+offset_bottom = 1458.0
 texture = ExtResource("4_p15o0")
 expand_mode = 1
 
@@ -147,10 +147,10 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.048
 anchor_bottom = 0.094
-offset_left = 668.0
-offset_top = 161.0
-offset_right = 698.4
-offset_bottom = 187.862
+offset_left = 663.0
+offset_top = 156.0
+offset_right = 693.4
+offset_bottom = 182.862
 theme = ExtResource("5_p15o0")
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 27

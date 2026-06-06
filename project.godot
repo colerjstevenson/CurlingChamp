@@ -13,7 +13,7 @@ config_version=5
 config/name="CurlingChamps"
 run/main_scene="res://scenes/Main.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://dlgwpc86wps3b"
 
 [autoload]
 

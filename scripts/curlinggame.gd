@@ -348,7 +348,7 @@ func _show_end_score(score: Dictionary) -> void:
 
 func _advance_to_next_end() -> void:
 	await get_tree().create_timer(1.6).timeout
-	if current_end >= max_ends:
+	if current_end >= max_ends and not _is_match_tied():
 		_end_match()
 		return
 
@@ -362,6 +362,12 @@ func _advance_to_next_end() -> void:
 		end_score_label.visible = false
 		end_score_label.text = ""
 	_spawn_next_stone()
+
+
+func _is_match_tied() -> bool:
+	var human_score: int = int(scores_by_color.get(human_player_color, 0))
+	var ai_score: int = int(scores_by_color.get(ai_player_color, 0))
+	return human_score == ai_score
 
 
 func _end_match() -> void:

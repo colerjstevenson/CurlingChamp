@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2vnvyq1s07s8"]
+[gd_scene load_steps=8 format=3 uid="uid://b2vnvyq1s07s8"]
 
 [ext_resource type="Texture2D" uid="uid://c2jwp3lujvh3m" path="res://assets/curling/stones/stone_blue_top.png" id="1_fr1hy"]
 [ext_resource type="Script" uid="uid://cwimigax0ft21" path="res://scripts/spin_setter.gd" id="1_mt75t"]
 [ext_resource type="Texture2D" uid="uid://dm6diy0o68jyk" path="res://assets/curling/stones/stone_red_top.png" id="2_6abum"]
 [ext_resource type="Texture2D" uid="uid://d3gdoil8lajie" path="res://assets/spin_graphic.png" id="2_ef3bd"]
 [ext_resource type="Texture2D" uid="uid://c1iwmuwlutomx" path="res://assets/curling/stones/stone_yellow_top.png" id="3_mt75t"]
+[ext_resource type="Texture2D" uid="uid://ctvt017i5bb7w" path="res://assets/UI/Essential UI/Cursors/Sprites/Icon_Cursor_01b.png" id="6_l27cn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3psav"]
 animations = [{
@@ -77,3 +78,18 @@ position = Vector2(360, 580)
 scale = Vector2(0.675694, 0.659028)
 sprite_frames = SubResource("SpriteFrames_3psav")
 animation = &"blue"
+
+[node name="arrow" type="TextureRect" parent="StoneSprite"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.60828
+offset_top = -353.346
+offset_right = -599.608
+offset_bottom = -943.346
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.784227
+texture = ExtResource("6_l27cn")
+expand_mode = 1

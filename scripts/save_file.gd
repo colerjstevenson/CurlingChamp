@@ -2,15 +2,25 @@ extends RefCounted
 class_name SaveFile
 
 const SAVE_DIRECTORY := "user://saves"
-const SAVE_PATH := "user://saves/player_data.json"
+const LEGACY_SAVE_PATH := "user://saves/player_data.json"
+const SAVE_SLOT_PATH_TEMPLATE := "user://saves/player_data_slot_%d.json"
+const MAX_SAVE_SLOTS := 3
 const SAVE_VERSION := 1
 
 
-static func load_game_state() -> Dictionary:
-	if not FileAccess.file_exists(SAVE_PATH):
+static func load_game_state(slot_index: int = 1) -> Dictionary:
+	var save_path := _get_slot_save_path(slot_index)
+	if save_path == "":
 		return {}
 
-	var file: FileAccess = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if not FileAccess.file_exists(save_path):
+		# Gracefully support old single-save installs by treating it as slot 1.
+		if slot_index == 1 and FileAccess.file_exists(LEGACY_SAVE_PATH):
+			save_path = LEGACY_SAVE_PATH
+		else:
+			return {}
+
+	var file: FileAccess = FileAccess.open(save_path, FileAccess.READ)
 	if file == null:
 		push_warning("save_file: failed to open save file for reading")
 		return {}
@@ -27,10 +37,14 @@ static func load_game_state() -> Dictionary:
 	return _deserialize_state(parsed)
 
 
-static func save_game_state(state: Dictionary) -> bool:
+static func save_game_state(state: Dictionary, slot_index: int = 1) -> bool:
+	var save_path := _get_slot_save_path(slot_index)
+	if save_path == "":
+		return false
+
 	DirAccess.make_dir_recursive_absolute(SAVE_DIRECTORY)
 
-	var file: FileAccess = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	var file: FileAccess = FileAccess.open(save_path, FileAccess.WRITE)
 	if file == null:
 		push_warning("save_file: failed to open save file for writing")
 		return false
@@ -40,9 +54,67 @@ static func save_game_state(state: Dictionary) -> bool:
 	return true
 
 
+static func slot_exists(slot_index: int) -> bool:
+	var save_path := _get_slot_save_path(slot_index)
+	if save_path == "":
+		return false
+	if FileAccess.file_exists(save_path):
+		return true
+	return slot_index == 1 and FileAccess.file_exists(LEGACY_SAVE_PATH)
+
+
+static func get_slot_summary(slot_index: int) -> Dictionary:
+	var state := load_game_state(slot_index)
+	if state.is_empty():
+		return {}
+
+	return {
+		"player_name": String(state.get("player_name", "John Smith")),
+		"player_color": String(state.get("player_color", "yellow")),
+		"money": int(state.get("money", 100)),
+		"week": int(state.get("week", 1)),
+		"year": int(state.get("year", 1)),
+		"saved_at_unix": int(state.get("saved_at_unix", 0)),
+	}
+
+
+static func delete_slot(slot_index: int) -> bool:
+	var had_files := slot_exists(slot_index)
+	if not had_files:
+		return true
+
+	var delete_ok := true
+	var save_path := _get_slot_save_path(slot_index)
+	if save_path != "" and FileAccess.file_exists(save_path):
+		var delete_error := DirAccess.remove_absolute(save_path)
+		if delete_error != OK:
+			push_warning("save_file: failed to delete slot save file %s" % save_path)
+			delete_ok = false
+
+	if slot_index == 1 and FileAccess.file_exists(LEGACY_SAVE_PATH):
+		var legacy_delete_error := DirAccess.remove_absolute(LEGACY_SAVE_PATH)
+		if legacy_delete_error != OK:
+			push_warning("save_file: failed to delete legacy slot save file %s" % LEGACY_SAVE_PATH)
+			delete_ok = false
+
+	return delete_ok and not slot_exists(slot_index)
+
+
+static func _get_slot_save_path(slot_index: int) -> String:
+	if slot_index < 1 or slot_index > MAX_SAVE_SLOTS:
+		push_warning("save_file: invalid save slot %d" % slot_index)
+		return ""
+	return SAVE_SLOT_PATH_TEMPLATE % slot_index
+
+
 static func _serialize_state(state: Dictionary) -> Dictionary:
+	var saved_at_unix := int(state.get("saved_at_unix", Time.get_unix_time_from_system()))
+	if saved_at_unix <= 0:
+		saved_at_unix = int(Time.get_unix_time_from_system())
+
 	return {
 		"version": SAVE_VERSION,
+		"saved_at_unix": saved_at_unix,
 		"player_name": String(state.get("player_name", "John Smith")),
 		"player_color": String(state.get("player_color", "yellow")),
 		"opponent_color": String(state.get("opponent_color", "red")),
@@ -56,11 +128,13 @@ static func _serialize_state(state: Dictionary) -> Dictionary:
 		"human_season_record": Dictionary(state.get("human_season_record", {})).duplicate(true),
 		"human_all_time_record": Dictionary(state.get("human_all_time_record", {})).duplicate(true),
 		"human_majors_won": _duplicate_array_of_dictionaries(state.get("human_majors_won", [])),
+		"trainer_week_used": int(state.get("trainer_week_used", -1)),
 	}
 
 
 static func _deserialize_state(state: Dictionary) -> Dictionary:
 	return {
+		"saved_at_unix": int(state.get("saved_at_unix", 0)),
 		"player_name": String(state.get("player_name", "John Smith")),
 		"player_color": String(state.get("player_color", "yellow")),
 		"opponent_color": String(state.get("opponent_color", "red")),
@@ -74,6 +148,7 @@ static func _deserialize_state(state: Dictionary) -> Dictionary:
 		"human_season_record": Dictionary(state.get("human_season_record", {})).duplicate(true),
 		"human_all_time_record": Dictionary(state.get("human_all_time_record", {})).duplicate(true),
 		"human_majors_won": _duplicate_array_of_dictionaries(state.get("human_majors_won", [])),
+		"trainer_week_used": int(state.get("trainer_week_used", -1)),
 	}
 
 

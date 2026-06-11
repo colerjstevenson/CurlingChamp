@@ -6,6 +6,7 @@ const ROCK_NAMES_PATH := "res://lists/rockNames.txt"
 const FIRST_NAMES_PATH := "res://lists/first-names.txt"
 const LAST_NAMES_PATH := "res://lists/last-names.txt"
 const RINK_NAMES_PATH := "res://lists/rink_names.txt"
+const NEW_GAME_TEMPLATE_PATH := "res://data/new_game_template.json"
 const LIST_PATHS := [
 	ROCK_NAMES_PATH,
 	FIRST_NAMES_PATH,
@@ -19,14 +20,20 @@ const DEFAULT_LEAGUE_PLAYER_COUNT := 25
 const STONE_VARIANT_MIN := 1
 const STONE_VARIANT_MAX := 51
 const VALID_STONE_COLORS := ["red", "blue", "yellow"]
+const DEFAULT_PLAYER_NAME := "John Smith"
+const DEFAULT_PLAYER_COLOR := "yellow"
+const DEFAULT_OPPONENT_COLOR := "red"
+const DEFAULT_WEEK := 1
+const DEFAULT_YEAR := 1
+const DEFAULT_MONEY := 100
 
-var player_name: String = "John Smith"
-var player_color: String = "yellow"
-var opponent_color: String = "red"
+var player_name: String = DEFAULT_PLAYER_NAME
+var player_color: String = DEFAULT_PLAYER_COLOR
+var opponent_color: String = DEFAULT_OPPONENT_COLOR
 
-var week: int = 1
-var year: int = 1
-var money: int = 100
+var week: int = DEFAULT_WEEK
+var year: int = DEFAULT_YEAR
+var money: int = DEFAULT_MONEY
 var player_stones: Array[Stone] = []
 var store_stones: Array[Stone] = []
 var Schedule: Array[Dictionary] = []
@@ -42,25 +49,66 @@ var HumanAllTimeRecord: Dictionary = {
 var HumanMajorsWon: Array[Dictionary] = []
 ## The week number in which the player last used the trainer (-1 = never trained).
 var trainer_week_used: int = -1
+var current_save_slot: int = 0
+var _suspend_autosave: bool = false
 
 
 func _ready() -> void:
 	randomize()
 	_seed_user_lists_from_res()
-	_load_progress()
-	_ensure_starting_stones()
-	_ensure_store_stones()
-	_ensure_league_players()
-	_ensure_schedule()
 
 	if not state_changed.is_connected(_on_state_changed_autosave):
 		state_changed.connect(_on_state_changed_autosave)
 
-	# Ensure first run (or any migrated state) is immediately persisted.
+
+func load_game_from_slot(slot_index: int) -> bool:
+	if slot_index < 1 or slot_index > SaveFile.MAX_SAVE_SLOTS:
+		return false
+
+	var loaded_state := SaveFile.load_game_state(slot_index)
+	if loaded_state.is_empty():
+		return false
+
+	current_save_slot = slot_index
+	_suspend_autosave = true
+	_apply_loaded_state(loaded_state)
+	_ensure_starting_stones()
+	_ensure_store_stones()
+	_ensure_league_players()
+	_ensure_schedule()
+	_suspend_autosave = false
+
+	emit_signal("state_changed")
 	_save_progress()
+	return true
+
+
+func start_new_game_in_slot(slot_index: int, requested_player_name: String, requested_player_color: String) -> bool:
+	if slot_index < 1 or slot_index > SaveFile.MAX_SAVE_SLOTS:
+		return false
+
+	current_save_slot = slot_index
+	_suspend_autosave = true
+	_apply_new_game_defaults(requested_player_name, requested_player_color)
+	_ensure_starting_stones()
+	_ensure_store_stones()
+	_ensure_league_players()
+	_ensure_schedule()
+	_suspend_autosave = false
+
+	emit_signal("state_changed")
+	_save_progress()
+	return true
+
+
+func get_current_save_slot() -> int:
+	return current_save_slot
 
 
 func _load_progress() -> bool:
+	if current_save_slot < 1:
+		return false
+
 	var loaded_state := SaveFile.load_game_state()
 	if loaded_state.is_empty():
 		return false
@@ -70,15 +118,20 @@ func _load_progress() -> bool:
 
 
 func _save_progress() -> bool:
-	return SaveFile.save_game_state(_export_save_state())
+	if current_save_slot < 1:
+		return false
+	return SaveFile.save_game_state(_export_save_state(), current_save_slot)
 
 
 func _on_state_changed_autosave() -> void:
+	if _suspend_autosave:
+		return
 	_save_progress()
 
 
 func _export_save_state() -> Dictionary:
 	return {
+		"saved_at_unix": int(Time.get_unix_time_from_system()),
 		"player_name": player_name,
 		"player_color": player_color,
 		"opponent_color": opponent_color,
@@ -94,6 +147,115 @@ func _export_save_state() -> Dictionary:
 		"human_majors_won": HumanMajorsWon,
 		"trainer_week_used": trainer_week_used,
 	}
+
+
+func _apply_new_game_defaults(requested_player_name: String, requested_player_color: String) -> void:
+	var template := _load_new_game_template()
+	var template_player_name := String(template.get("player_name", DEFAULT_PLAYER_NAME)).strip_edges()
+	if template_player_name == "":
+		template_player_name = DEFAULT_PLAYER_NAME
+
+	var trimmed_name := requested_player_name.strip_edges()
+	if trimmed_name == "":
+		trimmed_name = template_player_name
+
+	var template_player_color := _normalize_stone_color(
+		String(template.get("player_color", DEFAULT_PLAYER_COLOR)),
+		DEFAULT_PLAYER_COLOR
+	)
+	var template_opponent_color := _normalize_stone_color(
+		String(template.get("opponent_color", DEFAULT_OPPONENT_COLOR)),
+		DEFAULT_OPPONENT_COLOR
+	)
+	var template_week: int = max(int(template.get("week", DEFAULT_WEEK)), 1)
+	var template_year: int = max(int(template.get("year", DEFAULT_YEAR)), 1)
+	var template_money := int(template.get("money", DEFAULT_MONEY))
+
+	player_name = trimmed_name
+	player_color = _normalize_stone_color(requested_player_color, template_player_color)
+	opponent_color = template_opponent_color
+	week = template_week
+	year = template_year
+	money = template_money
+
+	player_stones = _deserialize_stones_from_template(template.get("player_stones", []))
+	store_stones = _deserialize_stones_from_template(template.get("store_stones", []))
+
+	var template_schedule: Variant = template.get("schedule", [])
+	Schedule = _to_dictionary_array(template_schedule)
+
+	var template_league_players: Variant = template.get("league_players", [])
+	LeaguePlayers = _to_dictionary_array(template_league_players)
+
+	var default_record := {
+		"wins": 0,
+		"losses": 0,
+	}
+	HumanSeasonRecord = _record_with_defaults(template.get("human_season_record", default_record), default_record)
+	HumanAllTimeRecord = _record_with_defaults(template.get("human_all_time_record", default_record), default_record)
+
+	var template_majors: Variant = template.get("human_majors_won", [])
+	HumanMajorsWon = _to_dictionary_array(template_majors)
+
+	trainer_week_used = int(template.get("trainer_week_used", -1))
+
+
+func _load_new_game_template() -> Dictionary:
+	if not FileAccess.file_exists(NEW_GAME_TEMPLATE_PATH):
+		return {}
+
+	var file := FileAccess.open(NEW_GAME_TEMPLATE_PATH, FileAccess.READ)
+	if file == null:
+		push_warning("game_manager: failed to open new game template")
+		return {}
+
+	var raw_text := file.get_as_text()
+	if raw_text.strip_edges() == "":
+		return {}
+
+	var parsed: Variant = JSON.parse_string(raw_text)
+	if parsed is not Dictionary:
+		push_warning("game_manager: new game template must be a JSON object")
+		return {}
+
+	return parsed
+
+
+func _to_dictionary_array(raw_value: Variant) -> Array[Dictionary]:
+	var converted: Array[Dictionary] = []
+	if raw_value is not Array:
+		return converted
+
+	for entry in raw_value:
+		if entry is Dictionary:
+			converted.append(entry.duplicate(true))
+
+	return converted
+
+
+func _deserialize_stones_from_template(raw_stones: Variant) -> Array[Stone]:
+	var stones: Array[Stone] = []
+	if raw_stones is not Array:
+		return stones
+
+	for raw_stone in raw_stones:
+		if raw_stone is not Dictionary:
+			continue
+		stones.append(Stone.new(
+			String(raw_stone.get("name", "")),
+			int(raw_stone.get("power", 0)),
+			int(raw_stone.get("spin", 0)),
+			int(raw_stone.get("precision", 0)),
+			int(raw_stone.get("condition", 100)),
+			int(raw_stone.get("age", 1)),
+			int(raw_stone.get("wins", 0)),
+			int(raw_stone.get("variant", STONE_VARIANT_MIN)),
+			int(raw_stone.get("power_potential", 100)),
+			int(raw_stone.get("spin_potential", 100)),
+			int(raw_stone.get("precision_potential", 100))
+		))
+
+	return stones
 
 
 func _apply_loaded_state(loaded_state: Dictionary) -> void:
@@ -336,7 +498,7 @@ func get_opponent_name_for_week(week_number: int) -> String:
 ## Players are randomly paired; each pair's winner is determined by
 ## a skill-weighted probability. The human player is excluded since
 ## their result is recorded separately via complete_week_after_match().
-func simulate_other_league_games_for_week() -> void:
+func simulate_other_league_games_for_week(_week_number: int = -1) -> void:
 	if LeaguePlayers.is_empty():
 		return
 

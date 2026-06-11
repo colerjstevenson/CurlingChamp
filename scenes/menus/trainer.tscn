@@ -159,6 +159,7 @@ stretch_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
 offset_left = 130.0
 offset_top = 347.0
 offset_right = 481.0

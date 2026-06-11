@@ -257,14 +257,14 @@ func _score_precision() -> int:
 func _distance_to_points(dist: float) -> int:
 	# Closer = more points. 4-ring scoring like real curling, adapted.
 	var ratio := dist / house_radius
-	if ratio <= 0.1:
-		return 4 # Button (very centre).
-	elif ratio <= 0.35:
-		return 3
-	elif ratio <= 0.65:
-		return 2
+	if ratio <= 0.25:
+		return 400 # Button (very centre).
+	elif ratio <= 0.5:
+		return 300
+	elif ratio <= 0.75:
+		return 200
 	else:
-		return 1
+		return 100
 
 
 func _find_player_stone_in_house() -> RigidBody2D:
@@ -290,7 +290,7 @@ func _finish_training() -> void:
 	_move_camera_to_overview()
 
 	var boost := _score_to_boost(_total_score)
-	var max_possible := TRAINING_SHOTS * 4
+	var max_possible := TRAINING_SHOTS * 400
 
 	if is_instance_valid(result_label):
 		result_label.text = "Training complete!\nScore: %d / %d\n+%d %s" % [
@@ -311,11 +311,11 @@ func _finish_training() -> void:
 
 
 func _score_to_boost(score: int) -> int:
-	var max_possible := TRAINING_SHOTS * 4  # 20 total
+	var max_possible := TRAINING_SHOTS * 400  # 2000 total
 	var ratio := float(score) / float(max_possible)
-	if ratio >= 0.7:
+	if ratio >= 0.66:
 		return 10
-	elif ratio >= 0.4:
+	elif ratio >= 0.33:
 		return 7
 	else:
 		return 5

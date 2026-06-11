@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://training_game_scn1"]
+[gd_scene load_steps=9 format=3 uid="uid://bg8aqjmjx0e8u"]
 
 [ext_resource type="Texture2D" uid="uid://dkbppwjcbhyu7" path="res://assets/curling/rinkLong.png" id="1_rink"]
-[ext_resource type="Texture2D" uid="uid://conjylbqn2s2t" path="res://assets/e0380555-65b2-45fb-bb7d-2c546790c21f.png" id="2_score"]
 [ext_resource type="FontFile" uid="uid://mfdjupiwfar2" path="res://Fonts/PixeloidSans-mLxMm.ttf" id="3_font"]
 [ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="4_theme"]
-[ext_resource type="Script" path="res://scripts/training_game.gd" id="5_script"]
+[ext_resource type="Script" uid="uid://bq80ubo6vswgp" path="res://scripts/training_game.gd" id="5_script"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_walls"]
 friction = 0.05
@@ -19,8 +18,8 @@ radius = 111.005
 [sub_resource type="Theme" id="Theme_result"]
 default_font_size = 52
 Label/colors/font_color = Color(0, 0, 0, 1)
-RichTextLabel/fonts/normal_font = ExtResource("3_font")
 Label/fonts/font = ExtResource("3_font")
+RichTextLabel/fonts/normal_font = ExtResource("3_font")
 
 [node name="TrainingGame" type="Node2D"]
 position = Vector2(0, 84)
@@ -92,5 +91,4 @@ theme = SubResource("Theme_result")
 theme_override_font_sizes/font_size = 52
 horizontal_alignment = 1
 vertical_alignment = 1
-text = ""
 autowrap_mode = 3

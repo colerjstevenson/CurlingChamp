@@ -4,11 +4,11 @@ const TRAINING_STATS := ["Speed", "Precision", "Spin"]
 const TRAINING_GAME_SCENE := preload("res://scenes/menus/TrainingGame.tscn")
 
 @onready var stat_label: RichTextLabel = $StatSelector/RichTextLabel
-@onready var rock_selector: Control = $CanvasLayer/RockSelector
-@onready var rock_left_arrow: TextureButton = $CanvasLayer/RockSelector/LeftArrow2
-@onready var rock_right_arrow: TextureButton = $CanvasLayer/RockSelector/RightArrow2
-@onready var start_button: TextureButton = $CanvasLayer/StartButton
-@onready var comeback_panel: TextureRect = $Panel
+@onready var rock_selector: Control = $RockPanel/RockSelector
+@onready var rock_left_arrow: TextureButton = $RockPanel/RockSelector/LeftArrow2
+@onready var rock_right_arrow: TextureButton = $RockPanel/RockSelector/RightArrow2
+@onready var start_button: TextureButton = $RockPanel/StartButton
+@onready var comeback_panel: CanvasLayer = $RockPanel
 
 var _selected_stat_index := 0
 var _selected_rock_index := 0
@@ -116,4 +116,4 @@ func _refresh_weekly_lock() -> void:
 	if is_instance_valid(start_button):
 		start_button.disabled = not available
 	if is_instance_valid(comeback_panel):
-		comeback_panel.visible = not available
+		comeback_panel.visible = available

@@ -44,16 +44,16 @@ script = ExtResource("11_t0m3n")
 [node name="Control" parent="." instance=ExtResource("1_8js7n")]
 background_color = Color(0.574612, 0.0666305, 0.982883, 1)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="RockPanel" type="CanvasLayer" parent="."]
 
-[node name="RockSelector" parent="CanvasLayer" instance=ExtResource("8_hd128")]
+[node name="RockSelector" parent="RockPanel" instance=ExtResource("8_hd128")]
 offset_left = 96.16
 offset_top = 51.08
-offset_right = 238.72
-offset_bottom = 417.16
+offset_right = 122.72
+offset_bottom = 85.16
 scale = Vector2(0.695, 0.695)
 
-[node name="LeftArrow2" type="TextureButton" parent="CanvasLayer/RockSelector"]
+[node name="LeftArrow2" type="TextureButton" parent="RockPanel/RockSelector"]
 texture_filter = 1
 layout_mode = 0
 offset_left = -184.173
@@ -64,7 +64,7 @@ scale = Vector2(1.55743, 1.51799)
 texture_normal = SubResource("AtlasTexture_5tc8d")
 stretch_mode = 0
 
-[node name="RightArrow2" type="TextureButton" parent="CanvasLayer/RockSelector"]
+[node name="RightArrow2" type="TextureButton" parent="RockPanel/RockSelector"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 638.849
@@ -75,7 +75,7 @@ scale = Vector2(1.55743, 1.51799)
 texture_normal = SubResource("AtlasTexture_5vm2q")
 stretch_mode = 0
 
-[node name="StartButton" type="TextureButton" parent="CanvasLayer"]
+[node name="StartButton" type="TextureButton" parent="RockPanel"]
 texture_filter = 1
 offset_left = 218.0
 offset_top = 1095.0
@@ -85,7 +85,7 @@ texture_normal = SubResource("AtlasTexture_y312g")
 texture_disabled = SubResource("AtlasTexture_tgdyj")
 stretch_mode = 0
 
-[node name="text" type="RichTextLabel" parent="CanvasLayer/StartButton"]
+[node name="text" type="RichTextLabel" parent="RockPanel/StartButton"]
 layout_mode = 0
 offset_left = 102.0
 offset_top = 12.0
@@ -168,9 +168,9 @@ theme = ExtResource("2_hnnbp")
 text = "Comeback Tomorrow to Train More"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="CanvasLayer/RockSelector/LeftArrow2" to="." method="_on_rock_left_pressed"]
-[connection signal="pressed" from="CanvasLayer/RockSelector/RightArrow2" to="." method="_on_rock_right_pressed"]
-[connection signal="pressed" from="CanvasLayer/StartButton" to="." method="_start_pressed"]
+[connection signal="pressed" from="RockPanel/RockSelector/LeftArrow2" to="." method="_on_rock_left_pressed"]
+[connection signal="pressed" from="RockPanel/RockSelector/RightArrow2" to="." method="_on_rock_right_pressed"]
+[connection signal="pressed" from="RockPanel/StartButton" to="." method="_start_pressed"]
 [connection signal="pressed" from="StatSelector/LeftArrow" to="." method="_on_stat_left_pressed"]
 [connection signal="pressed" from="StatSelector/RightArrow" to="." method="_on_stat_right_pressed"]
 [connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

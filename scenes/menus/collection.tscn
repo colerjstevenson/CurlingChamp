@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://do10bn4ngs7ob"]
+[gd_scene load_steps=7 format=3 uid="uid://do10bn4ngs7ob"]
 
 [ext_resource type="Texture2D" uid="uid://70tj4avbinmn" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/UI_Gradient.png" id="1_r7yg1"]
+[ext_resource type="PackedScene" uid="uid://du0jadqlrsdsc" path="res://scenes/controls/MenuBG.tscn" id="2_80sn1"]
 [ext_resource type="Script" uid="uid://cv0f7wmfbqm32" path="res://scripts/backButton.gd" id="2_gslrm"]
 [ext_resource type="Script" uid="uid://dvbj1bisrjird" path="res://scripts/collection_menu.gd" id="3_fufcw"]
 
@@ -20,14 +21,15 @@ offset_right = 65.0
 offset_bottom = 62.0
 script = ExtResource("3_fufcw")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-z_index = -1
-layout_mode = 0
+[node name="Control" parent="." instance=ExtResource("2_80sn1")]
+layout_mode = 1
 offset_left = -31.0
-offset_top = -22.0
-offset_right = 695.0
-offset_bottom = 1252.0
-color = Color(0.189241, 0.447508, 0.65329, 1)
+offset_top = -24.0
+offset_right = -31.0
+offset_bottom = -24.0
+background_color = Color(0, 0.622936, 0.565106, 1)
+min_stone_speed = 100.0
+max_stone_speed = 150.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0

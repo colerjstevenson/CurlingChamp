@@ -40,19 +40,119 @@ var HumanAllTimeRecord: Dictionary = {
 	"losses": 0,
 }
 var HumanMajorsWon: Array[Dictionary] = []
+## The week number in which the player last used the trainer (-1 = never trained).
+var trainer_week_used: int = -1
 
 
 func _ready() -> void:
 	randomize()
 	_seed_user_lists_from_res()
+	_load_progress()
 	_ensure_starting_stones()
 	_ensure_store_stones()
 	_ensure_league_players()
 	_ensure_schedule()
 
+	if not state_changed.is_connected(_on_state_changed_autosave):
+		state_changed.connect(_on_state_changed_autosave)
+
+	# Ensure first run (or any migrated state) is immediately persisted.
+	_save_progress()
+
+
+func _load_progress() -> bool:
+	var loaded_state := SaveFile.load_game_state()
+	if loaded_state.is_empty():
+		return false
+
+	_apply_loaded_state(loaded_state)
+	return true
+
+
+func _save_progress() -> bool:
+	return SaveFile.save_game_state(_export_save_state())
+
+
+func _on_state_changed_autosave() -> void:
+	_save_progress()
+
+
+func _export_save_state() -> Dictionary:
+	return {
+		"player_name": player_name,
+		"player_color": player_color,
+		"opponent_color": opponent_color,
+		"week": week,
+		"year": year,
+		"money": money,
+		"player_stones": player_stones,
+		"store_stones": store_stones,
+		"schedule": Schedule,
+		"league_players": LeaguePlayers,
+		"human_season_record": HumanSeasonRecord,
+		"human_all_time_record": HumanAllTimeRecord,
+		"human_majors_won": HumanMajorsWon,
+		"trainer_week_used": trainer_week_used,
+	}
+
+
+func _apply_loaded_state(loaded_state: Dictionary) -> void:
+	player_name = String(loaded_state.get("player_name", player_name))
+	player_color = _normalize_stone_color(String(loaded_state.get("player_color", player_color)), player_color)
+	opponent_color = _normalize_stone_color(String(loaded_state.get("opponent_color", opponent_color)), opponent_color)
+	week = max(int(loaded_state.get("week", week)), 1)
+	year = max(int(loaded_state.get("year", year)), 1)
+	money = int(loaded_state.get("money", money))
+
+	var loaded_player_stones: Variant = loaded_state.get("player_stones", player_stones)
+	if loaded_player_stones is Array:
+		player_stones = loaded_player_stones
+
+	var loaded_store_stones: Variant = loaded_state.get("store_stones", store_stones)
+	if loaded_store_stones is Array:
+		store_stones = loaded_store_stones
+
+	var loaded_schedule: Variant = loaded_state.get("schedule", Schedule)
+	if loaded_schedule is Array:
+		Schedule = loaded_schedule
+
+	var loaded_league_players: Variant = loaded_state.get("league_players", LeaguePlayers)
+	if loaded_league_players is Array:
+		LeaguePlayers = loaded_league_players
+
+	HumanSeasonRecord = _record_with_defaults(loaded_state.get("human_season_record", HumanSeasonRecord), HumanSeasonRecord)
+	HumanAllTimeRecord = _record_with_defaults(loaded_state.get("human_all_time_record", HumanAllTimeRecord), HumanAllTimeRecord)
+
+	var loaded_majors: Variant = loaded_state.get("human_majors_won", HumanMajorsWon)
+	if loaded_majors is Array:
+		HumanMajorsWon = loaded_majors
+
+	trainer_week_used = int(loaded_state.get("trainer_week_used", -1))
+
+
+func _record_with_defaults(raw_record: Variant, fallback: Dictionary) -> Dictionary:
+	if raw_record is not Dictionary:
+		return fallback.duplicate(true)
+
+	var record: Dictionary = raw_record.duplicate(true)
+	record["wins"] = int(record.get("wins", fallback.get("wins", 0)))
+	record["losses"] = int(record.get("losses", fallback.get("losses", 0)))
+	return record
+
 
 func set_week(new_week: int) -> void:
 	week = max(new_week, 1)
+	emit_signal("state_changed")
+
+
+## Returns true if the player has not yet trained this calendar week.
+func is_training_available() -> bool:
+	return trainer_week_used != week
+
+
+## Mark the trainer as used for the current week. Called from training_game.gd.
+func set_trainer_week_used() -> void:
+	trainer_week_used = week
 	emit_signal("state_changed")
 
 
@@ -236,7 +336,7 @@ func get_opponent_name_for_week(week_number: int) -> String:
 ## Players are randomly paired; each pair's winner is determined by
 ## a skill-weighted probability. The human player is excluded since
 ## their result is recorded separately via complete_week_after_match().
-func simulate_other_league_games_for_week(week_number: int) -> void:
+func simulate_other_league_games_for_week() -> void:
 	if LeaguePlayers.is_empty():
 		return
 
@@ -316,7 +416,7 @@ func complete_week_after_match(did_win: bool) -> void:
 		Schedule[week - 1] = entry
 
 	# Simulate the rest of the league for this week.
-	simulate_other_league_games_for_week(week)
+	simulate_other_league_games_for_week()
 
 	# Advance to next week (cap at season length so it doesn't overflow).
 	week = mini(week + 1, Schedule.size())

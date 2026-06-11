@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://du0jadqlrsdsc"]
+
+[ext_resource type="Texture2D" uid="uid://kca4g3lv2jdw" path="res://assets/icons/curlingstone.png" id="1_s28xs"]
+[ext_resource type="Script" uid="uid://dey3pcr02rj7v" path="res://scripts/menu_bg.gd" id="2_s8ocf"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_s8ocf")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 728.0
+offset_bottom = 1289.0
+color = Color(0.943731, 0.639724, 1, 1)
+
+[node name="Rock1" type="RigidBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Rock1"]
+texture_filter = 1
+scale = Vector2(1.8, 1.96)
+texture = ExtResource("1_s28xs")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rock1"]
+position = Vector2(-1, 1)
+scale = Vector2(1.8, 1.96)
+polygon = PackedVector2Array(25, -21, 31, -8, 36, 0, 42, 11, 38, 26, 29, 32, 18, 32, -1, 33, -26, 32, -39, 22, -39, 6, -31, -4, -26, -16, -22, -24, -17, -29, -10, -33, 18, -34)

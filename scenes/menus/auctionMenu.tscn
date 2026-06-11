@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://cf05mjhcwgegs"]
+[gd_scene load_steps=15 format=3 uid="uid://cf05mjhcwgegs"]
 
 [ext_resource type="Texture2D" uid="uid://70tj4avbinmn" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/UI_Gradient.png" id="1_lijkr"]
+[ext_resource type="PackedScene" uid="uid://du0jadqlrsdsc" path="res://scenes/controls/MenuBG.tscn" id="2_bkxog"]
 [ext_resource type="Script" uid="uid://cv0f7wmfbqm32" path="res://scripts/backButton.gd" id="2_t4txg"]
 [ext_resource type="Texture2D" uid="uid://cevg37urke3ky" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/Spritesheet_UI_Gradient_Button.png" id="3_1rn38"]
 [ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="3_lijkr"]
@@ -40,10 +41,13 @@ region = Rect2(294.799, 198.507, 19.2939, 21.7466)
 [node name="Node2D" type="Node2D"]
 script = ExtResource("4_5nrv0")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 713.0
-offset_bottom = 1285.0
-color = Color(0.191727, 0.678146, 0.795431, 1)
+[node name="Control" parent="." instance=ExtResource("2_bkxog")]
+offset_left = -2.0
+offset_top = -7.0
+offset_right = -2.0
+offset_bottom = -7.0
+min_stone_speed = 100.0
+max_stone_speed = 150.0
 
 [node name="Buy" type="Control" parent="."]
 layout_mode = 3

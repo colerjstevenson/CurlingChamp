@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://1gv6ikng0kr"]
+[gd_scene load_steps=17 format=3 uid="uid://1gv6ikng0kr"]
 
 [ext_resource type="Script" uid="uid://cttpdy67qdxem" path="res://scripts/calendar_menu.gd" id="1_kin2q"]
 [ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="2_hckl6"]
 [ext_resource type="Texture2D" uid="uid://1tfd0w1xcib4" path="res://assets/UI/Pixel UI/Panels/Panels_Sheetl.png" id="3_3o4tx"]
+[ext_resource type="PackedScene" uid="uid://du0jadqlrsdsc" path="res://scenes/controls/MenuBG.tscn" id="3_47u8q"]
 [ext_resource type="Texture2D" uid="uid://cevg37urke3ky" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/Spritesheet_UI_Gradient_Button.png" id="3_hckl6"]
 [ext_resource type="Texture2D" uid="uid://70tj4avbinmn" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/UI_Gradient.png" id="3_isy1x"]
 [ext_resource type="Script" uid="uid://cv0f7wmfbqm32" path="res://scripts/backButton.gd" id="4_3o4tx"]
@@ -43,11 +44,11 @@ anchors_preset = 0
 theme = ExtResource("2_hckl6")
 script = ExtResource("1_kin2q")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_right = 721.0
-offset_bottom = 1285.0
-color = Color(0.191727, 0.678146, 0.795431, 1)
+[node name="Control" parent="." instance=ExtResource("3_47u8q")]
+layout_mode = 1
+background_color = Color(0.0948422, 0.40093, 0.776996, 1)
+min_stone_speed = 100.0
+max_stone_speed = 150.0
 
 [node name="Schedule" type="CanvasLayer" parent="."]
 

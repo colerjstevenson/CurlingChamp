@@ -178,9 +178,32 @@ func _show_new_game_setup(slot_index: int) -> void:
 	_selected_slot = slot_index
 	if is_instance_valid(new_game_setup):
 		new_game_setup.visible = true
-	if is_instance_valid(name_input):
-		name_input.grab_focus()
+	call_deferred("_focus_name_input_for_new_game")
 	_update_setup_stone_preview()
+
+
+func _focus_name_input_for_new_game() -> void:
+	if not is_instance_valid(name_input):
+		return
+
+	name_input.grab_focus()
+	_request_virtual_keyboard_for_name_input()
+
+
+func _request_virtual_keyboard_for_name_input() -> void:
+	if not is_instance_valid(name_input):
+		return
+	if not DisplayServer.has_feature(DisplayServer.FEATURE_VIRTUAL_KEYBOARD):
+		return
+
+	var input_rect := name_input.get_global_rect()
+	var keyboard_rect := Rect2i(
+		int(input_rect.position.x),
+		int(input_rect.position.y),
+		int(input_rect.size.x),
+		int(input_rect.size.y)
+	)
+	DisplayServer.virtual_keyboard_show(name_input.text, keyboard_rect, DisplayServer.KEYBOARD_TYPE_DEFAULT)
 
 
 func _on_left_arrow_pressed() -> void:

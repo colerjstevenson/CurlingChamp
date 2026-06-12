@@ -16,7 +16,7 @@ script = ExtResource("2_s8ocf")
 layout_mode = 0
 offset_right = 728.0
 offset_bottom = 1289.0
-color = Color(0.943731, 0.639724, 1, 1)
+color = Color(3.56168e-06, 0.60571, 0.847271, 1)
 
 [node name="Rock1" type="RigidBody2D" parent="."]
 

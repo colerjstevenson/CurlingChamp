@@ -293,12 +293,12 @@ offset_right = 595.0
 offset_bottom = 803.0
 texture = SubResource("AtlasTexture_ay15c")
 
-[node name="Success" type="RichTextLabel" parent="BreedingFailed/Panal"]
+[node name="Failed" type="RichTextLabel" parent="BreedingFailed/Panal"]
 texture_filter = 1
-offset_left = 35.0
-offset_top = 115.0
-offset_right = 447.0
-offset_bottom = 263.0
+offset_left = 34.0
+offset_top = 145.0
+offset_right = 446.0
+offset_bottom = 293.0
 mouse_filter = 2
 theme = ExtResource("2_2hpqm")
 theme_override_colors/default_color = Color(0.782745, 0, 0.153947, 1)

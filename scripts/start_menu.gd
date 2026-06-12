@@ -83,6 +83,8 @@ func _connect_signals() -> void:
 		confirm_yes_button.pressed.connect(_on_confirm_delete_yes_pressed)
 	if is_instance_valid(confirm_no_button):
 		confirm_no_button.pressed.connect(_on_confirm_delete_no_pressed)
+	if is_instance_valid(name_input):
+		name_input.gui_input.connect(_on_name_input_gui_input)
 
 
 func _refresh_slot_buttons() -> void:
@@ -178,6 +180,8 @@ func _show_new_game_setup(slot_index: int) -> void:
 	_selected_slot = slot_index
 	if is_instance_valid(new_game_setup):
 		new_game_setup.visible = true
+	# On mobile web, request focus while still in the tap/click callback.
+	_focus_name_input_for_new_game()
 	call_deferred("_focus_name_input_for_new_game")
 	_update_setup_stone_preview()
 
@@ -204,6 +208,14 @@ func _request_virtual_keyboard_for_name_input() -> void:
 		int(input_rect.size.y)
 	)
 	DisplayServer.virtual_keyboard_show(name_input.text, keyboard_rect, DisplayServer.KEYBOARD_TYPE_DEFAULT)
+
+
+func _on_name_input_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.pressed:
+		_focus_name_input_for_new_game()
+		return
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		_focus_name_input_for_new_game()
 
 
 func _on_left_arrow_pressed() -> void:

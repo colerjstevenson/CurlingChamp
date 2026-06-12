@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c6lg1i8npojwy"]
+[gd_scene load_steps=25 format=3 uid="uid://c6lg1i8npojwy"]
 
 [ext_resource type="PackedScene" uid="uid://du0jadqlrsdsc" path="res://scenes/controls/MenuBG.tscn" id="1_2hao2"]
 [ext_resource type="Texture2D" uid="uid://70tj4avbinmn" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/UI_Gradient.png" id="1_vitth"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://uorcffu85i7e" path="res://assets/UI/UI_Wood_D_Border.png" id="4_yb7ru"]
 [ext_resource type="Texture2D" uid="uid://60hha8k4xt0s" path="res://assets/curling/stones/variants/yellow/stone_variant_yellow0001.png" id="8_lva2r"]
 [ext_resource type="Texture2D" uid="uid://cevg37urke3ky" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/Spritesheet_UI_Gradient_Button.png" id="9_2b5sx"]
+[ext_resource type="Texture2D" uid="uid://gic4qmin7qxa" path="res://assets/UI/Essential UI/07_Gradient_Theme/Sprites/UI_Gradient_Cross_Large.png" id="9_lva2r"]
 [ext_resource type="Texture2D" uid="uid://ullende40irc" path="res://assets/UI/Pixel UI/Colors/Cyan/cyan_spritesheet.png" id="9_xl6cd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q2ri1"]
@@ -279,7 +280,50 @@ anchors_preset = 0
 offset_right = 725.0
 offset_bottom = 1282.0
 
+[node name="Panal" type="TextureRect" parent="BreedingIP"]
+texture_filter = 1
+offset_left = 122.0
+offset_top = 320.0
+offset_right = 595.0
+offset_bottom = 803.0
+texture = SubResource("AtlasTexture_ay15c")
+
+[node name="Failed" type="RichTextLabel" parent="BreedingIP/Panal"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 36.0
+offset_top = 37.0
+offset_right = 448.0
+offset_bottom = 185.0
+mouse_filter = 2
+theme = ExtResource("2_2hpqm")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.611765)
+theme_override_font_sizes/normal_font_size = 52
+text = "Breeding in Progress
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="comback" type="RichTextLabel" parent="BreedingIP/Panal"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 30.0
+offset_top = 320.0
+offset_right = 442.0
+offset_bottom = 468.0
+mouse_filter = 2
+theme = ExtResource("2_2hpqm")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.611765)
+theme_override_font_sizes/normal_font_size = 32
+text = "Come back next week to see results
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="BreedingFailed" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -287,6 +331,7 @@ offset_bottom = 40.0
 
 [node name="Panal" type="TextureRect" parent="BreedingFailed"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 122.0
 offset_top = 320.0
 offset_right = 595.0
@@ -295,6 +340,7 @@ texture = SubResource("AtlasTexture_ay15c")
 
 [node name="Failed" type="RichTextLabel" parent="BreedingFailed/Panal"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 34.0
 offset_top = 145.0
 offset_right = 446.0
@@ -309,8 +355,16 @@ text = "Breeding Failed
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="close" type="TextureButton" parent="BreedingFailed/Panal"]
+texture_filter = 1
+offset_left = 347.0
+offset_top = 8.0
+offset_right = 443.0
+offset_bottom = 103.0
+texture_normal = ExtResource("9_lva2r")
+stretch_mode = 0
+
 [node name="BreedingSuccess" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -318,8 +372,9 @@ offset_bottom = 40.0
 
 [node name="Preview" type="TextureRect" parent="BreedingSuccess"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 122.0
-offset_top = 320.0
+offset_top = 173.0
 offset_right = 595.0
 offset_bottom = 803.0
 texture = SubResource("AtlasTexture_ay15c")
@@ -327,9 +382,9 @@ texture = SubResource("AtlasTexture_ay15c")
 [node name="Stats" type="VBoxContainer" parent="BreedingSuccess/Preview"]
 layout_mode = 0
 offset_left = 22.0
-offset_top = 200.0
+offset_top = 358.0
 offset_right = 620.0
-offset_bottom = 488.0
+offset_bottom = 646.0
 scale = Vector2(0.76, 0.879999)
 theme_override_constants/separation = 40
 
@@ -400,7 +455,7 @@ value = 28.04
 show_percentage = false
 
 [node name="stoneSprite" type="Sprite2D" parent="BreedingSuccess/Preview"]
-position = Vector2(244, 103)
+position = Vector2(231, 245)
 scale = Vector2(0.230903, 0.258681)
 texture = ExtResource("8_lva2r")
 
@@ -416,6 +471,7 @@ placeholder_text = "Rocky"
 
 [node name="KeepButton" type="TextureButton" parent="BreedingSuccess"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 127.0
 offset_top = 1065.0
 offset_right = 297.0
@@ -504,9 +560,9 @@ vertical_alignment = 1
 texture_filter = 1
 layout_mode = 0
 offset_left = 156.0
-offset_top = 156.0
+offset_top = 188.0
 offset_right = 568.0
-offset_bottom = 304.0
+offset_bottom = 336.0
 mouse_filter = 2
 theme = ExtResource("2_2hpqm")
 theme_override_colors/default_color = Color(0.325915, 1, 0.298232, 1)

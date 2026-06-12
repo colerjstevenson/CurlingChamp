@@ -305,7 +305,7 @@ texture = SubResource("AtlasTexture_xyhka")
 stretch_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="TextEdit" type="TextEdit" parent="NewGameSetup/Panel"]
+[node name="TextEdit" type="LineEdit" parent="NewGameSetup/Panel"]
 layout_mode = 0
 offset_left = 103.0
 offset_top = 233.0
@@ -313,6 +313,9 @@ offset_right = 549.0
 offset_bottom = 314.0
 theme = ExtResource("4_e2oj6")
 placeholder_text = "John Smith"
+clear_button_enabled = true
+editable = true
+virtual_keyboard_enabled = true
 
 [node name="stone" type="Sprite2D" parent="NewGameSetup/Panel"]
 position = Vector2(324, 521)

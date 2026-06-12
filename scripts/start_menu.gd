@@ -9,7 +9,7 @@ const AVAILABLE_COLORS := ["red", "blue", "yellow"]
 
 @onready var main_layer: CanvasLayer = $MainLayer
 @onready var new_game_setup: CanvasLayer = $NewGameSetup
-@onready var name_input: TextEdit = $NewGameSetup/Panel/TextEdit
+@onready var name_input: LineEdit = $NewGameSetup/Panel/TextEdit
 @onready var setup_stone_sprite: Sprite2D = $NewGameSetup/Panel/stone
 @onready var left_arrow_button: TextureButton = $NewGameSetup/Panel/stone/LeftArrow
 @onready var right_arrow_button: TextureButton = $NewGameSetup/Panel/stone/RightArrow
@@ -254,8 +254,7 @@ func _read_player_name_input() -> String:
 	if not is_instance_valid(name_input):
 		return ""
 
-	var raw_text := name_input.text
-	return raw_text.replace("\n", " ").strip_edges()
+	return name_input.text.strip_edges()
 
 
 func _update_setup_stone_preview() -> void:

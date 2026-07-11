@@ -1,10 +1,13 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://gqyid25k0itd"]
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://gqyid25k0itd"]
 
 [ext_resource type="FontFile" uid="uid://mfdjupiwfar2" path="res://Fonts/PixeloidSans-mLxMm.ttf" id="1_014c2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_014c2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l0swj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0swj"]
+bg_color = Color(0.79804, 0.67102, 3.85046e-07, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_014c2"]
 bg_color = Color(0.853706, 0.872212, 0, 1)
@@ -21,7 +24,7 @@ data = {
 [sub_resource type="ImageTexture" id="ImageTexture_l0swj"]
 image = SubResource("Image_014c2")
 
-[sub_resource type="Image" id="Image_wssc1"]
+[sub_resource type="Image" id="Image_l0swj"]
 data = {
 "data": PackedByteArray(179, 179, 179, 47, 179, 179, 179, 50, 179, 179, 179, 6, 175, 175, 175, 0, 180, 180, 180, 0, 180, 180, 180, 0, 180, 180, 180, 64, 180, 180, 180, 64, 177, 177, 177, 49, 180, 180, 180, 64, 175, 175, 175, 54, 175, 175, 175, 6, 175, 175, 175, 0, 180, 180, 180, 0, 180, 180, 180, 64, 180, 180, 180, 64, 177, 177, 177, 5, 177, 177, 177, 52, 180, 180, 180, 64, 175, 175, 175, 54, 175, 175, 175, 6, 180, 180, 180, 0, 180, 180, 180, 64, 180, 180, 180, 64, 177, 177, 177, 0, 177, 177, 177, 5, 177, 177, 177, 52, 180, 180, 180, 64, 179, 179, 179, 50, 179, 179, 179, 0, 180, 180, 180, 64, 180, 180, 180, 64, 178, 178, 178, 0, 178, 178, 178, 6, 178, 178, 178, 53, 180, 180, 180, 64, 177, 177, 177, 49, 177, 177, 177, 0, 180, 180, 180, 64, 180, 180, 180, 64, 178, 178, 178, 6, 178, 178, 178, 53, 180, 180, 180, 64, 178, 178, 178, 53, 177, 177, 177, 5, 180, 180, 180, 0, 180, 180, 180, 64, 180, 180, 180, 64, 181, 181, 181, 48, 180, 180, 180, 64, 178, 178, 178, 53, 178, 178, 178, 5, 178, 178, 178, 0, 180, 180, 180, 0, 180, 180, 180, 64, 180, 180, 180, 64, 181, 181, 181, 41, 181, 181, 181, 48, 178, 178, 178, 5, 178, 178, 178, 0, 180, 180, 180, 0, 180, 180, 180, 0, 180, 180, 180, 64, 180, 180, 180, 64),
 "format": "RGBA8",
@@ -31,7 +34,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_mtq8t"]
-image = SubResource("Image_wssc1")
+image = SubResource("Image_l0swj")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4u4dd"]
 content_margin_left = 4.0
@@ -85,6 +88,7 @@ corner_detail = 5
 [resource]
 HScrollBar/styles/grabber = SubResource("StyleBoxEmpty_014c2")
 HScrollBar/styles/scroll = SubResource("StyleBoxEmpty_l0swj")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_l0swj")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_014c2")
 RichTextLabel/font_sizes/normal_font_size = 35
 RichTextLabel/fonts/normal_font = ExtResource("1_014c2")

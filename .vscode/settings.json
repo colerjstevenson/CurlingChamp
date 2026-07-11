@@ -1,0 +1,25 @@
+{
+    "godotTools.editorPath.godot4": "c:\\Users\\cole\\Desktop\\Godot_v4.4.1-stable_win64.exe",
+
+    "search.exclude": {
+        "**/.godot/**": true,
+        "**/.git/**": true,
+        "**/assets/**": true,
+        "**/*.png": true,
+        "**/*.zip": true,
+        "**/*.png.import": true,
+        "**/*.jpg": true,
+        "**/*.jpeg": true,
+        "**/*.ogg": true,
+        "**/*.mp3": true,
+        "**/*.blend": true,
+        "**/*.psd": true
+    },
+
+    "files.watcherExclude": {
+        "**/.godot/**": true,
+        "**/assets/**": true
+    }
+
+
+}

@@ -76,6 +76,7 @@ func load_game_from_slot(slot_index: int) -> bool:
 	_ensure_store_stones()
 	_ensure_league_players()
 	_ensure_schedule()
+	_prune_broken_player_stones()
 	_suspend_autosave = false
 
 	emit_signal("state_changed")
@@ -94,6 +95,7 @@ func start_new_game_in_slot(slot_index: int, requested_player_name: String, requ
 	_ensure_store_stones()
 	_ensure_league_players()
 	_ensure_schedule()
+	_prune_broken_player_stones()
 	_suspend_autosave = false
 
 	emit_signal("state_changed")
@@ -541,9 +543,9 @@ func simulate_other_league_games_for_week(_week_number: int = -1) -> void:
 	emit_signal("state_changed")
 
 
-## Records the human match result, sets the schedule result text, simulates
-## other league games, and advances to the next week. Call this after a match ends.
-func complete_week_after_match(did_win: bool) -> void:
+## Records the human match result, applies any stone wear, sets the schedule result text,
+## simulates other league games, and advances to the next week. Call this after a match ends.
+func complete_week_after_match(did_win: bool, wear_reports: Dictionary = {}) -> void:
 	var current_entry := _get_schedule_entry(week)
 	var is_major := bool(current_entry.get("is_major", false))
 	var major_name := String(current_entry.get("event_name", ""))
@@ -577,6 +579,8 @@ func complete_week_after_match(did_win: bool) -> void:
 		entry["result"] = result_text
 		Schedule[week - 1] = entry
 
+	_apply_post_match_stone_wear(wear_reports)
+
 	# Simulate the rest of the league for this week.
 	simulate_other_league_games_for_week()
 
@@ -584,6 +588,49 @@ func complete_week_after_match(did_win: bool) -> void:
 	week = mini(week + 1, Schedule.size())
 
 	emit_signal("state_changed")
+
+
+func _apply_post_match_stone_wear(wear_reports: Dictionary) -> void:
+	if wear_reports.is_empty():
+		return
+
+	var broken_indices: Array[int] = []
+	for key in wear_reports.keys():
+		var stone_index := int(key)
+		if stone_index <= 0:
+			continue
+
+		var roster_index := stone_index - 1
+		if roster_index < 0 or roster_index >= player_stones.size():
+			continue
+
+		var wear := maxi(int(wear_reports.get(key, 0)), 0)
+		if wear <= 0:
+			continue
+
+		var stone := player_stones[roster_index]
+		if stone == null:
+			continue
+
+		stone.set_condition(maxi(stone.condition - wear, 0))
+		if stone.condition <= 0:
+			broken_indices.append(roster_index)
+
+	broken_indices.sort()
+	broken_indices.reverse()
+	for broken_index in broken_indices:
+		player_stones.remove_at(broken_index)
+
+
+func _prune_broken_player_stones() -> void:
+	var broken_indices: Array[int] = []
+	for index in range(player_stones.size() - 1, -1, -1):
+		var stone := player_stones[index]
+		if stone == null or int(stone.condition) <= 0:
+			broken_indices.append(index)
+
+	for broken_index in broken_indices:
+		player_stones.remove_at(broken_index)
 
 
 func _ensure_starting_stones() -> void:

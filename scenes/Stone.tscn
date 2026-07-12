@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgtccu3an8s4r"]
+[gd_scene load_steps=6 format=3 uid="uid://cgtccu3an8s4r"]
 
 [ext_resource type="Texture2D" uid="uid://dm6diy0o68jyk" path="res://assets/curling/stones/stone_red_top.png" id="1"]
 [ext_resource type="Script" uid="uid://dekapo6fw7t12" path="res://scripts/stone.gd" id="2"]
+[ext_resource type="Resource" uid="uid://djdfdynxi04o" path="res://data/throw_physics_config.tres" id="3_throw_config"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_stone"]
 friction = 0.05
@@ -16,6 +17,12 @@ gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 8
 script = ExtResource("2")
+throw_config = ExtResource("3_throw_config")
+sweep_influence_radius = 232.68
+sweep_side_weight = 1.0
+sweep_side_front_gate_bias = 0.5
+sweep_particle_amount = 100
+sweep_particle_lifetime = 0.5
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.05625, 0.05625)

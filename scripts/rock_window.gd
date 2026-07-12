@@ -15,6 +15,8 @@ const YELLOW_SIDE_TEXTURE := preload("res://assets/curling/stones/stone_yellow_s
 @onready var condition_bar: ProgressBar = $Panel/VBoxContainer/Spin2/SpinBar
 @onready var close_button: TextureButton = $Panel/Close
 @onready var auction_button: TextureButton = $Panel/auctionButton
+@onready var used_shading: Control = $UsedShading
+@onready var selected_highlight: Control = $SelectedHighlight
 
 
 func _ready() -> void:
@@ -22,6 +24,8 @@ func _ready() -> void:
 		close_button.visible = false
 	if is_instance_valid(auction_button):
 		auction_button.visible = false
+	set_used_overlay_visible(false)
+	set_selected_overlay_visible(false)
 
 
 func setup_from_stone(stone: Stone) -> void:
@@ -40,6 +44,20 @@ func setup_from_stone(stone: Stone) -> void:
 	_set_bar_value(spin_bar, stone.spin)
 	_set_bar_value(precision_bar, stone.precision)
 	_set_bar_value(condition_bar, stone.condition)
+
+
+func set_used_overlay_visible(overlay_visible: bool) -> void:
+	if is_instance_valid(used_shading):
+		used_shading.visible = overlay_visible
+
+
+func set_selected_overlay_visible(overlay_visible: bool) -> void:
+	if is_instance_valid(selected_highlight):
+		selected_highlight.visible = overlay_visible
+
+
+func set_selectable(is_selectable: bool) -> void:
+	mouse_filter = Control.MOUSE_FILTER_STOP if is_selectable else Control.MOUSE_FILTER_IGNORE
 
 
 func _set_bar_value(bar: ProgressBar, value: int) -> void:

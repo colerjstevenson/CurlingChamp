@@ -230,9 +230,12 @@ func _calculate_power(spawn: Vector2, target: Vector2, stone: RigidBody2D) -> fl
 	var distance := spawn.distance_to(target)
 	var stop_deceleration: float = float(stone.get("stop_deceleration"))
 	var launch_speed_multiplier: float = float(stone.get("launch_speed_multiplier"))
+	var throw_distance_scale: float = maxf(float(stone.get("throw_distance_scale")), 0.01)
 	# Factor 2.1 accounts for the extra low-speed deceleration phase in stone.gd.
 	var desired_speed := sqrt(maxf(distance * stop_deceleration * 2.1, 0.0))
-	return desired_speed / maxf(launch_speed_multiplier, 0.01)
+	# Match flow scales AI input power by throw_distance_scale before launch_shot,
+	# so normalize here to avoid unintentionally overdriving long-sheet throws.
+	return desired_speed / maxf(launch_speed_multiplier * throw_distance_scale, 0.01)
 
 
 func _find_blocking_guard(spawn: Vector2, target: Vector2, guards: Array) -> Vector2:
@@ -278,6 +281,7 @@ func _get_difficulty_params() -> Dictionary:
 		"power_max":      1.0 + power_half_range,
 		"strategy_level": strategy_level,
 		"use_guard_curl": d >= 6.0,
-		"think_min":      lerpf(1.0, 0.25, t),
-		"think_max":      lerpf(2.5, 0.5, t),
+		# Keep AI response snappy so post-turn handoff does not feel stalled.
+		"think_min":      lerpf(0.25, 0.08, t),
+		"think_max":      lerpf(0.7, 0.18, t),
 	}

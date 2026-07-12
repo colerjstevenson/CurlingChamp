@@ -1,6 +1,6 @@
 extends Control
 
-const MAIN_MENU_SCENE := preload("res://scenes/main.tscn")
+const MAIN_MENU_SCENE := preload("res://scenes/Main.tscn")
 const RED_STONE_TEXTURE := preload("res://assets/curling/stones/stone_red_side.png")
 const BLUE_STONE_TEXTURE := preload("res://assets/curling/stones/stone_blue_side.png")
 const YELLOW_STONE_TEXTURE := preload("res://assets/curling/stones/stone_yellow_side.png")

@@ -9,6 +9,7 @@ signal training_complete(stat: String, score: int)
 const STONE_SCENE := preload("res://scenes/Stone.tscn")
 const STONES_GROUP := "stones"
 const TRAINING_SHOTS := 5
+const DEFAULT_THROW_CONFIG_PATH := "res://data/throw_physics_config.tres"
 
 ## Set by trainer_menu before changing scene.
 @export var training_stat: String = "Speed"
@@ -25,6 +26,7 @@ const TRAINING_SHOTS := 5
 @export var camera_follow_zoom := Vector2(1.5, 1.5)
 @export var camera_follow_lerp_speed := 6.0
 @export var camera_overview_delay := 0.25
+@export var throw_config: Resource
 
 ## House position and radius — read from scene nodes in _ready().
 var house_center := Vector2(360.0, 64.0)
@@ -46,6 +48,7 @@ var _followed_stone: RigidBody2D = null
 
 func _ready() -> void:
 	randomize()
+	_ensure_throw_config()
 	house_center = $house.position
 	house_radius = $house/houseArea.shape.radius
 	guard_zone_y = house_center.y + house_radius + 80.0
@@ -98,6 +101,11 @@ func _start_next_shot() -> void:
 	add_child(stone)
 	stone.add_to_group(STONES_GROUP)
 	stone.set_stone_color(human_player_color)
+	if stone.has_method("set_throw_config") and throw_config != null:
+		stone.set_throw_config(throw_config)
+	if stone.has_method("set_throw_distance_scale"):
+		stone.set_throw_distance_scale(_get_throw_distance_scale())
+	_apply_training_stone_profile(stone)
 	stone.set_player_control_enabled(true)
 	stone.stone_stopped.connect(_on_player_stone_stopped)
 	if stone.has_signal("stone_launched"):
@@ -172,9 +180,49 @@ func _spawn_opponent_stone(pos: Vector2, frozen: bool = false) -> RigidBody2D:
 	add_child(stone)
 	stone.add_to_group(STONES_GROUP)
 	stone.set_stone_color(opponent_color)
+	if stone.has_method("set_throw_config") and throw_config != null:
+		stone.set_throw_config(throw_config)
+	if stone.has_method("set_throw_distance_scale"):
+		stone.set_throw_distance_scale(_get_throw_distance_scale())
 	stone.set_player_control_enabled(false)
 	stone.freeze = frozen
 	return stone
+
+
+func _ensure_throw_config() -> void:
+	if throw_config != null:
+		return
+
+	var loaded_config := load(DEFAULT_THROW_CONFIG_PATH)
+	if loaded_config != null and loaded_config.has_method("get_throw_distance_scale"):
+		throw_config = loaded_config
+
+
+func _get_throw_distance_scale() -> float:
+	var throw_distance: float = maxf(absf(stone_spawn_position.y - house_center.y), 1.0)
+	if throw_config == null or not throw_config.has_method("get_throw_distance_scale"):
+		return 1.0
+
+	return float(throw_config.call("get_throw_distance_scale", throw_distance))
+
+
+func _apply_training_stone_profile(stone: RigidBody2D) -> void:
+	if stone == null or not stone.has_method("set_throw_profile"):
+		return
+
+	var manager := get_node_or_null("/root/game_manager")
+	if manager == null or not manager.has_method("get_player_stones"):
+		return
+
+	var stones: Array = manager.get_player_stones()
+	if training_rock_index < 0 or training_rock_index >= stones.size():
+		return
+
+	var selected_stone: Stone = stones[training_rock_index]
+	if selected_stone == null:
+		return
+
+	stone.set_throw_profile(selected_stone)
 
 
 # ---------------------------------------------------------------------------

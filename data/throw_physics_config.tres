@@ -1,0 +1,67 @@
+[gd_resource type="Resource" script_class="ThrowPhysicsConfig" load_steps=2 format=3 uid="uid://djdfdynxi04o"]
+
+[ext_resource type="Script" uid="uid://0bt37w5bxs4q" path="res://scripts/throw_physics_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+baseline_stat = 33.0
+throw_distance_reference_length = 1280.0
+throw_distance_scale_min = 1.0
+throw_distance_scale_max = 1.0
+throw_distance_extra_boost = 1.0
+grab_radius = 64.0
+min_power = 260.0
+max_power = 600.0
+arrow_max_length = 250.0
+launch_speed_multiplier = 1.0
+min_throw_distance_scale = 0.75
+max_throw_distance_scale = 2.0
+stop_deceleration = 100
+low_speed_threshold = 120.0
+extra_low_speed_deceleration = 70.0
+stop_speed_cutoff = 3.0
+use_staged_deceleration_profile = true
+decel_stage_early_value = 220.0
+decel_stage_mid_value = 100
+decel_stage_tail_value = 16.0
+decel_stage_mid_speed = 300.0
+decel_stage_tail_speed = 150.0
+decel_stage_blend_band = 25.0
+max_spin_input_degrees = 270.0
+max_curl_acceleration = 140
+max_visual_spin_speed_degrees = 840.0
+guide_line_width = 2.0
+sweep_max_forward_boost = 40.0
+sweep_max_lateral_boost = 30.0
+sweep_decay_rate = 25.0
+sweep_speed_floor = 80.0
+sweep_total_influence_cap = 300000.0
+sweep_use_proximity_model = true
+sweep_influence_radius = 230.0
+sweep_front_weight = 1.0
+sweep_side_weight = 1.0
+sweep_proximity_max_force = 24.0
+sweep_low_speed_amp_min = 1.0
+sweep_low_speed_amp_max = 1.8
+sweep_low_speed_amp_start_speed = 165.0
+sweep_low_speed_amp_end_speed = 52.0
+sweep_spin_lateral_preserve_min = 0.58
+sweep_spin_lateral_blend = 0.85
+hard_collision_speed_threshold = 230.0
+base_throw_wear_min = 1
+base_throw_wear_max = 3
+hard_collision_wear_min = 5
+hard_collision_wear_max = 7
+spin_setter_speed_base = 180.0
+spin_setter_max_spin_degrees = 150.0
+spin_setter_stop_duration = 0.5
+power_multiplier_low = 0.92
+power_multiplier_high = 1.32
+spin_authority_low = 0.35
+spin_authority_high = 1.32
+precision_aim_jitter_low = 0.0
+precision_aim_jitter_high = 0.0
+precision_power_jitter_low = 0.0
+precision_power_jitter_high = 0.0
+precision_spin_speed_low = 3.0
+precision_spin_speed_high = 0.72

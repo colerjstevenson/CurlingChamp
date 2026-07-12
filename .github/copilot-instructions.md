@@ -599,12 +599,11 @@ Before finishing:
 
 Verify:
 
-* project runs
 * no parser errors
 * no new warnings
-* affected gameplay works
 
 For important systems, add tests where practical.
+Don't try and run tests in godot as they won't open correctly.
 
 ---
 

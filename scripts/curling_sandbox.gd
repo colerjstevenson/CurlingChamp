@@ -24,6 +24,7 @@ const DEFAULT_THROW_CONFIG_PATH := "res://data/throw_physics_config.tres"
 @export var camera_bounds_padding := 120.0
 @export var target_side_padding := 28.0
 @export var throw_config: Resource
+@export var debug_active = true
 
 var house_center := Vector2.ZERO
 var house_radius := 0.0
@@ -102,8 +103,8 @@ func _setup_ui() -> void:
 	if is_instance_valid(stage_prompt_label):
 		stage_prompt_label.visible = false
 		stage_prompt_label.text = ""
-
-	if is_instance_valid(debug_panel):
+	
+	if is_instance_valid(debug_panel) and debug_active:
 		debug_panel.visible = true
 
 	if is_instance_valid(debug_label):
@@ -554,79 +555,13 @@ func _update_debug_panel() -> void:
 		return
 
 	var speed := float(telemetry.get("speed", 0.0))
-	var velocity: Vector2 = telemetry.get("velocity", Vector2.ZERO)
 	var decel := float(telemetry.get("deceleration", 0.0))
-	var curl_force: Vector2 = telemetry.get("curl_force", Vector2.ZERO)
 	var sweep_force: Vector2 = telemetry.get("sweep_force", Vector2.ZERO)
-	var total_force: Vector2 = telemetry.get("total_force", Vector2.ZERO)
 	var spin := float(telemetry.get("spin_degrees", 0.0))
-	var phase := int(telemetry.get("throw_phase", -1))
-	var has_target_marker := bool(telemetry.get("has_target_marker", false))
-	var marker_debug: Dictionary = telemetry.get("marker_debug", {})
-	var live_target_distance := float(marker_debug.get("live_target_distance", 0.0))
-	var live_simulated_distance := float(marker_debug.get("live_simulated_distance", 0.0))
-	var live_distance_delta := float(marker_debug.get("live_distance_delta", 0.0))
-	var live_green_window := float(marker_debug.get("live_green_window", 0.0))
-	var live_match_strength := float(marker_debug.get("live_match_strength", 0.0))
-	var launch_target_distance := float(marker_debug.get("launch_target_distance", 0.0))
-	var launch_simulated_distance := float(marker_debug.get("launch_simulated_distance", 0.0))
-	var launch_distance_delta := float(marker_debug.get("launch_distance_delta", 0.0))
-	var launch_green_window := float(marker_debug.get("launch_green_window", 0.0))
-	var final_travel_distance := float(marker_debug.get("final_travel_distance", 0.0))
-	var final_target_delta := float(marker_debug.get("final_target_delta", 0.0))
-	var final_prediction_delta := float(marker_debug.get("final_prediction_delta", 0.0))
-	var throw_debug: Dictionary = telemetry.get("throw_debug", {})
-	var throw_id := int(throw_debug.get("throw_id", 0))
-	var drag_length := float(throw_debug.get("drag_length", 0.0))
-	var launch_power_ratio := float(throw_debug.get("launch_power_ratio", 0.0))
-	var scaled_min_power := float(throw_debug.get("scaled_min_power", 0.0))
-	var scaled_max_power := float(throw_debug.get("scaled_max_power", 0.0))
-	var power_multiplier := float(throw_debug.get("power_multiplier", 1.0))
-	var power_jitter_multiplier := float(throw_debug.get("power_jitter_multiplier", 1.0))
-	var pending_launch_power := float(throw_debug.get("pending_launch_power", 0.0))
-	var launch_speed := float(throw_debug.get("launch_speed", 0.0))
-	var predicted_decel_only_distance := float(throw_debug.get("predicted_decel_only_distance", 0.0))
-	var predicted_full_distance := float(throw_debug.get("predicted_full_distance", 0.0))
-	var runtime_distance := float(throw_debug.get("runtime_distance", 0.0))
-	var integrated_decel := float(throw_debug.get("integrated_decel", 0.0))
-	var integrated_forward_sweep := float(throw_debug.get("integrated_forward_sweep", 0.0))
-	var stage_time_early := float(throw_debug.get("stage_time_early", 0.0))
-	var stage_time_mid := float(throw_debug.get("stage_time_mid", 0.0))
-	var stage_time_tail := float(throw_debug.get("stage_time_tail", 0.0))
-	var along_track_error := float(throw_debug.get("along_track_error", 0.0))
-	var cross_track_error := float(throw_debug.get("cross_track_error", 0.0))
-	var sample_count := int(throw_debug.get("sample_count", 0))
+	var sweep_force_mag := sweep_force.length()
 
 	debug_label.text = "[b]Physics Sandbox[/b]\n"
-	debug_label.text += "Phase: %d\n" % phase
 	debug_label.text += "Speed: %.2f px/s\n" % speed
-	debug_label.text += "Velocity: (%.2f, %.2f)\n" % [velocity.x, velocity.y]
-	debug_label.text += "Decel: %.2f px/s^2\n" % decel
+	debug_label.text += "Deceleration: %.2f px/s^2\n" % decel
 	debug_label.text += "Spin: %.2f deg\n" % spin
-	debug_label.text += "Curl force: (%.2f, %.2f)\n" % [curl_force.x, curl_force.y]
-	debug_label.text += "Sweep force: (%.2f, %.2f)\n" % [sweep_force.x, sweep_force.y]
-	debug_label.text += "Total force: (%.2f, %.2f)\n" % [total_force.x, total_force.y]
-	debug_label.text += "\n[b]Marker Accuracy[/b]\n"
-	debug_label.text += "Marker active: %s\n" % ("yes" if has_target_marker else "no")
-	if has_target_marker:
-		debug_label.text += "Aim sim/target: %.1f / %.1f px\n" % [live_simulated_distance, live_target_distance]
-		debug_label.text += "Aim delta: %.1f px (window %.1f, strength %.2f)\n" % [live_distance_delta, live_green_window, live_match_strength]
-		debug_label.text += "Launch sim/target: %.1f / %.1f px\n" % [launch_simulated_distance, launch_target_distance]
-		debug_label.text += "Launch delta: %.1f px (window %.1f)\n" % [launch_distance_delta, launch_green_window]
-		if final_travel_distance > 0.0:
-			debug_label.text += "Final travel: %.1f px\n" % final_travel_distance
-			debug_label.text += "Final-target error: %.1f px\n" % final_target_delta
-			debug_label.text += "Final-prediction error: %.1f px\n" % final_prediction_delta
-
-	debug_label.text += "\n[b]Throw Diagnostics[/b]\n"
-	debug_label.text += "Throw id: %d\n" % throw_id
-	debug_label.text += "Drag len / ratio: %.1f px / %.3f\n" % [drag_length, launch_power_ratio]
-	debug_label.text += "Scaled min/max: %.1f / %.1f\n" % [scaled_min_power, scaled_max_power]
-	debug_label.text += "Power mult/jitter: %.3f / %.3f\n" % [power_multiplier, power_jitter_multiplier]
-	debug_label.text += "Pending power / speed: %.1f / %.1f\n" % [pending_launch_power, launch_speed]
-	debug_label.text += "Predicted decel/full: %.1f / %.1f px\n" % [predicted_decel_only_distance, predicted_full_distance]
-	debug_label.text += "Runtime dist: %.1f px\n" % runtime_distance
-	debug_label.text += "Along/Cross error: %.1f / %.1f px\n" % [along_track_error, cross_track_error]
-	debug_label.text += "Stage time E/M/T: %.2f / %.2f / %.2f s\n" % [stage_time_early, stage_time_mid, stage_time_tail]
-	debug_label.text += "Int decel / fwd sweep: %.1f / %.1f\n" % [integrated_decel, integrated_forward_sweep]
-	debug_label.text += "Samples: %d\n" % sample_count
+	debug_label.text += "Sweep force: %.2f (%.2f, %.2f)\n" % [sweep_force_mag, sweep_force.x, sweep_force.y]

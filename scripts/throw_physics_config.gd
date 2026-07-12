@@ -40,6 +40,7 @@ class_name ThrowPhysicsConfig
 @export var extra_low_speed_deceleration: float = 140.0
 # Speed (px/s) at which the stone is forced to a full stop
 @export var stop_speed_cutoff: float = 5.0
+
 # When true, uses the three-stage deceleration profile instead of the flat values above
 @export var use_staged_deceleration_profile: bool = true
 # Deceleration (px/s^2) during the early (fast) stage of travel
@@ -122,7 +123,7 @@ class_name ThrowPhysicsConfig
 @export var spin_setter_stop_duration: float = 0.5
 
 # --- Stone Stats: Power ---
-# Launch speed multiplier for a stone with the minimum power stat
+#Launch speed multiplier for a stone with the minimum power stat
 @export var power_multiplier_low: float = 0.78
 # Launch speed multiplier for a stone with the maximum power stat
 @export var power_multiplier_high: float = 1.32
@@ -135,11 +136,11 @@ class_name ThrowPhysicsConfig
 
 # --- Stone Stats: Precision ---
 # Aim jitter (degrees) for a stone with the minimum precision stat (least accurate)
-@export var precision_aim_jitter_low: float = 7.5
+@export var precision_aim_jitter_low: float = 0.0
 # Aim jitter (degrees) for a stone with the maximum precision stat (most accurate)
 @export var precision_aim_jitter_high: float = 0.0
 # Power jitter fraction (+/-) for a stone with the minimum precision stat
-@export var precision_power_jitter_low: float = 0.045
+@export var precision_power_jitter_low: float = 0.0
 # Power jitter fraction (+/-) for a stone with the maximum precision stat
 @export var precision_power_jitter_high: float = 0.0
 # Spin-setter speed multiplier for a stone with the minimum precision stat (faster = harder)
@@ -169,8 +170,10 @@ func build_throw_profile(stone: Stone, include_jitter: bool = true) -> Dictionar
 	var aim_jitter_degrees := 0.0
 	var power_jitter_multiplier := 1.0
 	if include_jitter:
-		var precision_jitter := get_stat_multiplier(precision_stat, precision_aim_jitter_low, precision_aim_jitter_high)
-		var precision_power_jitter := get_stat_multiplier(precision_stat, precision_power_jitter_low, precision_power_jitter_high)
+		# Jitter uses direct value interpolation instead of multiplier semantics,
+		# so 0-configured jitter stays deterministic at every stat level.
+		var precision_jitter := get_stat_value(precision_stat, precision_aim_jitter_low, precision_aim_jitter_high)
+		var precision_power_jitter := get_stat_value(precision_stat, precision_power_jitter_low, precision_power_jitter_high)
 		aim_jitter_degrees = randf_range(-precision_jitter, precision_jitter)
 		power_jitter_multiplier = randf_range(1.0 - precision_power_jitter, 1.0 + precision_power_jitter)
 
@@ -200,3 +203,9 @@ func get_stat_multiplier(stat_value: int, low_multiplier: float, high_multiplier
 
 	var above_ratio := (clamped_stat - baseline_stat) / maxf(100.0 - baseline_stat, 1.0)
 	return lerpf(1.0, high_multiplier, above_ratio)
+
+
+func get_stat_value(stat_value: int, low_value: float, high_value: float) -> float:
+	var clamped_stat := clampf(float(stat_value), 0.0, 100.0)
+	var stat_ratio := clamped_stat / 100.0
+	return lerpf(low_value, high_value, stat_ratio)

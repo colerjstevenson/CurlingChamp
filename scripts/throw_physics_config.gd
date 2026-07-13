@@ -11,23 +11,23 @@ class_name ThrowPhysicsConfig
 # Minimum distance scale factor (clamps short drags)
 @export var throw_distance_scale_min: float = 1.0
 # Maximum distance scale factor (clamps long drags)
-@export var throw_distance_scale_max: float = 3.0
+@export var throw_distance_scale_max: float = 1.0
 # Multiplier applied to the raw distance ratio before clamping, adds extra reach
-@export var throw_distance_extra_boost: float = 1.1
+@export var throw_distance_extra_boost: float = 1.0
 
 # --- Input & Launch ---
 # Pixel radius around the stone within which a drag is recognized as a grab
 @export var grab_radius: float = 64.0
 # Minimum launch speed (pixels/sec) applied even at very short drag lengths
-@export var min_power: float = 260.0
+@export var min_power: float = 300.0
 # Maximum launch speed (pixels/sec) achievable at full drag power
-@export var max_power: float = 840.0
+@export var max_power: float = 800.0
 # Maximum pixel length of the power-aim arrow UI
-@export var arrow_max_length: float = 200.0
+@export var arrow_max_length: float = 250.0
 # Minimum drag ratio (0..1) required to arm a shot on release
 @export var min_launch_pull_ratio: float = 0.12
 # Scales the raw drag vector into actual launch velocity
-@export var launch_speed_multiplier: float = 1.28
+@export var launch_speed_multiplier: float = 1.0
 # Minimum distance scale when mapping drag to power (legacy, prefer staged profile)
 @export var min_throw_distance_scale: float = 0.75
 # Maximum distance scale when mapping drag to power (legacy, prefer staged profile)
@@ -35,34 +35,34 @@ class_name ThrowPhysicsConfig
 
 # --- Deceleration ---
 # Base deceleration (px/s^2) applied while the stone is moving normally
-@export var stop_deceleration: float = 250.0
+@export var stop_deceleration: float = 100.0
 # Speed (px/s) below which extra low-speed deceleration kicks in
-@export var low_speed_threshold: float = 150.0
+@export var low_speed_threshold: float = 120.0
 # Additional deceleration (px/s^2) added once speed drops below low_speed_threshold
-@export var extra_low_speed_deceleration: float = 140.0
+@export var extra_low_speed_deceleration: float = 70.0
 # Speed (px/s) at which the stone is forced to a full stop
-@export var stop_speed_cutoff: float = 5.0
+@export var stop_speed_cutoff: float = 3.0
 
 # When true, uses the three-stage deceleration profile instead of the flat values above
 @export var use_staged_deceleration_profile: bool = true
 # Deceleration (px/s^2) during the early (fast) stage of travel
-@export var decel_stage_early_value: float = 220.0
+@export var decel_stage_early_value: float = 40.0
 # Deceleration (px/s^2) during the mid stage of travel
-@export var decel_stage_mid_value: float = 245.0
+@export var decel_stage_mid_value: float = 150.0
 # Deceleration (px/s^2) during the slow tail stage of travel
-@export var decel_stage_tail_value: float = 95.0
+@export var decel_stage_tail_value: float = 50.0
 # Speed (px/s) at which the stone transitions from early to mid deceleration
-@export var decel_stage_mid_speed: float = 130.0
+@export var decel_stage_mid_speed: float = 500.0
 # Speed (px/s) at which the stone transitions from mid to tail deceleration
-@export var decel_stage_tail_speed: float = 48.0
+@export var decel_stage_tail_speed: float = 250.0
 # Speed band (px/s) over which blending between adjacent stages is smoothed
-@export var decel_stage_blend_band: float = 40.0
+@export var decel_stage_blend_band: float = 20.0
 
 # --- Spin & Curl ---
 # Maximum angle (degrees) the player can input for spin on the spin-setter UI
-@export var max_spin_input_degrees: float = 270.0
+@export var max_spin_input_degrees: float = 150.0
 # Maximum lateral acceleration (px/s^2) curl can apply at peak spin
-@export var max_curl_acceleration: float = 360.0
+@export var max_curl_acceleration: float = 20.0
 # Maximum rotation speed (degrees/sec) of the visual stone sprite spin animation
 @export var max_visual_spin_speed_degrees: float = 840.0
 
@@ -72,9 +72,9 @@ class_name ThrowPhysicsConfig
 
 # --- Marker Assist Window ---
 # Green-window size (px) at zero precision ratio (most forgiving)
-@export var marker_green_window_low: float = 130.0
+@export var marker_green_window_low: float = 3055.0
 # Green-window size (px) at full precision ratio (tightest)
-@export var marker_green_window_high: float = 48.0
+@export var marker_green_window_high: float = 200.0
 # Exponent shaping how quickly precision tightens the marker window
 @export var marker_green_window_precision_exponent: float = 1.35
 # Minimum green-window floor as a fraction of target distance
@@ -82,15 +82,15 @@ class_name ThrowPhysicsConfig
 
 # --- Sweeping ---
 # Maximum forward speed boost (px/s) sweeping can add along the stone's travel direction
-@export var sweep_max_forward_boost: float = 80.0
+@export var sweep_max_forward_boost: float = 15.0
 # Maximum lateral speed boost (px/s) sweeping can add perpendicular to travel
-@export var sweep_max_lateral_boost: float = 80.0
+@export var sweep_max_lateral_boost: float = 10.0
 # Rate (px/s per second) at which accumulated sweep influence decays when not sweeping
-@export var sweep_decay_rate: float = 25.0
+@export var sweep_decay_rate: float = 8.0
 # Minimum stone speed (px/s) below which sweeping has no effect
-@export var sweep_speed_floor: float = 20
+@export var sweep_speed_floor: float = 30.0
 # Maximum total accumulated sweep boost (px/s) that can be applied in one throw
-@export var sweep_total_influence_cap: float = 160000.0
+@export var sweep_total_influence_cap: float = 300000.0
 # When true, sweep force uses a proximity/zone model instead of a uniform boost
 @export var sweep_use_proximity_model: bool = true
 # Radius (px) around the stone within which sweepers apply the proximity force
@@ -100,15 +100,15 @@ class_name ThrowPhysicsConfig
 # Relative weight of force applied to the sides of the stone
 @export var sweep_side_weight: float = 1.0
 # Maximum force (px/s^2) the proximity sweep model can apply per frame
-@export var sweep_proximity_max_force: float = 80.0
+@export var sweep_proximity_max_force: float = 24.0
 # Minimum sweep amplification factor at high stone speed (no extra boost)
 @export var sweep_low_speed_amp_min: float = 1.0
 # Maximum sweep amplification factor at low stone speed (extra boost when nearly stopped)
-@export var sweep_low_speed_amp_max: float = 2.8
+@export var sweep_low_speed_amp_max: float = 1.8
 # Stone speed (px/s) at which the low-speed sweep amplification begins to ramp up
-@export var sweep_low_speed_amp_start_speed: float = 170.0
+@export var sweep_low_speed_amp_start_speed: float = 165.0
 # Stone speed (px/s) at which the low-speed sweep amplification reaches its maximum
-@export var sweep_low_speed_amp_end_speed: float = 55.0
+@export var sweep_low_speed_amp_end_speed: float = 52.0
 # Minimum fraction of spin-induced lateral velocity preserved after sweeping
 @export var sweep_spin_lateral_preserve_min: float = 0.58
 # Blend factor controlling how much lateral sweep force overrides spin-induced curl
@@ -116,7 +116,7 @@ class_name ThrowPhysicsConfig
 
 # --- Collisions & Wear ---
 # Stone speed (px/s) above which a collision counts as a "hard" impact for wear purposes
-@export var hard_collision_speed_threshold: float = 230.0
+@export var hard_collision_speed_threshold: float = 300.0
 # Minimum durability points deducted from a stone on a normal throw
 @export var base_throw_wear_min: int = 1
 # Maximum durability points deducted from a stone on a normal throw
@@ -128,21 +128,21 @@ class_name ThrowPhysicsConfig
 
 # --- Spin Setter UI ---
 # Base rotation speed (degrees/sec) of the spin-setter indicator at neutral stat
-@export var spin_setter_speed_base: float = 180.0
+@export var spin_setter_speed_base: float = 280.0
 # Maximum spin angle (degrees) reachable on the spin-setter arc
-@export var spin_setter_max_spin_degrees: float = 270.0
+@export var spin_setter_max_spin_degrees: float = 150.0
 # Time (seconds) the spin-setter takes to decelerate to a stop after release
 @export var spin_setter_stop_duration: float = 0.5
 
 # --- Stone Stats: Power ---
 #Launch speed multiplier for a stone with the minimum power stat
-@export var power_multiplier_low: float = 0.78
+@export var power_multiplier_low: float = 0.92
 # Launch speed multiplier for a stone with the maximum power stat
 @export var power_multiplier_high: float = 1.32
 
 # --- Stone Stats: Spin ---
 # Curl-force multiplier for a stone with the minimum spin stat
-@export var spin_authority_low: float = 0.78
+@export var spin_authority_low: float = 0.35
 # Curl-force multiplier for a stone with the maximum spin stat
 @export var spin_authority_high: float = 1.32
 
@@ -156,7 +156,7 @@ class_name ThrowPhysicsConfig
 # Power jitter fraction (+/-) for a stone with the maximum precision stat
 @export var precision_power_jitter_high: float = 0.0
 # Spin-setter speed multiplier for a stone with the minimum precision stat (faster = harder)
-@export var precision_spin_speed_low: float = 1.25
+@export var precision_spin_speed_low: float = 3.0
 # Spin-setter speed multiplier for a stone with the maximum precision stat (slower = easier)
 @export var precision_spin_speed_high: float = 0.72
 func get_throw_distance_scale(distance: float) -> float:

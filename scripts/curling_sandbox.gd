@@ -1,8 +1,11 @@
 extends Node2D
 
 const STONE_SCENE := preload("res://scenes/Stone.tscn")
+const AI_PLAYER := preload("res://scripts/ai_player.gd")
 const STONES_GROUP := "stones"
 const DEFAULT_THROW_CONFIG_PATH := "res://data/throw_physics_config.tres"
+const AI_COLORS := ["yellow", "red"]
+const AI_STONES_PER_PLAYER := 5
 
 @export var stone_color: String = "yellow"
 @export var clear_previous_stones_each_throw: bool = true
@@ -55,6 +58,11 @@ var rink_right_x := 0.0
 @onready var power_bar: HSlider = get_node_or_null("CanvasLayer/StatSelection/VBoxContainer/Power/PowerBar") as HSlider
 @onready var spin_bar: HSlider = get_node_or_null("CanvasLayer/StatSelection/VBoxContainer/Spin/SpinBar") as HSlider
 @onready var precision_bar: HSlider = get_node_or_null("CanvasLayer/StatSelection/VBoxContainer/Precision/PrecisionBar") as HSlider
+@onready var ai_mode_button: BaseButton = get_node_or_null("CanvasLayer/AIModeButton") as BaseButton
+@onready var ai_red_label: RichTextLabel = get_node_or_null("CanvasLayer/StatSelection/VBoxContainer/RedAI") as RichTextLabel
+@onready var ai_red_bar: HSlider = get_node_or_null("CanvasLayer/StatSelection/VBoxContainer/RedAI/RedAI Bar") as HSlider
+@onready var ai_yellow_label: RichTextLabel = get_node_or_null("CanvasLayer/StatSelection/VBoxContainer/YellowAI") as RichTextLabel
+@onready var ai_yellow_bar: HSlider = get_node_or_null("CanvasLayer/StatSelection/VBoxContainer/YellowAI/YellowAIBar") as HSlider
 
 var active_stone: RigidBody2D
 var followed_stone: RigidBody2D
@@ -62,6 +70,18 @@ var human_target_lock_pending := false
 var has_active_target := false
 var active_target_position: Vector2 = Vector2.ZERO
 var sandbox_stone_profile := Stone.new("Sandbox", 33, 33, 33, 100, 1, 0, Stone.MIN_VARIANT, 100, 100, 100)
+var ai_mode_enabled := false
+var ai_players: Dictionary = {}
+var ai_difficulty_by_color := {
+	"yellow": 5,
+	"red": 5,
+}
+var ai_throws_by_color := {
+	"yellow": 0,
+	"red": 0,
+}
+var ai_current_throw_color: String = "yellow"
+var ai_debug_snapshot: Dictionary = {}
 
 
 func _ready() -> void:
@@ -74,7 +94,11 @@ func _ready() -> void:
 	_refresh_rink_geometry()
 	_setup_ui()
 	_wire_stat_selector_inputs()
+	_wire_ai_controls()
+	_ensure_ai_players()
 	_update_stat_selector_ui()
+	_update_ai_selector_ui()
+	_update_mode_ui()
 	_spawn_next_stone()
 
 
@@ -101,6 +125,10 @@ func _setup_ui() -> void:
 		if not lock_target_button.pressed.is_connected(_on_lock_target_pressed):
 			lock_target_button.pressed.connect(_on_lock_target_pressed)
 
+	if is_instance_valid(ai_mode_button):
+		if not ai_mode_button.pressed.is_connected(_on_ai_mode_button_pressed):
+			ai_mode_button.pressed.connect(_on_ai_mode_button_pressed)
+
 	if is_instance_valid(stage_prompt_label):
 		stage_prompt_label.visible = false
 		stage_prompt_label.text = ""
@@ -118,6 +146,93 @@ func _wire_stat_selector_inputs() -> void:
 	_connect_stat_slider_input(power_bar, "power")
 	_connect_stat_slider_input(spin_bar, "spin")
 	_connect_stat_slider_input(precision_bar, "precision")
+
+
+func _wire_ai_controls() -> void:
+	_connect_ai_slider_input(ai_red_bar, "red")
+	_connect_ai_slider_input(ai_yellow_bar, "yellow")
+
+
+func _connect_ai_slider_input(slider: HSlider, color: String) -> void:
+	if not is_instance_valid(slider):
+		return
+
+	slider.min_value = 1.0
+	slider.max_value = 10.0
+	slider.step = 1.0
+	slider.mouse_filter = Control.MOUSE_FILTER_STOP
+	slider.focus_mode = Control.FOCUS_CLICK
+	if not slider.value_changed.is_connected(_on_ai_slider_value_changed.bind(color)):
+		slider.value_changed.connect(_on_ai_slider_value_changed.bind(color))
+
+
+func _on_ai_slider_value_changed(value: float, color: String) -> void:
+	var clamped := clampi(int(round(value)), 1, 10)
+	ai_difficulty_by_color[color] = clamped
+	_ensure_ai_players()
+	if ai_players.has(color):
+		var ai_player = ai_players[color]
+		if ai_player != null:
+			ai_player.difficulty = clamped
+	_update_ai_selector_ui()
+
+
+func _update_ai_selector_ui() -> void:
+	if is_instance_valid(ai_red_bar):
+		ai_red_bar.value = int(ai_difficulty_by_color.get("red", 5))
+	if is_instance_valid(ai_yellow_bar):
+		ai_yellow_bar.value = int(ai_difficulty_by_color.get("yellow", 5))
+
+	if is_instance_valid(ai_red_label):
+		ai_red_label.text = "RED AI  %d" % int(ai_difficulty_by_color.get("red", 5))
+	if is_instance_valid(ai_yellow_label):
+		ai_yellow_label.text = "YELLOW AI  %d" % int(ai_difficulty_by_color.get("yellow", 5))
+
+
+func _ensure_ai_players() -> void:
+	for color in AI_COLORS:
+		if not ai_players.has(color) or ai_players[color] == null:
+			ai_players[color] = AI_PLAYER.new()
+
+		var ai_player = ai_players[color]
+		ai_player.difficulty = int(ai_difficulty_by_color.get(color, 5))
+		ai_player.debug_telemetry_enabled = debug_active
+
+
+func _update_mode_ui() -> void:
+	var show_human_stats := not ai_mode_enabled
+	var ai_mode_text := get_node_or_null("CanvasLayer/AIModeButton/text") as RichTextLabel
+	if is_instance_valid(power_label):
+		power_label.visible = show_human_stats
+	if is_instance_valid(spin_label):
+		spin_label.visible = show_human_stats
+	if is_instance_valid(precision_label):
+		precision_label.visible = show_human_stats
+
+	if is_instance_valid(ai_red_label):
+		ai_red_label.visible = ai_mode_enabled
+	if is_instance_valid(ai_yellow_label):
+		ai_yellow_label.visible = ai_mode_enabled
+
+	if is_instance_valid(ai_mode_text):
+		ai_mode_text.text = "Human Mode" if ai_mode_enabled else "AI Mode"
+
+	if ai_mode_enabled:
+		_set_stat_selector_visible(true)
+	else:
+		_set_stat_selector_visible(human_target_lock_pending)
+
+
+func _on_ai_mode_button_pressed() -> void:
+	ai_mode_enabled = not ai_mode_enabled
+	_reset_ai_turn_cycle()
+	ai_debug_snapshot = {}
+	_clear_target_ui()
+	if is_instance_valid(active_stone):
+		active_stone.queue_free()
+		active_stone = null
+	_update_mode_ui()
+	_spawn_next_stone()
 
 
 func _connect_stat_slider_input(slider: HSlider, stat_name: String) -> void:
@@ -200,6 +315,9 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if ai_mode_enabled:
+		return
+
 	if not human_target_lock_pending:
 		return
 
@@ -255,37 +373,46 @@ func _is_pointing_at_stat_selector() -> bool:
 
 
 func _spawn_next_stone() -> void:
-	if clear_previous_stones_each_throw:
+	if clear_previous_stones_each_throw and not ai_mode_enabled:
 		for node in get_tree().get_nodes_in_group(STONES_GROUP):
 			if is_instance_valid(node):
 				node.queue_free()
 
 	followed_stone = null
 	_clear_target_ui()
+	if ai_mode_enabled and _is_ai_end_finished():
+		_reset_ai_end()
 
 	var stone := STONE_SCENE.instantiate() as RigidBody2D
 	stone.position = stone_spawn_position
 	add_child(stone)
 	stone.add_to_group(STONES_GROUP)
+	var throw_color := stone_color
+	if ai_mode_enabled:
+		throw_color = ai_current_throw_color
 
 	if stone.has_method("set_stone_color"):
-		stone.set_stone_color(stone_color)
+		stone.set_stone_color(throw_color)
 	if stone.has_method("set_throw_config") and throw_config != null:
 		stone.set_throw_config(throw_config)
-	if stone.has_method("set_throw_profile"):
+	if stone.has_method("set_throw_profile") and not ai_mode_enabled:
 		stone.set_throw_profile(sandbox_stone_profile)
-	stone.set_meta("selected_stone_data", sandbox_stone_profile)
+	if not ai_mode_enabled:
+		stone.set_meta("selected_stone_data", sandbox_stone_profile)
 	if stone.has_method("set_throw_distance_scale"):
 		stone.set_throw_distance_scale(_get_throw_distance_scale())
 	if stone.has_method("set_player_control_enabled"):
-		stone.set_player_control_enabled(true)
+		stone.set_player_control_enabled(not ai_mode_enabled)
 
 	stone.stone_stopped.connect(_on_stone_stopped)
 	if stone.has_signal("stone_launched"):
 		stone.stone_launched.connect(_on_stone_launched)
 
 	active_stone = stone
-	_start_human_target_stage(stone)
+	if ai_mode_enabled:
+		_start_ai_turn(stone, throw_color)
+	else:
+		_start_human_target_stage(stone)
 
 
 func _on_stone_launched(stone: RigidBody2D) -> void:
@@ -296,15 +423,24 @@ func _on_stone_launched(stone: RigidBody2D) -> void:
 	if is_instance_valid(lock_target_button):
 		lock_target_button.visible = false
 
-	_set_stage_prompt("Swipe to sweep")
+	if ai_mode_enabled:
+		_set_stage_prompt("AI throw in progress")
+	else:
+		_set_stage_prompt("Swipe to sweep")
 	followed_stone = stone
-	_set_stat_selector_visible(false)
+	if not ai_mode_enabled:
+		_set_stat_selector_visible(false)
 	_set_camera_zoom(camera_follow_zoom)
 
 
 func _on_stone_stopped(stone: RigidBody2D) -> void:
 	if stone != active_stone:
 		return
+	if ai_mode_enabled:
+		var stopped_color := String(stone.get("stone_color"))
+		if ai_throws_by_color.has(stopped_color):
+			ai_throws_by_color[stopped_color] = int(ai_throws_by_color[stopped_color]) + 1
+		_set_next_ai_throw_color(stopped_color)
 
 	_clear_target_ui()
 	_set_stage_prompt("")
@@ -312,6 +448,127 @@ func _on_stone_stopped(stone: RigidBody2D) -> void:
 	await _wait_for_all_stones_to_settle()
 	_prune_out_of_play_stones()
 	_spawn_next_stone()
+
+
+func _start_ai_turn(stone: RigidBody2D, throw_color: String) -> void:
+	_clear_target_ui()
+	_set_stage_prompt("%s AI thinking..." % throw_color.capitalize())
+	ai_debug_snapshot = {
+		"mode": "thinking",
+		"ai_color": throw_color,
+		"difficulty": int(ai_difficulty_by_color.get(throw_color, 5)),
+		"stones_remaining": maxi(AI_STONES_PER_PLAYER - int(ai_throws_by_color.get(throw_color, 0)), 0),
+	}
+	_ensure_ai_players()
+	var ai_player = ai_players.get(throw_color, null)
+	if ai_player == null:
+		return
+
+	await get_tree().create_timer(ai_player.get_think_time()).timeout
+	if not is_instance_valid(stone) or stone != active_stone:
+		return
+
+	var planning_context := _build_ai_planning_context(stone)
+	var shot: Dictionary = ai_player.choose_shot(
+		planning_context,
+		stone,
+		_collect_stone_data(),
+		AI_STONES_PER_PLAYER
+	)
+	ai_debug_snapshot = shot.get("debug_info", {}) as Dictionary
+
+	if stone.has_method("launch_shot"):
+		var scaled_power: float = float(shot.get("power", 0.0)) * _get_throw_distance_scale()
+		stone.launch_shot(
+			shot.get("direction", Vector2.UP),
+			scaled_power,
+			float(shot.get("spin", 0.0))
+		)
+
+
+func _build_ai_planning_context(stone: RigidBody2D) -> Dictionary:
+	var throw_distance_scale := _get_throw_distance_scale()
+	var min_power := float(stone.get("min_power"))
+	var max_power := float(stone.get("max_power"))
+	if min_power <= 0.0:
+		min_power = 260.0
+	if max_power <= min_power:
+		max_power = maxf(min_power + 0.001, 800.0)
+
+	var physics := {
+		"throw_distance_scale": throw_distance_scale,
+		"launch_speed_multiplier": float(stone.get("launch_speed_multiplier")),
+		"stop_deceleration": float(stone.get("stop_deceleration")),
+		"low_speed_threshold": float(stone.get("low_speed_threshold")),
+		"extra_low_speed_deceleration": float(stone.get("extra_low_speed_deceleration")),
+		"stop_speed_cutoff": float(stone.get("stop_speed_cutoff")),
+		"use_staged_deceleration_profile": bool(stone.get("use_staged_deceleration_profile")),
+		"decel_stage_early_value": float(stone.get("decel_stage_early_value")),
+		"decel_stage_mid_value": float(stone.get("decel_stage_mid_value")),
+		"decel_stage_tail_value": float(stone.get("decel_stage_tail_value")),
+		"decel_stage_mid_speed": float(stone.get("decel_stage_mid_speed")),
+		"decel_stage_tail_speed": float(stone.get("decel_stage_tail_speed")),
+		"decel_stage_blend_band": float(stone.get("decel_stage_blend_band")),
+		"max_curl_acceleration": float(stone.get("max_curl_acceleration")),
+		"max_spin_input_degrees": float(stone.get("max_spin_input_degrees")),
+		"min_power": min_power,
+		"max_power": max_power,
+	}
+
+	return {
+		"throw_distance_scale": throw_distance_scale,
+		"house_center": house_center,
+		"house_radius": house_radius,
+		"stone_spawn_position": stone_spawn_position,
+		"physics": physics,
+	}
+
+
+func _collect_stone_data() -> Array[Dictionary]:
+	var stones: Array[Dictionary] = []
+
+	for node in get_tree().get_nodes_in_group(STONES_GROUP):
+		if not is_instance_valid(node):
+			continue
+
+		var stone := node as RigidBody2D
+		if stone == null:
+			continue
+
+		stones.append({
+			"color": String(stone.get("stone_color")),
+			"position": stone.position,
+		})
+
+	return stones
+
+
+func _is_ai_end_finished() -> bool:
+	for color in AI_COLORS:
+		if int(ai_throws_by_color.get(color, 0)) < AI_STONES_PER_PLAYER:
+			return false
+	return true
+
+
+func _set_next_ai_throw_color(stopped_color: String) -> void:
+	ai_current_throw_color = "red" if stopped_color == "yellow" else "yellow"
+	if int(ai_throws_by_color.get(ai_current_throw_color, 0)) >= AI_STONES_PER_PLAYER:
+		ai_current_throw_color = "yellow" if ai_current_throw_color == "red" else "red"
+
+
+func _reset_ai_end() -> void:
+	for node in get_tree().get_nodes_in_group(STONES_GROUP):
+		if is_instance_valid(node):
+			node.queue_free()
+	_reset_ai_turn_cycle()
+	ai_debug_snapshot = {}
+	_set_stage_prompt("AI end reset")
+
+
+func _reset_ai_turn_cycle() -> void:
+	ai_throws_by_color["yellow"] = 0
+	ai_throws_by_color["red"] = 0
+	ai_current_throw_color = "yellow"
 
 
 func _wait_for_all_stones_to_settle() -> void:
@@ -489,6 +746,9 @@ func _start_human_target_stage(stone: RigidBody2D) -> void:
 
 
 func _on_lock_target_pressed() -> void:
+	if ai_mode_enabled:
+		return
+
 	if not human_target_lock_pending:
 		return
 	if not has_active_target:
@@ -520,7 +780,7 @@ func _clear_target_ui() -> void:
 	human_target_lock_pending = false
 	has_active_target = false
 	active_target_position = Vector2.ZERO
-	_set_stat_selector_visible(false)
+	_set_stat_selector_visible(ai_mode_enabled)
 	if is_instance_valid(target_marker):
 		target_marker.visible = false
 	if is_instance_valid(lock_target_button):
@@ -529,6 +789,9 @@ func _clear_target_ui() -> void:
 
 
 func _set_stat_selector_visible(show_selector: bool) -> void:
+	if ai_mode_enabled:
+		show_selector = true
+
 	if is_instance_valid(stat_panel):
 		stat_panel.visible = show_selector
 	if is_instance_valid(stat_vbox):
@@ -547,23 +810,80 @@ func _update_debug_panel() -> void:
 	if not is_instance_valid(debug_label):
 		return
 
-	if not is_instance_valid(active_stone) or not active_stone.has_method("get_debug_telemetry"):
-		debug_label.text = "Sandbox ready.\nWaiting for active stone telemetry..."
-		return
+	var lines: PackedStringArray = []
+	lines.append("[b]Physics Sandbox[/b]")
+	lines.append("Mode: %s" % ("AI vs AI" if ai_mode_enabled else "Human"))
+	if ai_mode_enabled:
+		lines.append("Yellow AI: %d   Red AI: %d" % [
+			int(ai_difficulty_by_color.get("yellow", 5)),
+			int(ai_difficulty_by_color.get("red", 5)),
+		])
 
-	var telemetry: Dictionary = active_stone.get_debug_telemetry()
-	if telemetry.is_empty():
-		debug_label.text = "Sandbox ready.\nTelemetry unavailable."
-		return
+	if is_instance_valid(active_stone) and active_stone.has_method("get_debug_telemetry"):
+		var telemetry: Dictionary = active_stone.get_debug_telemetry()
+		if not telemetry.is_empty():
+			var speed := float(telemetry.get("speed", 0.0))
+			var decel := float(telemetry.get("deceleration", 0.0))
+			var sweep_force: Vector2 = telemetry.get("sweep_force", Vector2.ZERO)
+			var spin := float(telemetry.get("spin_degrees", 0.0))
+			var sweep_force_mag := sweep_force.length()
+			lines.append("Speed: %.2f px/s" % speed)
+			lines.append("Deceleration: %.2f px/s^2" % decel)
+			lines.append("Spin: %.2f deg" % spin)
+			lines.append("Sweep force: %.2f (%.2f, %.2f)" % [sweep_force_mag, sweep_force.x, sweep_force.y])
+		else:
+			lines.append("Telemetry unavailable.")
+	else:
+		lines.append("Waiting for active stone telemetry...")
 
-	var speed := float(telemetry.get("speed", 0.0))
-	var decel := float(telemetry.get("deceleration", 0.0))
-	var sweep_force: Vector2 = telemetry.get("sweep_force", Vector2.ZERO)
-	var spin := float(telemetry.get("spin_degrees", 0.0))
-	var sweep_force_mag := sweep_force.length()
+	if ai_mode_enabled:
+		lines.append("")
+		lines.append("[b]AI Planner[/b]")
+		if ai_debug_snapshot.is_empty():
+			lines.append("Waiting for AI planning data...")
+		else:
+			var ai_color := String(ai_debug_snapshot.get("ai_color", ai_current_throw_color)).capitalize()
+			var ai_difficulty := int(ai_debug_snapshot.get("difficulty", int(ai_difficulty_by_color.get(ai_current_throw_color, 5))))
+			var stones_remaining := int(ai_debug_snapshot.get("stones_remaining", 0))
+			lines.append("%s AI  diff %d  stones left %d" % [ai_color, ai_difficulty, stones_remaining])
+			if String(ai_debug_snapshot.get("mode", "")) == "thinking":
+				lines.append("Status: Thinking...")
+			else:
+				var board := ai_debug_snapshot.get("board", {}) as Dictionary
+				var target: Vector2 = ai_debug_snapshot.get("target", Vector2.ZERO)
+				var predicted_stop: Vector2 = ai_debug_snapshot.get("predicted_stop", Vector2.ZERO)
+				lines.append("Shot: %s  score %.2f" % [
+					String(ai_debug_snapshot.get("shot_type", "draw")).capitalize(),
+					float(ai_debug_snapshot.get("selected_score", 0.0)),
+				])
+				lines.append("Candidates: %d  power %.1f  spin %.1f" % [
+					int(ai_debug_snapshot.get("candidate_count", 0)),
+					float(ai_debug_snapshot.get("power", 0.0)),
+					float(ai_debug_snapshot.get("spin", 0.0)),
+				])
+				lines.append("Target: (%.1f, %.1f)  Stop: (%.1f, %.1f)" % [
+					target.x,
+					target.y,
+					predicted_stop.x,
+					predicted_stop.y,
+				])
+				lines.append("Delta: target %.1f  house %.1f  risk %.2f" % [
+					float(ai_debug_snapshot.get("target_delta", 0.0)),
+					float(ai_debug_snapshot.get("house_delta", 0.0)),
+					float(ai_debug_snapshot.get("collision_risk", 0.0)),
+				])
+				if not board.is_empty():
+					var closest_ai := float(board.get("closest_ai_distance", -1.0))
+					var closest_opp := float(board.get("closest_opp_distance", -1.0))
+					lines.append("Board: AI house %d  Opp house %d  Guards %d" % [
+						int(board.get("ai_in_house", 0)),
+						int(board.get("opp_in_house", 0)),
+						int(board.get("opp_guards", 0)),
+					])
+					lines.append("Scoring: %s  Closest AI/Opp: %s / %s" % [
+						"AI" if bool(board.get("ai_is_scoring", false)) else ("Opp" if bool(board.get("opp_is_scoring", false)) else "None"),
+						"%.1f" % closest_ai if closest_ai >= 0.0 else "-",
+						"%.1f" % closest_opp if closest_opp >= 0.0 else "-",
+					])
 
-	debug_label.text = "[b]Physics Sandbox[/b]\n"
-	debug_label.text += "Speed: %.2f px/s\n" % speed
-	debug_label.text += "Deceleration: %.2f px/s^2\n" % decel
-	debug_label.text += "Spin: %.2f deg\n" % spin
-	debug_label.text += "Sweep force: %.2f (%.2f, %.2f)\n" % [sweep_force_mag, sweep_force.x, sweep_force.y]
+	debug_label.text = "\n".join(lines)

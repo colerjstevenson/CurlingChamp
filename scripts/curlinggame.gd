@@ -52,6 +52,7 @@ const DEFAULT_THROW_CONFIG_PATH := "res://data/throw_physics_config.tres"
 @export var max_ends := 3
 @export var end_score_extra_hold_seconds := 1.0
 @export var ai_difficulty: int = 5
+@export var ai_debug_telemetry := false
 @export var human_throws_first := true
 @export var auto_return_to_menu := true
 @export var match_result_hold_seconds := 3.0
@@ -155,6 +156,7 @@ func _ready() -> void:
 		stage_prompt_label.text = ""
 	ai_player = AI_PLAYER.new()
 	ai_player.difficulty = ai_difficulty
+	ai_player.debug_telemetry_enabled = ai_debug_telemetry
 	_build_human_rock_selection()
 	_set_rock_selection_visible(false)
 	_update_scoreboard_ui()
@@ -419,14 +421,15 @@ func _start_ai_turn(stone: RigidBody2D) -> void:
 	if not is_instance_valid(stone) or stone != active_stone:
 		return
 
+	var planning_context := _build_ai_planning_context(stone)
 	var shot: Dictionary = ai_player.choose_shot(
-		stone_spawn_position,
+		planning_context,
 		stone,
 		_collect_stone_data(),
-		house_center,
-		house_radius,
 		stones_per_player
 	)
+	if ai_debug_telemetry and String(shot.get("debug_line", "")) != "":
+		print(String(shot["debug_line"]))
 
 	if stone.has_method("launch_shot"):
 		var scaled_power: float = float(shot.get("power", 0.0)) * _get_throw_distance_scale()
@@ -435,6 +438,50 @@ func _start_ai_turn(stone: RigidBody2D) -> void:
 			scaled_power,
 			float(shot.get("spin", 0.0))
 		)
+
+
+func _build_ai_planning_context(stone: RigidBody2D) -> Dictionary:
+	var throw_distance_scale := _get_throw_distance_scale()
+	var min_power := float(stone.get("min_power"))
+	var max_power := float(stone.get("max_power"))
+	if min_power <= 0.0:
+		min_power = 260.0
+	if max_power <= min_power:
+		max_power = maxf(min_power + 0.001, 800.0)
+	var physics := {
+		"throw_distance_scale": throw_distance_scale,
+		"launch_speed_multiplier": float(stone.get("launch_speed_multiplier")),
+		"stop_deceleration": float(stone.get("stop_deceleration")),
+		"low_speed_threshold": float(stone.get("low_speed_threshold")),
+		"extra_low_speed_deceleration": float(stone.get("extra_low_speed_deceleration")),
+		"stop_speed_cutoff": float(stone.get("stop_speed_cutoff")),
+		"use_staged_deceleration_profile": bool(stone.get("use_staged_deceleration_profile")),
+		"decel_stage_early_value": float(stone.get("decel_stage_early_value")),
+		"decel_stage_mid_value": float(stone.get("decel_stage_mid_value")),
+		"decel_stage_tail_value": float(stone.get("decel_stage_tail_value")),
+		"decel_stage_mid_speed": float(stone.get("decel_stage_mid_speed")),
+		"decel_stage_tail_speed": float(stone.get("decel_stage_tail_speed")),
+		"decel_stage_blend_band": float(stone.get("decel_stage_blend_band")),
+		"max_curl_acceleration": float(stone.get("max_curl_acceleration")),
+		"max_spin_input_degrees": float(stone.get("max_spin_input_degrees")),
+		"min_power": min_power,
+		"max_power": max_power,
+	}
+
+	return {
+		"throw_distance_scale": throw_distance_scale,
+		"house_center": house_center,
+		"house_radius": house_radius,
+		"stone_spawn_position": stone_spawn_position,
+		"match_state": {
+			"current_end": current_end,
+			"max_ends": max_ends,
+			"ai_score": int(scores_by_color.get(ai_player_color, 0)),
+			"opponent_score": int(scores_by_color.get(human_player_color, 0)),
+			"ai_has_hammer": _player_has_hammer(ai_player_color),
+		},
+		"physics": physics,
+	}
 
 
 func _get_throw_distance_scale() -> float:

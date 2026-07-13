@@ -1,23 +1,34 @@
-# Task State: Proximity-Based Sweeping Rework
+## AI Recalibration For New Rink And Throw System - Completed
 
-## Last Completed Phase
-- Phase 6: Parity, Regression, Documentation
+### What changed
+- Reworked AI shot planning in scripts/ai_player.gd to use a candidate-based planner instead of fixed target offsets.
+- Updated AI choose_shot input contract to receive a planning context dictionary with:
+	- throw_distance_scale
+	- house_center
+	- house_radius
+	- stone_spawn_position
+	- active runtime stone physics values (launch multiplier, staged deceleration fields, curl fields, power bounds).
+- Replaced fixed pixel targeting with house-relative geometry for draw, draw_second, takeout, and guard candidate generation.
+- Added per-difficulty tuning parameters for relative offsets, spin intent, power seed range, selection randomness, and scoring weights.
+- Added a forward estimator that predicts stop point from runtime deceleration and curl values.
+- Added candidate scoring terms for scoring swing, takeout quality, guard lane value, landing error, and path collision risk.
+- Added difficulty-based candidate selection randomness using a top-band weighted picker.
+- Added optional one-line AI telemetry (disabled by default):
+	- curlinggame.gd export toggle ai_debug_telemetry
+	- ai_player.gd toggle debug_telemetry_enabled
 
-## What Was Implemented
-- Training parity: [scripts/training_game.gd](scripts/training_game.gd) now uses the same throw config path (`res://data/throw_physics_config.tres`) and applies `set_throw_config` + throw distance scale to spawned stones.
-- Training parity: player training stones now apply the selected roster stone throw profile via `set_throw_profile`, matching stat-driven throw behavior from match flow.
-- Updated [project_info/gameplay.md](project_info/gameplay.md) with final sweep model, speed scaling, staged deceleration, and tuning assumptions.
-- Regression-focused code-path verification completed for:
-	- human throw sequence continuity (target -> lock -> drag -> spin -> sweep -> resolve)
-	- AI throw path safety and launch path in match mode
-	- end scoring and post-match progression/week advance path
-	- save/load state persistence pathways and autosave signal flow
+### Integration notes
+- _start_ai_turn in scripts/curlinggame.gd now builds and passes planning context into ai_player.choose_shot.
+- Existing launch contract is preserved:
+	- AI returns pre-scale power.
+	- Match flow multiplies by _get_throw_distance_scale exactly once before launch_shot.
 
-## Validation Status For Phase 6 Gate
-- Match/training parity for throw config and throw profile path has been implemented.
-- Core regression paths remain connected in code and unmodified behaviors still route through existing manager/save systems.
-- Documentation now reflects the final sweeping and slowdown model.
-- No parser/type errors reported in changed files.
+### What remained unchanged
+- No edits were made to data/throw_physics_config.tres.
+- No non-AI scene hierarchy or save-format changes were introduced.
+- Existing strategy categories remain intact: draw, draw_second, takeout, guard.
 
-## Next Phase
-- Current task phases complete. Optional follow-up: in-engine feel/timing passes and numeric retuning after live playtests.
+### Known follow-up tuning opportunities
+- If telemetry shows systematic over/under-shoot for specific shot types, tune AI-side shot_power_bias and landing weights.
+- If guard quality needs tighter lanes at high difficulty, adjust guard_lane_half_width_ratio and guard_lane_weight only.
+- If think quality needs balancing versus responsiveness, tune power_seed_count and top_pick_fraction by difficulty.

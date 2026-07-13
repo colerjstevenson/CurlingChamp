@@ -220,6 +220,27 @@ theme_override_font_sizes/normal_font_size = 31
 text = "Lock Aim"
 horizontal_alignment = 1
 
+[node name="AIModeButton" type="TextureButton" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 259.0
+offset_top = 742.0
+offset_right = 469.0
+offset_bottom = 814.0
+theme = ExtResource("5_p15o0")
+texture_normal = SubResource("AtlasTexture_vr7iy")
+stretch_mode = 0
+
+[node name="text" type="RichTextLabel" parent="CanvasLayer/AIModeButton"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 10.0
+offset_right = 194.0
+offset_bottom = 57.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 31
+text = "AI Mode"
+horizontal_alignment = 1
+
 [node name="StagePromptLabel" type="Label" parent="CanvasLayer"]
 offset_left = 181.0
 offset_top = 728.0
@@ -296,6 +317,40 @@ text = "PRECISION
 fit_content = true
 
 [node name="PrecisionBar" type="HSlider" parent="CanvasLayer/StatSelection/VBoxContainer/Precision"]
+layout_mode = 0
+offset_left = 218.0
+offset_top = 1.0
+offset_right = 581.0
+offset_bottom = 30.0
+value = 28.0
+
+[node name="RedAI" type="RichTextLabel" parent="CanvasLayer/StatSelection/VBoxContainer"]
+custom_minimum_size = Vector2(201.205, 0)
+layout_mode = 2
+tooltip_text = "Effects the top speed
+of the horse"
+text = "Red AI
+"
+fit_content = true
+
+[node name="RedAI Bar" type="HSlider" parent="CanvasLayer/StatSelection/VBoxContainer/RedAI"]
+layout_mode = 0
+offset_left = 218.0
+offset_top = 1.0
+offset_right = 581.0
+offset_bottom = 30.0
+value = 28.0
+
+[node name="YellowAI" type="RichTextLabel" parent="CanvasLayer/StatSelection/VBoxContainer"]
+custom_minimum_size = Vector2(201.205, 0)
+layout_mode = 2
+tooltip_text = "Effects the top speed
+of the horse"
+text = "Yellow AI
+"
+fit_content = true
+
+[node name="YellowAIBar" type="HSlider" parent="CanvasLayer/StatSelection/VBoxContainer/YellowAI"]
 layout_mode = 0
 offset_left = 218.0
 offset_top = 1.0

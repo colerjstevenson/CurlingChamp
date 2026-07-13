@@ -207,6 +207,16 @@ AI shot selection currently supports:
 - guard placement at higher difficulties
 - curling around guards at higher difficulties
 
+Planning details:
+
+- AI now builds multiple shot candidates per shot type (target points, spin bands, and power seeds).
+- Candidate targeting is house-relative (radius and spawn-to-house geometry), not fixed pixel offsets.
+- Forward prediction uses runtime stone launch/deceleration/curl values read from the active stone context.
+- Candidates are scored by strategy objective (scoring swing, takeout quality, guard lane value) plus collision risk.
+- Final choice uses difficulty-based randomness from a top candidate band:
+	- low difficulty samples a wider band with more noise
+	- high difficulty picks near-best candidates more consistently
+
 Difficulty ranges from 1 to 10.
 
 ## Schedule, Season, and League

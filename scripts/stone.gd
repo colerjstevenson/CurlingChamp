@@ -105,6 +105,7 @@ var grab_radius := 64.0
 var min_power := 260.0
 var max_power := 800.0
 var arrow_max_length := 150.0
+var min_launch_pull_ratio := 0.12
 var launch_speed_multiplier := 1.35
 var throw_distance_scale := 1.0
 var min_throw_distance_scale := 0.75
@@ -112,6 +113,10 @@ var max_throw_distance_scale := 2.0
 var arrow_low_power_color := Color(1.0, 0.95, 0.2, 0.95)
 var arrow_high_power_color := Color(1.0, 0.15, 0.1, 0.98)
 var arrow_weight_match_color := Color(0.2, 1.0, 0.25, 0.98)
+var marker_green_window_low := 130.0
+var marker_green_window_high := 48.0
+var marker_green_window_precision_exponent := 1.35
+var marker_green_window_distance_ratio := 0.09
 var stop_deceleration := 320.0
 var low_speed_threshold := 180.0
 var extra_low_speed_deceleration := 220.0
@@ -127,7 +132,7 @@ var max_spin_input_degrees := 270.0
 var spin_setter_max_spin_degrees := 150.0
 var max_curl_acceleration := 420.0
 var max_visual_spin_speed_degrees := 900.0
-var guide_line_color := Color(1.0, 1.0, 1.0, 0.25)
+var guide_line_color := Color(1.0, 0.75, 0.75, 0.75)
 var guide_line_width := 2.0
 var sweep_max_forward_boost := 30.0
 var sweep_max_lateral_boost := 20.0
@@ -359,6 +364,7 @@ func _apply_throw_config() -> void:
 	min_power = float(_get_throw_config_value("min_power", min_power))
 	max_power = float(_get_throw_config_value("max_power", max_power))
 	arrow_max_length = float(_get_throw_config_value("arrow_max_length", arrow_max_length))
+	min_launch_pull_ratio = clampf(float(_get_throw_config_value("min_launch_pull_ratio", min_launch_pull_ratio)), 0.0, 1.0)
 	launch_speed_multiplier = float(_get_throw_config_value("launch_speed_multiplier", launch_speed_multiplier))
 	min_throw_distance_scale = float(_get_throw_config_value("min_throw_distance_scale", min_throw_distance_scale))
 	max_throw_distance_scale = float(_get_throw_config_value("max_throw_distance_scale", max_throw_distance_scale))
@@ -379,6 +385,10 @@ func _apply_throw_config() -> void:
 	max_curl_acceleration = float(_get_throw_config_value("max_curl_acceleration", max_curl_acceleration))
 	max_visual_spin_speed_degrees = float(_get_throw_config_value("max_visual_spin_speed_degrees", max_visual_spin_speed_degrees))
 	guide_line_width = float(_get_throw_config_value("guide_line_width", guide_line_width))
+	marker_green_window_low = float(_get_throw_config_value("marker_green_window_low", marker_green_window_low))
+	marker_green_window_high = float(_get_throw_config_value("marker_green_window_high", marker_green_window_high))
+	marker_green_window_precision_exponent = float(_get_throw_config_value("marker_green_window_precision_exponent", marker_green_window_precision_exponent))
+	marker_green_window_distance_ratio = float(_get_throw_config_value("marker_green_window_distance_ratio", marker_green_window_distance_ratio))
 	sweep_max_forward_boost = float(_get_throw_config_value("sweep_max_forward_boost", sweep_max_forward_boost))
 	sweep_max_lateral_boost = float(_get_throw_config_value("sweep_max_lateral_boost", sweep_max_lateral_boost))
 	sweep_decay_rate = float(_get_throw_config_value("sweep_decay_rate", sweep_decay_rate))
@@ -506,11 +516,24 @@ func _input(event):
 			freeze = true
 		elif dragging and not event.pressed:
 			dragging = false
-			can_aim = false
-			throw_phase = ThrowPhase.PHASE_SET_SPIN
 			var drag_vector = drag_start - get_global_mouse_position()
 			var launch_vector = drag_vector.limit_length(arrow_max_length)
 			var pull_ratio: float = clampf(launch_vector.length() / arrow_max_length, 0.0, 1.0)
+
+			if pull_ratio < min_launch_pull_ratio:
+				# Ignore weak pullbacks so quick clicks/releases do not produce limp misfires.
+				can_aim = true
+				throw_phase = ThrowPhase.PHASE_SET_SHOT
+				freeze = false
+				pending_launch_direction = Vector2.ZERO
+				pending_launch_power = 0.0
+				_debug_throw_drag_length = launch_vector.length()
+				_debug_throw_launch_power_ratio = pull_ratio
+				queue_redraw()
+				return
+
+			can_aim = false
+			throw_phase = ThrowPhase.PHASE_SET_SPIN
 			var scaled_min_power: float = min_power * throw_distance_scale
 			var scaled_max_power: float = max_power * throw_distance_scale
 			var power: float = lerpf(scaled_min_power, scaled_max_power, pull_ratio)
@@ -753,7 +776,17 @@ func _get_marker_weight_match_strength(power_ratio: float) -> float:
 
 
 func _get_marker_green_window(target_distance: float, precision_ratio: float) -> float:
-	return maxf(lerpf(56.0, 16.0, precision_ratio), target_distance * 0.03)
+	# Keep the baseline marker band forgiving and taper toward tighter windows at high precision.
+	# Distance scaling should widen long throws without fully overriding precision tuning.
+	var clamped_precision := clampf(precision_ratio, 0.0, 1.0)
+	var precision_exp := maxf(0.01, marker_green_window_precision_exponent)
+	var precision_t := pow(clamped_precision, precision_exp)
+	var low_window := maxf(0.0, marker_green_window_low)
+	var high_window := maxf(0.0, marker_green_window_high)
+	var stat_window := lerpf(low_window, high_window, precision_t)
+	var distance_window := target_distance * maxf(0.0, marker_green_window_distance_ratio)
+	var distance_bonus := maxf(0.0, distance_window - low_window)
+	return stat_window + distance_bonus
 
 
 func _estimate_stop_distance_for_power_ratio(power_ratio: float) -> float:

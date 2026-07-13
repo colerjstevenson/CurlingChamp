@@ -17,7 +17,8 @@ const DEFAULT_THROW_CONFIG_PATH := "res://data/throw_physics_config.tres"
 @export var camera_throw_setup_zoom := Vector2(1.42, 1.42)
 @export var camera_follow_zoom := Vector2(1.68, 1.68)
 @export var camera_follow_lerp_speed := 8.0
-@export var camera_follow_top_margin := 640.0
+@export var camera_follow_top_margin := 690.0
+@export var camera_follow_screen_offset_y := 130.0
 @export var camera_overview_bottom_padding := 0.0
 @export var spawn_from_rink_bottom_margin := 280.0
 @export var rink_end_margin := 120.0
@@ -190,7 +191,8 @@ func _ensure_throw_config() -> void:
 func _process(delta: float) -> void:
 	if is_instance_valid(camera) and is_instance_valid(followed_stone):
 		var follow_weight := clampf(delta * camera_follow_lerp_speed, 0.0, 1.0)
-		var target_y := lerpf(camera.global_position.y, followed_stone.global_position.y, follow_weight)
+		var desired_follow_y := followed_stone.global_position.y - camera_follow_screen_offset_y
+		var target_y := lerpf(camera.global_position.y, desired_follow_y, follow_weight)
 		camera.global_position = Vector2(camera.global_position.x, target_y)
 		camera.global_position = _clamp_camera_center_to_rink(camera.global_position, camera.zoom, camera_follow_top_margin)
 

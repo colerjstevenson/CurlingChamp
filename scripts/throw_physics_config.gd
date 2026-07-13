@@ -24,6 +24,8 @@ class_name ThrowPhysicsConfig
 @export var max_power: float = 840.0
 # Maximum pixel length of the power-aim arrow UI
 @export var arrow_max_length: float = 200.0
+# Minimum drag ratio (0..1) required to arm a shot on release
+@export var min_launch_pull_ratio: float = 0.12
 # Scales the raw drag vector into actual launch velocity
 @export var launch_speed_multiplier: float = 1.28
 # Minimum distance scale when mapping drag to power (legacy, prefer staged profile)
@@ -67,6 +69,16 @@ class_name ThrowPhysicsConfig
 # --- Guide Line ---
 # Pixel width of the aim guide line drawn before release
 @export var guide_line_width: float = 2.0
+
+# --- Marker Assist Window ---
+# Green-window size (px) at zero precision ratio (most forgiving)
+@export var marker_green_window_low: float = 130.0
+# Green-window size (px) at full precision ratio (tightest)
+@export var marker_green_window_high: float = 48.0
+# Exponent shaping how quickly precision tightens the marker window
+@export var marker_green_window_precision_exponent: float = 1.35
+# Minimum green-window floor as a fraction of target distance
+@export var marker_green_window_distance_ratio: float = 0.09
 
 # --- Sweeping ---
 # Maximum forward speed boost (px/s) sweeping can add along the stone's travel direction

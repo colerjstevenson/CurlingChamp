@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dhbo3mg238qh4"]
+[gd_scene load_steps=13 format=3 uid="uid://clgl0up16vy31"]
 
 [ext_resource type="Script" uid="uid://dynmkrnaf8qmb" path="res://scripts/curling_sandbox.gd" id="1_p15o0"]
 [ext_resource type="Texture2D" uid="uid://7q86xk5jln28" path="res://assets/curling/FullRink.png" id="2_ycd7k"]

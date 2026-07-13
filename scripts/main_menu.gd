@@ -1,11 +1,11 @@
 extends Control
 
-const CURLING_GAME_SCENE := preload("res://scenes/CurlingGame.tscn")
-const MENU_STONE_SCENE := preload("res://scenes/MenuStone.tscn")
-const COLLECTION_SCENE := preload("res://scenes/menus/collection.tscn")
-const AUCTION_SCENE := preload("res://scenes/menus/auctionMenu.tscn")
-const CALENDAR_SCENE := preload("res://scenes/menus/CalenderMenu.tscn")
-const TRAINER_SCENE := preload("res://scenes/menus/trainer.tscn")
+const CURLING_GAME_SCENE_PATH := "res://scenes/CurlingGame.tscn"
+const MENU_STONE_SCENE_PATH := "res://scenes/MenuStone.tscn"
+const COLLECTION_SCENE_PATH := "res://scenes/menus/collection.tscn"
+const AUCTION_SCENE_PATH := "res://scenes/menus/auctionMenu.tscn"
+const CALENDAR_SCENE_PATH := "res://scenes/menus/CalenderMenu.tscn"
+const TRAINER_SCENE_PATH := "res://scenes/menus/trainer.tscn"
 const MIN_SPAWN_INTERVAL := 2.6
 const MAX_SPAWN_INTERVAL := 3.4
 const TARGET_STONE_THRESHOLD := 3
@@ -42,6 +42,7 @@ const STRATEGIC_NEIGHBOR_RADIUS := 130.0
 var _spawn_timer: Timer
 var _menu_stones: Array[RigidBody2D] = []
 var _stone_layer: Node2D
+var _menu_stone_scene: PackedScene
 
 
 func _ready() -> void:
@@ -68,23 +69,23 @@ func _ready() -> void:
 
 
 func _on_game_button_pressed() -> void:
-	get_tree().change_scene_to_packed(CURLING_GAME_SCENE)
+	get_tree().change_scene_to_file(CURLING_GAME_SCENE_PATH)
 
 
 func _on_rocks_button_pressed() -> void:
-	get_tree().change_scene_to_packed(COLLECTION_SCENE)
+	get_tree().change_scene_to_file(COLLECTION_SCENE_PATH)
 
 
 func _on_auction_button_pressed() -> void:
-	get_tree().change_scene_to_packed(AUCTION_SCENE)
+	get_tree().change_scene_to_file(AUCTION_SCENE_PATH)
 
 
 func _on_calendar_button_pressed() -> void:
-	get_tree().change_scene_to_packed(CALENDAR_SCENE)
+	get_tree().change_scene_to_file(CALENDAR_SCENE_PATH)
 
 
 func _on_training_button_pressed() -> void:
-	get_tree().change_scene_to_packed(TRAINER_SCENE)
+	get_tree().change_scene_to_file(TRAINER_SCENE_PATH)
 
 
 func _refresh_header_text() -> void:
@@ -132,6 +133,12 @@ func _spawn_menu_stone() -> void:
 	if not is_instance_valid(_stone_layer):
 		return
 
+	if _menu_stone_scene == null:
+		_menu_stone_scene = load(MENU_STONE_SCENE_PATH) as PackedScene
+		if _menu_stone_scene == null:
+			push_warning("main_menu: failed to load MenuStone scene")
+			return
+
 	var active_stones := _get_active_stones()
 	var active_count := active_stones.size()
 	if active_count >= MAX_ACTIVE_MENU_STONES:
@@ -145,7 +152,7 @@ func _spawn_menu_stone() -> void:
 		spawn_position = shot_setup["spawn"]
 		target = shot_setup["target"]
 
-	var stone := MENU_STONE_SCENE.instantiate() as RigidBody2D
+	var stone := _menu_stone_scene.instantiate() as RigidBody2D
 	if stone == null:
 		return
 

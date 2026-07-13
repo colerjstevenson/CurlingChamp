@@ -1,6 +1,6 @@
 extends Control
 
-const MAIN_MENU_SCENE := preload("res://scenes/main.tscn")
+const MAIN_MENU_SCENE_PATH := "res://scenes/main.tscn"
 const RED_STONE_TEXTURE := preload("res://assets/curling/stones/stone_red_side.png")
 const BLUE_STONE_TEXTURE := preload("res://assets/curling/stones/stone_blue_side.png")
 const YELLOW_STONE_TEXTURE := preload("res://assets/curling/stones/stone_yellow_side.png")
@@ -173,7 +173,7 @@ func _load_existing_save(slot_index: int) -> void:
 		push_warning("start_menu: failed to load save slot %d" % slot_index)
 		return
 
-	get_tree().change_scene_to_packed(MAIN_MENU_SCENE)
+	get_tree().change_scene_to_file(MAIN_MENU_SCENE_PATH)
 
 
 func _show_new_game_setup(slot_index: int) -> void:
@@ -247,7 +247,7 @@ func _on_start_new_game_pressed() -> void:
 	if is_instance_valid(new_game_setup):
 		new_game_setup.visible = false
 
-	get_tree().change_scene_to_packed(MAIN_MENU_SCENE)
+	get_tree().change_scene_to_file(MAIN_MENU_SCENE_PATH)
 
 
 func _read_player_name_input() -> String:

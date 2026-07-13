@@ -1,8 +1,6 @@
 extends RefCounted
 class_name SaveFile
 
-const STONE_DATA_SCRIPT := preload("res://scripts/stone_data.gd")
-
 const SAVE_DIRECTORY := "user://saves"
 const LEGACY_SAVE_PATH := "user://saves/player_data.json"
 const SAVE_SLOT_PATH_TEMPLATE := "user://saves/player_data_slot_%d.json"
@@ -160,9 +158,9 @@ static func _serialize_stones(raw_stones: Variant) -> Array[Dictionary]:
 		return serialized
 
 	for raw_stone in raw_stones:
-		if raw_stone == null or raw_stone.get_script() != STONE_DATA_SCRIPT:
+		if raw_stone is not Stone:
 			continue
-		var stone: Variant = raw_stone
+		var stone: Stone = raw_stone
 		serialized.append({
 			"name": stone.name,
 			"power": stone.power,
@@ -180,15 +178,15 @@ static func _serialize_stones(raw_stones: Variant) -> Array[Dictionary]:
 	return serialized
 
 
-static func _deserialize_stones(raw_stones: Variant) -> Array:
-	var stones: Array = []
+static func _deserialize_stones(raw_stones: Variant) -> Array[Stone]:
+	var stones: Array[Stone] = []
 	if raw_stones is not Array:
 		return stones
 
 	for raw_stone in raw_stones:
 		if raw_stone is not Dictionary:
 			continue
-		stones.append(STONE_DATA_SCRIPT.new(
+		stones.append(Stone.new(
 			String(raw_stone.get("name", "")),
 			int(raw_stone.get("power", 0)),
 			int(raw_stone.get("spin", 0)),
@@ -196,7 +194,7 @@ static func _deserialize_stones(raw_stones: Variant) -> Array:
 			int(raw_stone.get("condition", 0)),
 			int(raw_stone.get("age", 1)),
 			int(raw_stone.get("wins", 0)),
-			int(raw_stone.get("variant", STONE_DATA_SCRIPT.MIN_VARIANT)),
+			int(raw_stone.get("variant", Stone.MIN_VARIANT)),
 			int(raw_stone.get("power_potential", 100)),
 			int(raw_stone.get("spin_potential", 100)),
 			int(raw_stone.get("precision_potential", 100))

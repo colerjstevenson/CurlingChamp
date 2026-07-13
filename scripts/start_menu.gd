@@ -1,7 +1,6 @@
 extends Control
 
 const MAIN_MENU_SCENE_PATH := "res://scenes/main.tscn"
-const SAVE_FILE_SCRIPT := preload("res://scripts/save_file.gd")
 const RED_STONE_TEXTURE := preload("res://assets/curling/stones/stone_red_side.png")
 const BLUE_STONE_TEXTURE := preload("res://assets/curling/stones/stone_blue_side.png")
 const YELLOW_STONE_TEXTURE := preload("res://assets/curling/stones/stone_yellow_side.png")
@@ -91,7 +90,7 @@ func _connect_signals() -> void:
 func _refresh_slot_buttons() -> void:
 	for slot_view in _slot_views:
 		var slot_index := int(slot_view.get("slot", 0))
-		var summary := SAVE_FILE_SCRIPT.get_slot_summary(slot_index)
+		var summary := SaveFile.get_slot_summary(slot_index)
 		var has_save := not summary.is_empty()
 
 		var save_layer := slot_view.get("save_layer") as CanvasLayer
@@ -127,7 +126,7 @@ func _refresh_slot_buttons() -> void:
 
 
 func _on_slot_button_pressed(slot_index: int) -> void:
-	if SAVE_FILE_SCRIPT.slot_exists(slot_index):
+	if SaveFile.slot_exists(slot_index):
 		_load_existing_save(slot_index)
 		return
 
@@ -135,7 +134,7 @@ func _on_slot_button_pressed(slot_index: int) -> void:
 
 
 func _on_delete_pressed(slot_index: int) -> void:
-	if not SAVE_FILE_SCRIPT.slot_exists(slot_index):
+	if not SaveFile.slot_exists(slot_index):
 		return
 
 	_pending_delete_slot = slot_index
@@ -151,7 +150,7 @@ func _on_confirm_delete_yes_pressed() -> void:
 			confirm_layer.visible = false
 		return
 
-	SAVE_FILE_SCRIPT.delete_slot(_pending_delete_slot)
+	SaveFile.delete_slot(_pending_delete_slot)
 	_pending_delete_slot = 0
 	if is_instance_valid(confirm_layer):
 		confirm_layer.visible = false

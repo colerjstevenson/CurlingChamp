@@ -7,7 +7,6 @@ const FIRST_NAMES_PATH := "res://lists/first-names.txt"
 const LAST_NAMES_PATH := "res://lists/last-names.txt"
 const RINK_NAMES_PATH := "res://lists/rink_names.txt"
 const NEW_GAME_TEMPLATE_PATH := "res://data/new_game_template.json"
-const STONE_DATA_SCRIPT := preload("res://scripts/stone_data.gd")
 const LIST_PATHS := [
 	ROCK_NAMES_PATH,
 	FIRST_NAMES_PATH,
@@ -35,8 +34,8 @@ var opponent_color: String = DEFAULT_OPPONENT_COLOR
 var week: int = DEFAULT_WEEK
 var year: int = DEFAULT_YEAR
 var money: int = DEFAULT_MONEY
-var player_stones: Array = []
-var store_stones: Array = []
+var player_stones: Array[Stone] = []
+var store_stones: Array[Stone] = []
 var Schedule: Array[Dictionary] = []
 var LeaguePlayers: Array[Dictionary] = []
 var HumanSeasonRecord: Dictionary = {
@@ -63,11 +62,10 @@ func _ready() -> void:
 
 
 func load_game_from_slot(slot_index: int) -> bool:
-	var save_file_script: Variant = _get_save_file_script()
-	if slot_index < 1 or slot_index > save_file_script.MAX_SAVE_SLOTS:
+	if slot_index < 1 or slot_index > SaveFile.MAX_SAVE_SLOTS:
 		return false
 
-	var loaded_state: Variant = save_file_script.load_game_state(slot_index)
+	var loaded_state := SaveFile.load_game_state(slot_index)
 	if loaded_state.is_empty():
 		return false
 
@@ -87,8 +85,7 @@ func load_game_from_slot(slot_index: int) -> bool:
 
 
 func start_new_game_in_slot(slot_index: int, requested_player_name: String, requested_player_color: String) -> bool:
-	var save_file_script: Variant = _get_save_file_script()
-	if slot_index < 1 or slot_index > save_file_script.MAX_SAVE_SLOTS:
+	if slot_index < 1 or slot_index > SaveFile.MAX_SAVE_SLOTS:
 		return false
 
 	current_save_slot = slot_index
@@ -114,8 +111,7 @@ func _load_progress() -> bool:
 	if current_save_slot < 1:
 		return false
 
-	var save_file_script: Variant = _get_save_file_script()
-	var loaded_state: Variant = save_file_script.load_game_state()
+	var loaded_state := SaveFile.load_game_state()
 	if loaded_state.is_empty():
 		return false
 
@@ -126,12 +122,7 @@ func _load_progress() -> bool:
 func _save_progress() -> bool:
 	if current_save_slot < 1:
 		return false
-	var save_file_script: Variant = _get_save_file_script()
-	return save_file_script.save_game_state(_export_save_state(), current_save_slot)
-
-
-func _get_save_file_script() -> Variant:
-	return load("res://scripts/save_file.gd")
+	return SaveFile.save_game_state(_export_save_state(), current_save_slot)
 
 
 func _on_state_changed_autosave() -> void:
@@ -244,15 +235,15 @@ func _to_dictionary_array(raw_value: Variant) -> Array[Dictionary]:
 	return converted
 
 
-func _deserialize_stones_from_template(raw_stones: Variant) -> Array:
-	var stones: Array = []
+func _deserialize_stones_from_template(raw_stones: Variant) -> Array[Stone]:
+	var stones: Array[Stone] = []
 	if raw_stones is not Array:
 		return stones
 
 	for raw_stone in raw_stones:
 		if raw_stone is not Dictionary:
 			continue
-		stones.append(STONE_DATA_SCRIPT.new(
+		stones.append(Stone.new(
 			String(raw_stone.get("name", "")),
 			int(raw_stone.get("power", 0)),
 			int(raw_stone.get("spin", 0)),
@@ -617,7 +608,7 @@ func _apply_post_match_stone_wear(wear_reports: Dictionary) -> void:
 		if wear <= 0:
 			continue
 
-		var stone: Variant = player_stones[roster_index]
+		var stone := player_stones[roster_index]
 		if stone == null:
 			continue
 
@@ -634,7 +625,7 @@ func _apply_post_match_stone_wear(wear_reports: Dictionary) -> void:
 func _prune_broken_player_stones() -> void:
 	var broken_indices: Array[int] = []
 	for index in range(player_stones.size() - 1, -1, -1):
-		var stone: Variant = player_stones[index]
+		var stone := player_stones[index]
 		if stone == null or int(stone.condition) <= 0:
 			broken_indices.append(index)
 
@@ -797,12 +788,12 @@ func _get_schedule_entry(week_number: int) -> Dictionary:
 	return Schedule[week_number - 1].duplicate()
 
 
-func _build_random_stone(stone_name: String) -> Object:
+func _build_random_stone(stone_name: String) -> Stone:
 	var power_potential := _roll_potential()
 	var spin_potential := _roll_potential()
 	var precision_potential := _roll_potential()
 
-	return STONE_DATA_SCRIPT.new(
+	return Stone.new(
 		stone_name,
 		randi_range(0, power_potential),
 		randi_range(0, spin_potential),

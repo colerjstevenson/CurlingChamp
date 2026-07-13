@@ -253,7 +253,7 @@ func _refresh_rink_geometry() -> void:
 	rink_bottom_y = rink_sprite.global_position.y + (rink_sprite.texture.get_height() * rink_sprite.global_scale.y * 0.5)
 
 	if is_instance_valid(house_area_shape):
-		house_center = house_area_shape.global_position
+		house_center = house_area_shape.to_global(Vector2.ZERO)
 	elif is_instance_valid(house):
 		house_center = house.global_position
 
@@ -546,7 +546,7 @@ func _calculate_end_score() -> Dictionary:
 		if stone == null:
 			continue
 
-		var distance := stone.position.distance_to(house_center)
+		var distance := stone.global_position.distance_to(house_center)
 		if distance <= house_radius:
 			in_house.append({
 				"color": String(stone.get("stone_color")),

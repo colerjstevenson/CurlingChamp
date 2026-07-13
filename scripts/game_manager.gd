@@ -1,7 +1,7 @@
 extends Node
 
 signal state_changed
-
+####
 const ROCK_NAMES_PATH := "res://lists/rockNames.txt"
 const FIRST_NAMES_PATH := "res://lists/first-names.txt"
 const LAST_NAMES_PATH := "res://lists/last-names.txt"

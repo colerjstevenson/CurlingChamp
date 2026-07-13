@@ -372,6 +372,24 @@ Never:
 
 ---
 
+# Cross-Platform Path Safety (Web/Linux)
+
+Web exports and Linux environments are case-sensitive.
+
+When using scene/resource paths in `preload()`, `load()`, `change_scene_to_file()`, exports, or project settings:
+
+- Match filename casing exactly as it appears on disk.
+- Treat path case mismatches as blockers before finishing.
+- Verify renamed/new paths against actual files under `scenes/` and `scripts/`.
+
+Example portability failure to avoid:
+
+- `res://scenes/Main.tscn` vs actual file `res://scenes/main.tscn`.
+
+Windows may still run with mismatched casing, but web/Linux can fail at startup.
+
+---
+
 # Coding Standards
 
 ## Language

@@ -56,7 +56,7 @@ const DEFAULT_THROW_CONFIG_PATH := "res://data/throw_physics_config.tres"
 @export var human_throws_first := true
 @export var auto_return_to_menu := true
 @export var match_result_hold_seconds := 3.0
-@export_file("*.tscn") var return_to_scene_path: String = "res://scenes/Main.tscn"
+@export_file("*.tscn") var return_to_scene_path: String = "res://scenes/main.tscn"
 @export var throw_config: Resource
 var house_center
 var house_radius

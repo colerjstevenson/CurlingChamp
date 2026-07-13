@@ -85,6 +85,7 @@ func _connect_signals() -> void:
 		confirm_no_button.pressed.connect(_on_confirm_delete_no_pressed)
 	if is_instance_valid(name_input):
 		name_input.gui_input.connect(_on_name_input_gui_input)
+		name_input.focus_entered.connect(_on_name_input_focus_entered)
 
 
 func _refresh_slot_buttons() -> void:
@@ -180,9 +181,8 @@ func _show_new_game_setup(slot_index: int) -> void:
 	_selected_slot = slot_index
 	if is_instance_valid(new_game_setup):
 		new_game_setup.visible = true
-	# On mobile web, request focus while still in the tap/click callback.
-	_focus_name_input_for_new_game()
-	call_deferred("_focus_name_input_for_new_game")
+		# Delay focus until the setup layer is visible so mobile keyboards can open correctly.
+		call_deferred("_focus_name_input_for_new_game")
 	_update_setup_stone_preview()
 
 
@@ -216,6 +216,10 @@ func _on_name_input_gui_input(event: InputEvent) -> void:
 		return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		_focus_name_input_for_new_game()
+
+
+func _on_name_input_focus_entered() -> void:
+	_request_virtual_keyboard_for_name_input()
 
 
 func _on_left_arrow_pressed() -> void:

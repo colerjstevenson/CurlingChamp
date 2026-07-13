@@ -32,3 +32,13 @@
 - If telemetry shows systematic over/under-shoot for specific shot types, tune AI-side shot_power_bias and landing weights.
 - If guard quality needs tighter lanes at high difficulty, adjust guard_lane_half_width_ratio and guard_lane_weight only.
 - If think quality needs balancing versus responsiveness, tune power_seed_count and top_pick_fraction by difficulty.
+
+## Mobile Start Menu Focus Fix - Completed
+
+### What changed
+- Removed automatic focus and virtual-keyboard requests when the start menu opens the new-game panel.
+- The name field now only focuses when the player explicitly taps the field, which avoids the mobile startup path that was causing trouble.
+
+### What remained unchanged
+- Scene routing and save-slot logic were left alone.
+- The explicit tap-to-focus and keyboard behavior on the name field still works.

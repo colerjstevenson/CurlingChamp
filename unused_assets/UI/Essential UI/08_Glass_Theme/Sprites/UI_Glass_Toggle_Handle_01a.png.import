@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bok5tifimnrxe"
-path="res://.godot/imported/UI_Glass_Toggle_Handle_01a.png-2d123f62611bb9cc19e66638846f7b04.ctex"
+path="res://.godot/imported/UI_Glass_Toggle_Handle_01a.png-8f729c9af001dc8d2f55a0e1e3f1fbf0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/08_Glass_Theme/Sprites/UI_Glass_Toggle_Handle_01a.png"
-dest_files=["res://.godot/imported/UI_Glass_Toggle_Handle_01a.png-2d123f62611bb9cc19e66638846f7b04.ctex"]
+source_file="res://unused_assets/UI/Essential UI/08_Glass_Theme/Sprites/UI_Glass_Toggle_Handle_01a.png"
+dest_files=["res://.godot/imported/UI_Glass_Toggle_Handle_01a.png-8f729c9af001dc8d2f55a0e1e3f1fbf0.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bc5sstaopgedk"
-path="res://.godot/imported/UI_Flat_IconCross01b.png-d7346c4a8aa46c4139f4546673590443.ctex"
+path="res://.godot/imported/UI_Flat_IconCross01b.png-d04a9439a19ee9823b8779528e1bdfa9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/01_Flat_Theme/Sprites/UI_Flat_IconCross01b.png"
-dest_files=["res://.godot/imported/UI_Flat_IconCross01b.png-d7346c4a8aa46c4139f4546673590443.ctex"]
+source_file="res://unused_assets/UI/Essential UI/01_Flat_Theme/Sprites/UI_Flat_IconCross01b.png"
+dest_files=["res://.godot/imported/UI_Flat_IconCross01b.png-d04a9439a19ee9823b8779528e1bdfa9.ctex"]
 
 [params]
 

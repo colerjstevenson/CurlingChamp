@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cn34mbbkib675"
-path="res://.godot/imported/UI_Paper_Dropdown_Handle.png-87b8496f22bb8fd5d6517bf4b27f81b0.ctex"
+path="res://.godot/imported/UI_Paper_Dropdown_Handle.png-c67eb37bc2e5120d00fa0e07bf4cfef6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/02_Paper_Theme/Sprites/UI_Paper_Dropdown_Handle.png"
-dest_files=["res://.godot/imported/UI_Paper_Dropdown_Handle.png-87b8496f22bb8fd5d6517bf4b27f81b0.ctex"]
+source_file="res://unused_assets/UI/Essential UI/02_Paper_Theme/Sprites/UI_Paper_Dropdown_Handle.png"
+dest_files=["res://.godot/imported/UI_Paper_Dropdown_Handle.png-c67eb37bc2e5120d00fa0e07bf4cfef6.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c42sl51dodxwh"
-path="res://.godot/imported/stylized_Ice_Roughness.jpg-c457b8dd50f75a2807a9d5d55966a331.ctex"
+path="res://.godot/imported/stylized_Ice_Roughness.jpg-a57b5e6fa301ea5a7da82c1e527f93c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/blender/assets/materials/stylized-ice_c0d3deb6-6ed9-4738-9671-e4f1323d24df/textures/stylized_Ice_Roughness.jpg"
-dest_files=["res://.godot/imported/stylized_Ice_Roughness.jpg-c457b8dd50f75a2807a9d5d55966a331.ctex"]
+source_file="res://unused_assets/blender/assets/materials/stylized-ice_c0d3deb6-6ed9-4738-9671-e4f1323d24df/textures/stylized_Ice_Roughness.jpg"
+dest_files=["res://.godot/imported/stylized_Ice_Roughness.jpg-a57b5e6fa301ea5a7da82c1e527f93c9.ctex"]
 
 [params]
 

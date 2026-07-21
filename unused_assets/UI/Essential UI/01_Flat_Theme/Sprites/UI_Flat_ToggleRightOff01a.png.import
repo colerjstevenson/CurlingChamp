@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cc4okpm2xfms7"
-path="res://.godot/imported/UI_Flat_ToggleRightOff01a.png-b0148d78414cd7c1bde762d3657204b5.ctex"
+path="res://.godot/imported/UI_Flat_ToggleRightOff01a.png-481238759184e7ad9522da3a1796ad9f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/01_Flat_Theme/Sprites/UI_Flat_ToggleRightOff01a.png"
-dest_files=["res://.godot/imported/UI_Flat_ToggleRightOff01a.png-b0148d78414cd7c1bde762d3657204b5.ctex"]
+source_file="res://unused_assets/UI/Essential UI/01_Flat_Theme/Sprites/UI_Flat_ToggleRightOff01a.png"
+dest_files=["res://.godot/imported/UI_Flat_ToggleRightOff01a.png-481238759184e7ad9522da3a1796ad9f.ctex"]
 
 [params]
 

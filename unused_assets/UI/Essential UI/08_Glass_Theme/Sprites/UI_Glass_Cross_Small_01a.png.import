@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b2ykjsl2att8f"
-path="res://.godot/imported/UI_Glass_Cross_Small_01a.png-95c223b6fe7646da03ebf9d11b9cdbbd.ctex"
+path="res://.godot/imported/UI_Glass_Cross_Small_01a.png-88727b5ef0ab2e5e5597ca8a17f8f94d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/08_Glass_Theme/Sprites/UI_Glass_Cross_Small_01a.png"
-dest_files=["res://.godot/imported/UI_Glass_Cross_Small_01a.png-95c223b6fe7646da03ebf9d11b9cdbbd.ctex"]
+source_file="res://unused_assets/UI/Essential UI/08_Glass_Theme/Sprites/UI_Glass_Cross_Small_01a.png"
+dest_files=["res://.godot/imported/UI_Glass_Cross_Small_01a.png-88727b5ef0ab2e5e5597ca8a17f8f94d.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ku52t3fqmrd8"
-path="res://.godot/imported/UI_Flat_IconPoint01c.png-53d1065082066fea5c72a864491d9f5f.ctex"
+path="res://.godot/imported/UI_Flat_IconPoint01c.png-c3fb4428d65a31a772ea591e4ea0b300.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/01_Flat_Theme/Sprites/UI_Flat_IconPoint01c.png"
-dest_files=["res://.godot/imported/UI_Flat_IconPoint01c.png-53d1065082066fea5c72a864491d9f5f.ctex"]
+source_file="res://unused_assets/UI/Essential UI/01_Flat_Theme/Sprites/UI_Flat_IconPoint01c.png"
+dest_files=["res://.godot/imported/UI_Flat_IconPoint01c.png-c3fb4428d65a31a772ea591e4ea0b300.ctex"]
 
 [params]
 

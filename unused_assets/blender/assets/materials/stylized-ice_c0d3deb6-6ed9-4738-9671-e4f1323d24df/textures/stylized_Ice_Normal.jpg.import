@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5q2n0nx7004w"
-path="res://.godot/imported/stylized_Ice_Normal.jpg-9ba3271a4b2081bd9d21b8369636e216.ctex"
+path="res://.godot/imported/stylized_Ice_Normal.jpg-b0789475a6f630ba4bf8fa35324a9430.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/blender/assets/materials/stylized-ice_c0d3deb6-6ed9-4738-9671-e4f1323d24df/textures/stylized_Ice_Normal.jpg"
-dest_files=["res://.godot/imported/stylized_Ice_Normal.jpg-9ba3271a4b2081bd9d21b8369636e216.ctex"]
+source_file="res://unused_assets/blender/assets/materials/stylized-ice_c0d3deb6-6ed9-4738-9671-e4f1323d24df/textures/stylized_Ice_Normal.jpg"
+dest_files=["res://.godot/imported/stylized_Ice_Normal.jpg-b0789475a6f630ba4bf8fa35324a9430.ctex"]
 
 [params]
 

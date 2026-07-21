@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bkaaj5p8p634g"
-path="res://.godot/imported/pink_spritesheet.png-55f6420c2e73e1fff42fe392f69edad3.ctex"
+path="res://.godot/imported/pink_spritesheet.png-f20f9b5560342f4fcccbd787f8ab4eb5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Colors/Pink/pink_spritesheet.png"
-dest_files=["res://.godot/imported/pink_spritesheet.png-55f6420c2e73e1fff42fe392f69edad3.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Colors/Pink/pink_spritesheet.png"
+dest_files=["res://.godot/imported/pink_spritesheet.png-f20f9b5560342f4fcccbd787f8ab4eb5.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://72160dl10xo4"
-path="res://.godot/imported/stylized_Ice_Base_Color.jpg-c159ac4a9998b098eb87dc91355538cb.ctex"
+path="res://.godot/imported/stylized_Ice_Base_Color.jpg-a33fb3ca6f021a66f62d08c1cf3bd55e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/blender/assets/materials/stylized-ice_c0d3deb6-6ed9-4738-9671-e4f1323d24df/textures/stylized_Ice_Base_Color.jpg"
-dest_files=["res://.godot/imported/stylized_Ice_Base_Color.jpg-c159ac4a9998b098eb87dc91355538cb.ctex"]
+source_file="res://unused_assets/blender/assets/materials/stylized-ice_c0d3deb6-6ed9-4738-9671-e4f1323d24df/textures/stylized_Ice_Base_Color.jpg"
+dest_files=["res://.godot/imported/stylized_Ice_Base_Color.jpg-a33fb3ca6f021a66f62d08c1cf3bd55e.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bwtfgrmg8g5yx"
-path="res://.godot/imported/UI_Metal_Scrollbar_Handle_01a.png-a4dadd0c395a82a0f1d31da356f54b07.ctex"
+path="res://.godot/imported/UI_Metal_Scrollbar_Handle_01a.png-9bbb4dc924aa0196dfb31fda229a79e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/05_Metal_Theme/Sprites/UI_Metal_Scrollbar_Handle_01a.png"
-dest_files=["res://.godot/imported/UI_Metal_Scrollbar_Handle_01a.png-a4dadd0c395a82a0f1d31da356f54b07.ctex"]
+source_file="res://unused_assets/UI/Essential UI/05_Metal_Theme/Sprites/UI_Metal_Scrollbar_Handle_01a.png"
+dest_files=["res://.godot/imported/UI_Metal_Scrollbar_Handle_01a.png-9bbb4dc924aa0196dfb31fda229a79e0.ctex"]
 
 [params]
 

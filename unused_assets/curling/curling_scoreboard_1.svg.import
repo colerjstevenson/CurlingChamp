@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxcymbtx8ahb7"
-path="res://.godot/imported/curling_scoreboard_1.svg-8d04e1d7f83aa77bdd6e77ea295d4d8e.ctex"
+path="res://.godot/imported/curling_scoreboard_1.svg-257997be9d1ba2ba26488c66d286b944.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/curling/curling_scoreboard_1.svg"
-dest_files=["res://.godot/imported/curling_scoreboard_1.svg-8d04e1d7f83aa77bdd6e77ea295d4d8e.ctex"]
+source_file="res://unused_assets/curling/curling_scoreboard_1.svg"
+dest_files=["res://.godot/imported/curling_scoreboard_1.svg-257997be9d1ba2ba26488c66d286b944.ctex"]
 
 [params]
 

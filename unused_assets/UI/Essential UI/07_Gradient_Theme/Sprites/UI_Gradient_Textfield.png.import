@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://rn2qeqpkomo2"
-path="res://.godot/imported/UI_Gradient_Textfield.png-075c61e94910e678882c907036898915.ctex"
+path="res://.godot/imported/UI_Gradient_Textfield.png-af0e2735be50a0d0625f917bd061c90c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/07_Gradient_Theme/Sprites/UI_Gradient_Textfield.png"
-dest_files=["res://.godot/imported/UI_Gradient_Textfield.png-075c61e94910e678882c907036898915.ctex"]
+source_file="res://unused_assets/UI/Essential UI/07_Gradient_Theme/Sprites/UI_Gradient_Textfield.png"
+dest_files=["res://.godot/imported/UI_Gradient_Textfield.png-af0e2735be50a0d0625f917bd061c90c.ctex"]
 
 [params]
 

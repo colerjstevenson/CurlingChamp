@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8jciurnffhf5"
-path="res://.godot/imported/radiobutton_middle_green.png-2924e53ed98f432cd165f0cea88be897.ctex"
+path="res://.godot/imported/radiobutton_middle_green.png-7f259a9a2877a6d67582347c869cecad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Others/Radio Buttons/radiobutton_middle_green.png"
-dest_files=["res://.godot/imported/radiobutton_middle_green.png-2924e53ed98f432cd165f0cea88be897.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Others/Radio Buttons/radiobutton_middle_green.png"
+dest_files=["res://.godot/imported/radiobutton_middle_green.png-7f259a9a2877a6d67582347c869cecad.ctex"]
 
 [params]
 

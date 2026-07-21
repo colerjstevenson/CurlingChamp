@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://0fbawgnnxnf7"
-path="res://.godot/imported/UI_Wood_A_Border.png-0eb58fa8a468b9da24d3bd25fdf42afe.ctex"
+path="res://.godot/imported/UI_Wood_A_Border.png-affb08908dd8d45e9c76ac669737e2dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/UI_Wood_A_Border.png"
-dest_files=["res://.godot/imported/UI_Wood_A_Border.png-0eb58fa8a468b9da24d3bd25fdf42afe.ctex"]
+source_file="res://unused_assets/UI/UI_Wood_A_Border.png"
+dest_files=["res://.godot/imported/UI_Wood_A_Border.png-affb08908dd8d45e9c76ac669737e2dd.ctex"]
 
 [params]
 

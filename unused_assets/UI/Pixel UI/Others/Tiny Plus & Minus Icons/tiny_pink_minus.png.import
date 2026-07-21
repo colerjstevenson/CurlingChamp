@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ddiwk02givua"
-path="res://.godot/imported/tiny_pink_minus.png-9e4f62d2b6ebb62037f4c9fc0def6c81.ctex"
+path="res://.godot/imported/tiny_pink_minus.png-de522ae81090e6cb4e802f71ca4cb5d5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Others/Tiny Plus & Minus Icons/tiny_pink_minus.png"
-dest_files=["res://.godot/imported/tiny_pink_minus.png-9e4f62d2b6ebb62037f4c9fc0def6c81.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Others/Tiny Plus & Minus Icons/tiny_pink_minus.png"
+dest_files=["res://.godot/imported/tiny_pink_minus.png-de522ae81090e6cb4e802f71ca4cb5d5.ctex"]
 
 [params]
 

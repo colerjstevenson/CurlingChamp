@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dx671hlx1imaf"
-path="res://.godot/imported/blue_right_slider.png-378ab05e6a6a550ac0c3f61ea022ddee.ctex"
+path="res://.godot/imported/blue_right_slider.png-496f3bdd78dcff2127652b71eaeec09c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Colors/Blue/Slider/blue_right_slider.png"
-dest_files=["res://.godot/imported/blue_right_slider.png-378ab05e6a6a550ac0c3f61ea022ddee.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Colors/Blue/Slider/blue_right_slider.png"
+dest_files=["res://.godot/imported/blue_right_slider.png-496f3bdd78dcff2127652b71eaeec09c.ctex"]
 
 [params]
 

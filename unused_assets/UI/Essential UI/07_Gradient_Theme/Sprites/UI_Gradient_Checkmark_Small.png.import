@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://jsl1o0eank7m"
-path="res://.godot/imported/UI_Gradient_Checkmark_Small.png-8b7054d1dfbd65cb9ed563969af6cefe.ctex"
+path="res://.godot/imported/UI_Gradient_Checkmark_Small.png-84a0ce57947bc78af4d829958eeddf8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/07_Gradient_Theme/Sprites/UI_Gradient_Checkmark_Small.png"
-dest_files=["res://.godot/imported/UI_Gradient_Checkmark_Small.png-8b7054d1dfbd65cb9ed563969af6cefe.ctex"]
+source_file="res://unused_assets/UI/Essential UI/07_Gradient_Theme/Sprites/UI_Gradient_Checkmark_Small.png"
+dest_files=["res://.godot/imported/UI_Gradient_Checkmark_Small.png-84a0ce57947bc78af4d829958eeddf8f.ctex"]
 
 [params]
 

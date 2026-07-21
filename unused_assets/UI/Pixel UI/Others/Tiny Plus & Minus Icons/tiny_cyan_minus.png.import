@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bcvl7x48txc7"
-path="res://.godot/imported/tiny_cyan_minus.png-f078063b513f1107d06239619f2b6d5b.ctex"
+path="res://.godot/imported/tiny_cyan_minus.png-de944e85197f1d3b277350002099548a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Others/Tiny Plus & Minus Icons/tiny_cyan_minus.png"
-dest_files=["res://.godot/imported/tiny_cyan_minus.png-f078063b513f1107d06239619f2b6d5b.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Others/Tiny Plus & Minus Icons/tiny_cyan_minus.png"
+dest_files=["res://.godot/imported/tiny_cyan_minus.png-de944e85197f1d3b277350002099548a.ctex"]
 
 [params]
 

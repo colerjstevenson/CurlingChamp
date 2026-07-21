@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://tysya5ga0hij"
-path="res://.godot/imported/spin_mockup.png-775fd4b0ebd7b0dbed79e11868e955a4.ctex"
+path="res://.godot/imported/spin_mockup.png-dfe4752937b359652ef9bd2b70865726.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/spin_mockup.png"
-dest_files=["res://.godot/imported/spin_mockup.png-775fd4b0ebd7b0dbed79e11868e955a4.ctex"]
+source_file="res://unused_assets/spin_mockup.png"
+dest_files=["res://.godot/imported/spin_mockup.png-dfe4752937b359652ef9bd2b70865726.ctex"]
 
 [params]
 

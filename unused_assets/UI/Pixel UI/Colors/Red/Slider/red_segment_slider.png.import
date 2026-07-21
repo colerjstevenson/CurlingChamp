@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bxkfdbb178s8t"
-path="res://.godot/imported/red_segment_slider.png-dbd01d5469b3ee322c1fb1ceecce6fdf.ctex"
+path="res://.godot/imported/red_segment_slider.png-b8cb7877b40b4954a1b85bcdbce109b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Colors/Red/Slider/red_segment_slider.png"
-dest_files=["res://.godot/imported/red_segment_slider.png-dbd01d5469b3ee322c1fb1ceecce6fdf.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Colors/Red/Slider/red_segment_slider.png"
+dest_files=["res://.godot/imported/red_segment_slider.png-b8cb7877b40b4954a1b85bcdbce109b8.ctex"]
 
 [params]
 

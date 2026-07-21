@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dex7xsefd5nyy"
-path="res://.godot/imported/rock_silloette.png-15116ef5f6535ac99a27b90e08efe0af.ctex"
+path="res://.godot/imported/rock_silloette.png-8b2b3d2f45ed47e6f30fcd1d8948128c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/blender/assets/rock_silloette.png"
-dest_files=["res://.godot/imported/rock_silloette.png-15116ef5f6535ac99a27b90e08efe0af.ctex"]
+source_file="res://unused_assets/blender/assets/rock_silloette.png"
+dest_files=["res://.godot/imported/rock_silloette.png-8b2b3d2f45ed47e6f30fcd1d8948128c.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cxq0kquq51lpp"
-path="res://.godot/imported/dropdown_highlight.png-d6c100002485cb3ca5bdeae3d67b12f4.ctex"
+path="res://.godot/imported/dropdown_highlight.png-89bca7ebdd1730143d2f756843442d4e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Others/Dropdowns/dropdown_highlight.png"
-dest_files=["res://.godot/imported/dropdown_highlight.png-d6c100002485cb3ca5bdeae3d67b12f4.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Others/Dropdowns/dropdown_highlight.png"
+dest_files=["res://.godot/imported/dropdown_highlight.png-89bca7ebdd1730143d2f756843442d4e.ctex"]
 
 [params]
 

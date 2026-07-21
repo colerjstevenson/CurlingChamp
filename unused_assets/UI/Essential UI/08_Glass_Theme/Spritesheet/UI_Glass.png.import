@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cvscbvjcekkxq"
-path="res://.godot/imported/UI_Glass.png-4256c662d98cf7cd646685c97af38449.ctex"
+path="res://.godot/imported/UI_Glass.png-1087cb8f68df6dae45e14dde5e2aed84.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/08_Glass_Theme/Spritesheet/UI_Glass.png"
-dest_files=["res://.godot/imported/UI_Glass.png-4256c662d98cf7cd646685c97af38449.ctex"]
+source_file="res://unused_assets/UI/Essential UI/08_Glass_Theme/Spritesheet/UI_Glass.png"
+dest_files=["res://.godot/imported/UI_Glass.png-1087cb8f68df6dae45e14dde5e2aed84.ctex"]
 
 [params]
 

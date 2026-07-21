@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c6ewrt3ljxvcx"
-path="res://.godot/imported/tiny-toggle-track.png-4d5315f844e10139d4e705e649ae1203.ctex"
+path="res://.godot/imported/tiny-toggle-track.png-39f5517c74788625a2ee7bce034e559c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Others/Toggles/tiny-toggle-track.png"
-dest_files=["res://.godot/imported/tiny-toggle-track.png-4d5315f844e10139d4e705e649ae1203.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Others/Toggles/tiny-toggle-track.png"
+dest_files=["res://.godot/imported/tiny-toggle-track.png-39f5517c74788625a2ee7bce034e559c.ctex"]
 
 [params]
 

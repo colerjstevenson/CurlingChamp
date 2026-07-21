@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://jrv255wcpvad"
-path="res://.godot/imported/blue_pressed_square_39.png-2096577eeef24fc269479eb6b589e0e9.ctex"
+path="res://.godot/imported/blue_pressed_square_39.png-0ee39fbec1b84afb938458f52818379d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Colors/Blue/Square Pressed/blue_pressed_square_39.png"
-dest_files=["res://.godot/imported/blue_pressed_square_39.png-2096577eeef24fc269479eb6b589e0e9.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Colors/Blue/Square Pressed/blue_pressed_square_39.png"
+dest_files=["res://.godot/imported/blue_pressed_square_39.png-0ee39fbec1b84afb938458f52818379d.ctex"]
 
 [params]
 

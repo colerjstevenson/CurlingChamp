@@ -25,6 +25,7 @@ offset_bottom = 1225.0
 theme = ExtResource("1_6x415")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
+layout_mode = 0
 offset_left = 21.0
 offset_top = 157.0
 offset_right = 644.0

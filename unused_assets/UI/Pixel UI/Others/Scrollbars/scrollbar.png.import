@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cu7oyrokodick"
-path="res://.godot/imported/scrollbar.png-e79165796e4b27d75f5f3975a55f7ba8.ctex"
+path="res://.godot/imported/scrollbar.png-fac2a6fa022e37ad20de9588bc1fd87e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Others/Scrollbars/scrollbar.png"
-dest_files=["res://.godot/imported/scrollbar.png-e79165796e4b27d75f5f3975a55f7ba8.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Others/Scrollbars/scrollbar.png"
+dest_files=["res://.godot/imported/scrollbar.png-fac2a6fa022e37ad20de9588bc1fd87e.ctex"]
 
 [params]
 

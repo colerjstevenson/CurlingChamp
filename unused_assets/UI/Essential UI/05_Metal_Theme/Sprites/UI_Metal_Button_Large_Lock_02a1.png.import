@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://sv3tsjlf7kit"
-path="res://.godot/imported/UI_Metal_Button_Large_Lock_02a1.png-bd195fb2a658f8d7c01a8020abb460ae.ctex"
+path="res://.godot/imported/UI_Metal_Button_Large_Lock_02a1.png-07638ee0fa0435245db37caf9df5a486.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/05_Metal_Theme/Sprites/UI_Metal_Button_Large_Lock_02a1.png"
-dest_files=["res://.godot/imported/UI_Metal_Button_Large_Lock_02a1.png-bd195fb2a658f8d7c01a8020abb460ae.ctex"]
+source_file="res://unused_assets/UI/Essential UI/05_Metal_Theme/Sprites/UI_Metal_Button_Large_Lock_02a1.png"
+dest_files=["res://.godot/imported/UI_Metal_Button_Large_Lock_02a1.png-07638ee0fa0435245db37caf9df5a486.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dg5o4avakyvna"
-path="res://.godot/imported/cyan_left_slider.png-f1fbab978e30b893e8e63941c28f4b11.ctex"
+path="res://.godot/imported/cyan_left_slider.png-299b4eec8daac3fe544aed455d78344c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Colors/Cyan/Slider/cyan_left_slider.png"
-dest_files=["res://.godot/imported/cyan_left_slider.png-f1fbab978e30b893e8e63941c28f4b11.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Colors/Cyan/Slider/cyan_left_slider.png"
+dest_files=["res://.godot/imported/cyan_left_slider.png-299b4eec8daac3fe544aed455d78344c.ctex"]
 
 [params]
 

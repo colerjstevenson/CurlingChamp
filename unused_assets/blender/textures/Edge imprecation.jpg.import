@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://5tt3ccfmbuyl"
-path="res://.godot/imported/Edge imprecation.jpg-d6f32c37fb4299b704327dd88972eb8a.ctex"
+path="res://.godot/imported/Edge imprecation.jpg-d7ffc6b643f43820ab16521451a400b9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/blender/textures/Edge imprecation.jpg"
-dest_files=["res://.godot/imported/Edge imprecation.jpg-d6f32c37fb4299b704327dd88972eb8a.ctex"]
+source_file="res://unused_assets/blender/textures/Edge imprecation.jpg"
+dest_files=["res://.godot/imported/Edge imprecation.jpg-d7ffc6b643f43820ab16521451a400b9.ctex"]
 
 [params]
 

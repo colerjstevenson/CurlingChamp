@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ckywub2lhhqhx"
-path="res://.godot/imported/red_pressed_big.png-3f510bc5402b0a321da364fef2cb7255.ctex"
+path="res://.godot/imported/red_pressed_big.png-7801c402d1f8218a29629e4b20a08ab2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Colors/Red/Long Pressed/red_pressed_big.png"
-dest_files=["res://.godot/imported/red_pressed_big.png-3f510bc5402b0a321da364fef2cb7255.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Colors/Red/Long Pressed/red_pressed_big.png"
+dest_files=["res://.godot/imported/red_pressed_big.png-7801c402d1f8218a29629e4b20a08ab2.ctex"]
 
 [params]
 

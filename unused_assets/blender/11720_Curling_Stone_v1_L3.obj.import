@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://xixtr34wkd4c"
-path="res://.godot/imported/11720_Curling_Stone_v1_L3.obj-a50ba35d0e73b2185cd928bc2d0d6c5b.mesh"
+path="res://.godot/imported/11720_Curling_Stone_v1_L3.obj-c1e91c5b50e84ece16a4b4214ca76556.mesh"
 
 [deps]
 
-files=["res://.godot/imported/11720_Curling_Stone_v1_L3.obj-a50ba35d0e73b2185cd928bc2d0d6c5b.mesh"]
+files=["res://.godot/imported/11720_Curling_Stone_v1_L3.obj-c1e91c5b50e84ece16a4b4214ca76556.mesh"]
 
-source_file="res://assets/blender/11720_Curling_Stone_v1_L3.obj"
-dest_files=["res://.godot/imported/11720_Curling_Stone_v1_L3.obj-a50ba35d0e73b2185cd928bc2d0d6c5b.mesh", "res://.godot/imported/11720_Curling_Stone_v1_L3.obj-a50ba35d0e73b2185cd928bc2d0d6c5b.mesh"]
+source_file="res://unused_assets/blender/11720_Curling_Stone_v1_L3.obj"
+dest_files=["res://.godot/imported/11720_Curling_Stone_v1_L3.obj-c1e91c5b50e84ece16a4b4214ca76556.mesh", "res://.godot/imported/11720_Curling_Stone_v1_L3.obj-c1e91c5b50e84ece16a4b4214ca76556.mesh"]
 
 [params]
 

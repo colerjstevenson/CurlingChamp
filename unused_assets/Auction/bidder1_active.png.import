@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://f7jq1e74tbwm"
-path="res://.godot/imported/bidder1_active.png-b33a543043eebf9ad0812a0cb0ab4bc4.ctex"
+path="res://.godot/imported/bidder1_active.png-4e419e6278fdd4f38f79363180e786dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Auction/bidder1_active.png"
-dest_files=["res://.godot/imported/bidder1_active.png-b33a543043eebf9ad0812a0cb0ab4bc4.ctex"]
+source_file="res://unused_assets/Auction/bidder1_active.png"
+dest_files=["res://.godot/imported/bidder1_active.png-4e419e6278fdd4f38f79363180e786dd.ctex"]
 
 [params]
 

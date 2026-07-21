@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cmxg6udnorbm8"
-path="res://.godot/imported/UI_Gradient_Frame_Vertical.png-4d175f2cf1ea6c79b3028c127728cffd.ctex"
+path="res://.godot/imported/UI_Gradient_Frame_Vertical.png-54b1806b077509bcf846b75271595560.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/07_Gradient_Theme/Sprites/UI_Gradient_Frame_Vertical.png"
-dest_files=["res://.godot/imported/UI_Gradient_Frame_Vertical.png-4d175f2cf1ea6c79b3028c127728cffd.ctex"]
+source_file="res://unused_assets/UI/Essential UI/07_Gradient_Theme/Sprites/UI_Gradient_Frame_Vertical.png"
+dest_files=["res://.godot/imported/UI_Gradient_Frame_Vertical.png-54b1806b077509bcf846b75271595560.ctex"]
 
 [params]
 

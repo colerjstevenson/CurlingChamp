@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8sj70kamgawr"
-path="res://.godot/imported/UI_Metal_Button_Large_Press_02a3.png-02d32c57ecb746313f3b5681aff71d46.ctex"
+path="res://.godot/imported/UI_Metal_Button_Large_Press_02a3.png-3bae9da9ce8b7ddb908033237d442dfb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/05_Metal_Theme/Sprites/UI_Metal_Button_Large_Press_02a3.png"
-dest_files=["res://.godot/imported/UI_Metal_Button_Large_Press_02a3.png-02d32c57ecb746313f3b5681aff71d46.ctex"]
+source_file="res://unused_assets/UI/Essential UI/05_Metal_Theme/Sprites/UI_Metal_Button_Large_Press_02a3.png"
+dest_files=["res://.godot/imported/UI_Metal_Button_Large_Press_02a3.png-3bae9da9ce8b7ddb908033237d442dfb.ctex"]
 
 [params]
 

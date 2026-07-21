@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://yvvkni0v10db"
-path.s3tc="res://.godot/imported/stylized_Ice_Base_Color.jpg-ef98526943fc4def9b69dd63dc56e478.s3tc.ctex"
-path.etc2="res://.godot/imported/stylized_Ice_Base_Color.jpg-ef98526943fc4def9b69dd63dc56e478.etc2.ctex"
+path.s3tc="res://.godot/imported/stylized_Ice_Base_Color.jpg-3c306021b5a6f84db541ccf25d92e64c.s3tc.ctex"
+path.etc2="res://.godot/imported/stylized_Ice_Base_Color.jpg-3c306021b5a6f84db541ccf25d92e64c.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/blender/textures/stylized_Ice_Base_Color.jpg"
-dest_files=["res://.godot/imported/stylized_Ice_Base_Color.jpg-ef98526943fc4def9b69dd63dc56e478.s3tc.ctex", "res://.godot/imported/stylized_Ice_Base_Color.jpg-ef98526943fc4def9b69dd63dc56e478.etc2.ctex"]
+source_file="res://unused_assets/blender/textures/stylized_Ice_Base_Color.jpg"
+dest_files=["res://.godot/imported/stylized_Ice_Base_Color.jpg-3c306021b5a6f84db541ccf25d92e64c.s3tc.ctex", "res://.godot/imported/stylized_Ice_Base_Color.jpg-3c306021b5a6f84db541ccf25d92e64c.etc2.ctex"]
 
 [params]
 

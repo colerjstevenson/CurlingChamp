@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://q7qqmgxm3dds"
-path="res://.godot/imported/UI_Hologram_Button_Large_Lock_02a2.png-50dc22bda8d73f6ddca5454efadcf8ad.ctex"
+path="res://.godot/imported/UI_Hologram_Button_Large_Lock_02a2.png-38d01e08303afaeb13cad7336fa9150c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/06_Hologram_Theme/Sprites/UI_Hologram_Button_Large_Lock_02a2.png"
-dest_files=["res://.godot/imported/UI_Hologram_Button_Large_Lock_02a2.png-50dc22bda8d73f6ddca5454efadcf8ad.ctex"]
+source_file="res://unused_assets/UI/Essential UI/06_Hologram_Theme/Sprites/UI_Hologram_Button_Large_Lock_02a2.png"
+dest_files=["res://.godot/imported/UI_Hologram_Button_Large_Lock_02a2.png-38d01e08303afaeb13cad7336fa9150c.ctex"]
 
 [params]
 

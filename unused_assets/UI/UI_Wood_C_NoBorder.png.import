@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1hp0bixthock"
-path="res://.godot/imported/UI_Wood_C_NoBorder.png-c84fbffcc5c7198fa50f3a20ccf6ac1f.ctex"
+path="res://.godot/imported/UI_Wood_C_NoBorder.png-93f2520fc4470b2023ce1c078a31c460.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/UI_Wood_C_NoBorder.png"
-dest_files=["res://.godot/imported/UI_Wood_C_NoBorder.png-c84fbffcc5c7198fa50f3a20ccf6ac1f.ctex"]
+source_file="res://unused_assets/UI/UI_Wood_C_NoBorder.png"
+dest_files=["res://.godot/imported/UI_Wood_C_NoBorder.png-93f2520fc4470b2023ce1c078a31c460.ctex"]
 
 [params]
 

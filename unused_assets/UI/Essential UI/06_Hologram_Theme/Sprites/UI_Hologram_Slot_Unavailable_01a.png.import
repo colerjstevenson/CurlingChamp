@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ckegomqxnsqrs"
-path="res://.godot/imported/UI_Hologram_Slot_Unavailable_01a.png-31f5d37bd60387933bc66e5a43451b3f.ctex"
+path="res://.godot/imported/UI_Hologram_Slot_Unavailable_01a.png-7b907edd127d75defc6a93b01e4e72d5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/06_Hologram_Theme/Sprites/UI_Hologram_Slot_Unavailable_01a.png"
-dest_files=["res://.godot/imported/UI_Hologram_Slot_Unavailable_01a.png-31f5d37bd60387933bc66e5a43451b3f.ctex"]
+source_file="res://unused_assets/UI/Essential UI/06_Hologram_Theme/Sprites/UI_Hologram_Slot_Unavailable_01a.png"
+dest_files=["res://.godot/imported/UI_Hologram_Slot_Unavailable_01a.png-7b907edd127d75defc6a93b01e4e72d5.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://brood8hy2xtx2"
-path="res://.godot/imported/UI_Papernote_IconCheckmark02.png-37fad92210891177bb322c2b8f8cd3c7.ctex"
+path="res://.godot/imported/UI_Papernote_IconCheckmark02.png-7f7ba2ef6bc707d39c4dc4599ff7b47a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/11_Papernote_Theme/Sprites/UI_Papernote_IconCheckmark02.png"
-dest_files=["res://.godot/imported/UI_Papernote_IconCheckmark02.png-37fad92210891177bb322c2b8f8cd3c7.ctex"]
+source_file="res://unused_assets/UI/Essential UI/11_Papernote_Theme/Sprites/UI_Papernote_IconCheckmark02.png"
+dest_files=["res://.godot/imported/UI_Papernote_IconCheckmark02.png-7f7ba2ef6bc707d39c4dc4599ff7b47a.ctex"]
 
 [params]
 

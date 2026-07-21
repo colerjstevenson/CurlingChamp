@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccgu1bmxvydkt"
-path="res://.godot/imported/orange_square_26.png-300927792e51927280f54578945e2ef2.ctex"
+path="res://.godot/imported/orange_square_26.png-dd0c63f86c396a575788269cf3d76c9e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Colors/Orange/Square/orange_square_26.png"
-dest_files=["res://.godot/imported/orange_square_26.png-300927792e51927280f54578945e2ef2.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Colors/Orange/Square/orange_square_26.png"
+dest_files=["res://.godot/imported/orange_square_26.png-dd0c63f86c396a575788269cf3d76c9e.ctex"]
 
 [params]
 

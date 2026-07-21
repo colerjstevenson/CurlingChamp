@@ -314,8 +314,6 @@ offset_bottom = 314.0
 theme = ExtResource("4_e2oj6")
 placeholder_text = "John Smith"
 clear_button_enabled = true
-editable = true
-virtual_keyboard_enabled = true
 
 [node name="stone" type="Sprite2D" parent="NewGameSetup/Panel"]
 position = Vector2(324, 521)

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ba14m7fxefs2a"
-path="res://.godot/imported/UI_Glass_Button_Small_Release_01a1.png-d5761344d21359b5e633e60acc4ca7f8.ctex"
+path="res://.godot/imported/UI_Glass_Button_Small_Release_01a1.png-ad394aedcc4a22bd18e4f7c2552a4d2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/08_Glass_Theme/Sprites/UI_Glass_Button_Small_Release_01a1.png"
-dest_files=["res://.godot/imported/UI_Glass_Button_Small_Release_01a1.png-d5761344d21359b5e633e60acc4ca7f8.ctex"]
+source_file="res://unused_assets/UI/Essential UI/08_Glass_Theme/Sprites/UI_Glass_Button_Small_Release_01a1.png"
+dest_files=["res://.godot/imported/UI_Glass_Button_Small_Release_01a1.png-ad394aedcc4a22bd18e4f7c2552a4d2b.ctex"]
 
 [params]
 

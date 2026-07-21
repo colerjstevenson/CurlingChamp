@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://blevfaksb18bn"
-path="res://.godot/imported/UI_Flat_InputField02a.png-1a5c413a1887f33324df22be77c0e8f4.ctex"
+path="res://.godot/imported/UI_Flat_InputField02a.png-a48894c01b5f42c053d5520df231ec82.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/01_Flat_Theme/Sprites/UI_Flat_InputField02a.png"
-dest_files=["res://.godot/imported/UI_Flat_InputField02a.png-1a5c413a1887f33324df22be77c0e8f4.ctex"]
+source_file="res://unused_assets/UI/Essential UI/01_Flat_Theme/Sprites/UI_Flat_InputField02a.png"
+dest_files=["res://.godot/imported/UI_Flat_InputField02a.png-a48894c01b5f42c053d5520df231ec82.ctex"]
 
 [params]
 

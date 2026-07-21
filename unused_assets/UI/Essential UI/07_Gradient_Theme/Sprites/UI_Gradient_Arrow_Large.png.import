@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://xqssx3nxdo00"
-path="res://.godot/imported/UI_Gradient_Arrow_Large.png-7cd7a12bf81dd9ef56ef8e5878d3e9bc.ctex"
+path="res://.godot/imported/UI_Gradient_Arrow_Large.png-d4783e4ca05b01a4038498b540783908.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/07_Gradient_Theme/Sprites/UI_Gradient_Arrow_Large.png"
-dest_files=["res://.godot/imported/UI_Gradient_Arrow_Large.png-7cd7a12bf81dd9ef56ef8e5878d3e9bc.ctex"]
+source_file="res://unused_assets/UI/Essential UI/07_Gradient_Theme/Sprites/UI_Gradient_Arrow_Large.png"
+dest_files=["res://.godot/imported/UI_Gradient_Arrow_Large.png-d4783e4ca05b01a4038498b540783908.ctex"]
 
 [params]
 

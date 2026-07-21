@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bw3u4yensqbtw"
-path="res://.godot/imported/UI_Papernote_FunctionBar01.png-fdcc82495f4fe1f8af11cefc7debb1a1.ctex"
+path="res://.godot/imported/UI_Papernote_FunctionBar01.png-d28fb8a79cbfb81a2905de6d65d6e863.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/11_Papernote_Theme/Sprites/UI_Papernote_FunctionBar01.png"
-dest_files=["res://.godot/imported/UI_Papernote_FunctionBar01.png-fdcc82495f4fe1f8af11cefc7debb1a1.ctex"]
+source_file="res://unused_assets/UI/Essential UI/11_Papernote_Theme/Sprites/UI_Papernote_FunctionBar01.png"
+dest_files=["res://.godot/imported/UI_Papernote_FunctionBar01.png-d28fb8a79cbfb81a2905de6d65d6e863.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cr31te7nfm4ig"
-path="res://.godot/imported/Spritesheet_UI_Flat_Animated.png-400e4a08557695e245e7f65e58a4d268.ctex"
+path="res://.godot/imported/Spritesheet_UI_Flat_Animated.png-2036737e2073531163e937b834a3392c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/01_Flat_Theme/Spritesheets/Spritesheet_UI_Flat_Animated.png"
-dest_files=["res://.godot/imported/Spritesheet_UI_Flat_Animated.png-400e4a08557695e245e7f65e58a4d268.ctex"]
+source_file="res://unused_assets/UI/Essential UI/01_Flat_Theme/Spritesheets/Spritesheet_UI_Flat_Animated.png"
+dest_files=["res://.godot/imported/Spritesheet_UI_Flat_Animated.png-2036737e2073531163e937b834a3392c.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bqqppptperuqs"
-path="res://.godot/imported/rinkFull.png-e6a9f77ae8c207afff2c3507533869ce.ctex"
+path="res://.godot/imported/rinkFull.png-1f49fcc29e0ff1b3ecbd8060062ff583.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/curling/rinkFull.png"
-dest_files=["res://.godot/imported/rinkFull.png-e6a9f77ae8c207afff2c3507533869ce.ctex"]
+source_file="res://unused_assets/curling/rinkFull.png"
+dest_files=["res://.godot/imported/rinkFull.png-1f49fcc29e0ff1b3ecbd8060062ff583.ctex"]
 
 [params]
 

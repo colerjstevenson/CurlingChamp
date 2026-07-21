@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://da5poor33qn08"
-path="res://.godot/imported/UI_Metal_Checkmark_Medium_01a.png-a41c94e60ac913e2319c94312ef245cf.ctex"
+path="res://.godot/imported/UI_Metal_Checkmark_Medium_01a.png-cc720c20aff8f60980e18ba706d5f484.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/05_Metal_Theme/Sprites/UI_Metal_Checkmark_Medium_01a.png"
-dest_files=["res://.godot/imported/UI_Metal_Checkmark_Medium_01a.png-a41c94e60ac913e2319c94312ef245cf.ctex"]
+source_file="res://unused_assets/UI/Essential UI/05_Metal_Theme/Sprites/UI_Metal_Checkmark_Medium_01a.png"
+dest_files=["res://.godot/imported/UI_Metal_Checkmark_Medium_01a.png-cc720c20aff8f60980e18ba706d5f484.ctex"]
 
 [params]
 

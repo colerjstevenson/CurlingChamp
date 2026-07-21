@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d4l8kf6r8s5o1"
-path="res://.godot/imported/green_toggle.png-8b50497dc176a8525ab914ca90d8547f.ctex"
+path="res://.godot/imported/green_toggle.png-d2dd508fa02eda55427d8082f29b8809.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Others/Toggles/green_toggle.png"
-dest_files=["res://.godot/imported/green_toggle.png-8b50497dc176a8525ab914ca90d8547f.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Others/Toggles/green_toggle.png"
+dest_files=["res://.godot/imported/green_toggle.png-d2dd508fa02eda55427d8082f29b8809.ctex"]
 
 [params]
 

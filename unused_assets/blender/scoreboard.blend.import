@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dfsrsx70tl6sk"
-path="res://.godot/imported/scoreboard.blend-5d0ddd402bd65358c8a49fb263ca91ae.scn"
+path="res://.godot/imported/scoreboard.blend-0d5eba138bd0c62a0471620b80755e57.scn"
 
 [deps]
 
-source_file="res://assets/blender/scoreboard.blend"
-dest_files=["res://.godot/imported/scoreboard.blend-5d0ddd402bd65358c8a49fb263ca91ae.scn"]
+source_file="res://unused_assets/blender/scoreboard.blend"
+dest_files=["res://.godot/imported/scoreboard.blend-0d5eba138bd0c62a0471620b80755e57.scn"]
 
 [params]
 

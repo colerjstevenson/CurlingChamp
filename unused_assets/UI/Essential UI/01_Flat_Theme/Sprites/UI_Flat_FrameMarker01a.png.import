@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://kith823dvaqv"
-path="res://.godot/imported/UI_Flat_FrameMarker01a.png-b5d11e616ae9446b7d3c68905098e0f2.ctex"
+path="res://.godot/imported/UI_Flat_FrameMarker01a.png-33006c10d83acce0b383bc8023248959.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/01_Flat_Theme/Sprites/UI_Flat_FrameMarker01a.png"
-dest_files=["res://.godot/imported/UI_Flat_FrameMarker01a.png-b5d11e616ae9446b7d3c68905098e0f2.ctex"]
+source_file="res://unused_assets/UI/Essential UI/01_Flat_Theme/Sprites/UI_Flat_FrameMarker01a.png"
+dest_files=["res://.godot/imported/UI_Flat_FrameMarker01a.png-33006c10d83acce0b383bc8023248959.ctex"]
 
 [params]
 

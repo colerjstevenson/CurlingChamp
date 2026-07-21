@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cqhohy8xygbjx"
-path="res://.godot/imported/tiny_red_switch_toggle.png-f720b4b025005d2d4e0e42e4bbc7d38e.ctex"
+path="res://.godot/imported/tiny_red_switch_toggle.png-9b9b8c6b81eac91835b0aa4974fde749.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Others/Toggles/tiny_red_switch_toggle.png"
-dest_files=["res://.godot/imported/tiny_red_switch_toggle.png-f720b4b025005d2d4e0e42e4bbc7d38e.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Others/Toggles/tiny_red_switch_toggle.png"
+dest_files=["res://.godot/imported/tiny_red_switch_toggle.png-9b9b8c6b81eac91835b0aa4974fde749.ctex"]
 
 [params]
 

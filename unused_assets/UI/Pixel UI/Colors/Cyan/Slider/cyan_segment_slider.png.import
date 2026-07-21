@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dpc1o1dngevkm"
-path="res://.godot/imported/cyan_segment_slider.png-ae3e450b6e1120b3ab375b60c1c42993.ctex"
+path="res://.godot/imported/cyan_segment_slider.png-74d0cabc8304dd80b247183ed88903f1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Colors/Cyan/Slider/cyan_segment_slider.png"
-dest_files=["res://.godot/imported/cyan_segment_slider.png-ae3e450b6e1120b3ab375b60c1c42993.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Colors/Cyan/Slider/cyan_segment_slider.png"
+dest_files=["res://.godot/imported/cyan_segment_slider.png-74d0cabc8304dd80b247183ed88903f1.ctex"]
 
 [params]
 

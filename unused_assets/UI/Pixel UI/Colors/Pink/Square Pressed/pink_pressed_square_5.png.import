@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cc8r0bnyftvfg"
-path="res://.godot/imported/pink_pressed_square_5.png-43c414fc0b79a0f4bfc8005d13e3dba3.ctex"
+path="res://.godot/imported/pink_pressed_square_5.png-2178d436927c2f10a1ee0d17ab1584af.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Colors/Pink/Square Pressed/pink_pressed_square_5.png"
-dest_files=["res://.godot/imported/pink_pressed_square_5.png-43c414fc0b79a0f4bfc8005d13e3dba3.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Colors/Pink/Square Pressed/pink_pressed_square_5.png"
+dest_files=["res://.godot/imported/pink_pressed_square_5.png-2178d436927c2f10a1ee0d17ab1584af.ctex"]
 
 [params]
 

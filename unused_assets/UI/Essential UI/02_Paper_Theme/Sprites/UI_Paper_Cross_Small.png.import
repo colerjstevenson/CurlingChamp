@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cahe1lhg1q2ep"
-path="res://.godot/imported/UI_Paper_Cross_Small.png-c6a2c58786100c9133ff69cccd1ee88f.ctex"
+path="res://.godot/imported/UI_Paper_Cross_Small.png-221ced1692e05b2f9991f26bab89d8f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/02_Paper_Theme/Sprites/UI_Paper_Cross_Small.png"
-dest_files=["res://.godot/imported/UI_Paper_Cross_Small.png-c6a2c58786100c9133ff69cccd1ee88f.ctex"]
+source_file="res://unused_assets/UI/Essential UI/02_Paper_Theme/Sprites/UI_Paper_Cross_Small.png"
+dest_files=["res://.godot/imported/UI_Paper_Cross_Small.png-221ced1692e05b2f9991f26bab89d8f7.ctex"]
 
 [params]
 

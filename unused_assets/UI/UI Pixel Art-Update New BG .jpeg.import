@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c5akdwo814d4s"
-path="res://.godot/imported/UI Pixel Art-Update New BG .jpeg-99a1d775c2d64fe0601e70a47ef473b6.ctex"
+path="res://.godot/imported/UI Pixel Art-Update New BG .jpeg-02f8589382d5584240d380f33482dd55.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/UI Pixel Art-Update New BG .jpeg"
-dest_files=["res://.godot/imported/UI Pixel Art-Update New BG .jpeg-99a1d775c2d64fe0601e70a47ef473b6.ctex"]
+source_file="res://unused_assets/UI/UI Pixel Art-Update New BG .jpeg"
+dest_files=["res://.godot/imported/UI Pixel Art-Update New BG .jpeg-02f8589382d5584240d380f33482dd55.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmoda31ml5g3s"
-path="res://.godot/imported/red_square_35.png-7fc22ccbf2938557e61e183245a01970.ctex"
+path="res://.godot/imported/red_square_35.png-1f16f0d99fbacdc68885f7f5afac47a2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Colors/Red/Square/red_square_35.png"
-dest_files=["res://.godot/imported/red_square_35.png-7fc22ccbf2938557e61e183245a01970.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Colors/Red/Square/red_square_35.png"
+dest_files=["res://.godot/imported/red_square_35.png-1f16f0d99fbacdc68885f7f5afac47a2.ctex"]
 
 [params]
 

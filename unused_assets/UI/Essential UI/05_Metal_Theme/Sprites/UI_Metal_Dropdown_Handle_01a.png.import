@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8w3c0n2bifpb"
-path="res://.godot/imported/UI_Metal_Dropdown_Handle_01a.png-00bc6a0fd071a2f970964c0803519e19.ctex"
+path="res://.godot/imported/UI_Metal_Dropdown_Handle_01a.png-a59af8e72a0f157134cdc796a3a07235.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Essential UI/05_Metal_Theme/Sprites/UI_Metal_Dropdown_Handle_01a.png"
-dest_files=["res://.godot/imported/UI_Metal_Dropdown_Handle_01a.png-00bc6a0fd071a2f970964c0803519e19.ctex"]
+source_file="res://unused_assets/UI/Essential UI/05_Metal_Theme/Sprites/UI_Metal_Dropdown_Handle_01a.png"
+dest_files=["res://.godot/imported/UI_Metal_Dropdown_Handle_01a.png-a59af8e72a0f157134cdc796a3a07235.ctex"]
 
 [params]
 

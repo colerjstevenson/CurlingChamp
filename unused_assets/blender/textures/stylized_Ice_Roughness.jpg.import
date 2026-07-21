@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dt8q5jqf22bk2"
-path.s3tc="res://.godot/imported/stylized_Ice_Roughness.jpg-0317a17600652b97d35f4fac6dd7599f.s3tc.ctex"
-path.etc2="res://.godot/imported/stylized_Ice_Roughness.jpg-0317a17600652b97d35f4fac6dd7599f.etc2.ctex"
+path.s3tc="res://.godot/imported/stylized_Ice_Roughness.jpg-c479252c72850114acdc2d2d7af6555d.s3tc.ctex"
+path.etc2="res://.godot/imported/stylized_Ice_Roughness.jpg-c479252c72850114acdc2d2d7af6555d.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/blender/textures/stylized_Ice_Roughness.jpg"
-dest_files=["res://.godot/imported/stylized_Ice_Roughness.jpg-0317a17600652b97d35f4fac6dd7599f.s3tc.ctex", "res://.godot/imported/stylized_Ice_Roughness.jpg-0317a17600652b97d35f4fac6dd7599f.etc2.ctex"]
+source_file="res://unused_assets/blender/textures/stylized_Ice_Roughness.jpg"
+dest_files=["res://.godot/imported/stylized_Ice_Roughness.jpg-c479252c72850114acdc2d2d7af6555d.s3tc.ctex", "res://.godot/imported/stylized_Ice_Roughness.jpg-c479252c72850114acdc2d2d7af6555d.etc2.ctex"]
 
 [params]
 

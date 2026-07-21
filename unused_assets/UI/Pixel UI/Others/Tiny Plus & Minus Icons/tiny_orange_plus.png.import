@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ble2p7bqfej05"
-path="res://.godot/imported/tiny_orange_plus.png-abcb0e2a75954f04cbbb26aab6b1624a.ctex"
+path="res://.godot/imported/tiny_orange_plus.png-798c21704904d9921de62f4cee0f40a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Others/Tiny Plus & Minus Icons/tiny_orange_plus.png"
-dest_files=["res://.godot/imported/tiny_orange_plus.png-abcb0e2a75954f04cbbb26aab6b1624a.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Others/Tiny Plus & Minus Icons/tiny_orange_plus.png"
+dest_files=["res://.godot/imported/tiny_orange_plus.png-798c21704904d9921de62f4cee0f40a9.ctex"]
 
 [params]
 

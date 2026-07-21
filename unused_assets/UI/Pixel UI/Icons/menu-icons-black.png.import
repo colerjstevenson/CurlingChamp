@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1s8coywn15sb"
-path="res://.godot/imported/menu-icons-black.png-19492593284ea2e8e48baa6414190230.ctex"
+path="res://.godot/imported/menu-icons-black.png-b32b2b09ce11782a89d29c33b714e401.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Pixel UI/Icons/menu-icons-black.png"
-dest_files=["res://.godot/imported/menu-icons-black.png-19492593284ea2e8e48baa6414190230.ctex"]
+source_file="res://unused_assets/UI/Pixel UI/Icons/menu-icons-black.png"
+dest_files=["res://.godot/imported/menu-icons-black.png-b32b2b09ce11782a89d29c33b714e401.ctex"]
 
 [params]
 

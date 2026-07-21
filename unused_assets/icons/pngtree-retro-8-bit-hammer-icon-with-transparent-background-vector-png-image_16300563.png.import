@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bsndonh55jae"
-path="res://.godot/imported/pngtree-retro-8-bit-hammer-icon-with-transparent-background-vector-png-image_16300563.png-af7f9698c905fe9ee47b85cc0c20f571.ctex"
+path="res://.godot/imported/pngtree-retro-8-bit-hammer-icon-with-transparent-background-vector-png-image_16300563.png-54818e2d9f3d45cfda76573f32d83e86.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/pngtree-retro-8-bit-hammer-icon-with-transparent-background-vector-png-image_16300563.png"
-dest_files=["res://.godot/imported/pngtree-retro-8-bit-hammer-icon-with-transparent-background-vector-png-image_16300563.png-af7f9698c905fe9ee47b85cc0c20f571.ctex"]
+source_file="res://unused_assets/icons/pngtree-retro-8-bit-hammer-icon-with-transparent-background-vector-png-image_16300563.png"
+dest_files=["res://.godot/imported/pngtree-retro-8-bit-hammer-icon-with-transparent-background-vector-png-image_16300563.png-54818e2d9f3d45cfda76573f32d83e86.ctex"]
 
 [params]
 

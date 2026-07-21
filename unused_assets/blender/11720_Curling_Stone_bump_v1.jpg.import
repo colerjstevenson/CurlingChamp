@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://gbi7gpu5uano"
-path.s3tc="res://.godot/imported/11720_Curling_Stone_bump_v1.jpg-f5a2d6eecae2a1e5ee6790c896cd1d0d.s3tc.ctex"
-path.etc2="res://.godot/imported/11720_Curling_Stone_bump_v1.jpg-f5a2d6eecae2a1e5ee6790c896cd1d0d.etc2.ctex"
+path.s3tc="res://.godot/imported/11720_Curling_Stone_bump_v1.jpg-9d9e48d7329e30b67c89a3a3cc9912d1.s3tc.ctex"
+path.etc2="res://.godot/imported/11720_Curling_Stone_bump_v1.jpg-9d9e48d7329e30b67c89a3a3cc9912d1.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/blender/11720_Curling_Stone_bump_v1.jpg"
-dest_files=["res://.godot/imported/11720_Curling_Stone_bump_v1.jpg-f5a2d6eecae2a1e5ee6790c896cd1d0d.s3tc.ctex", "res://.godot/imported/11720_Curling_Stone_bump_v1.jpg-f5a2d6eecae2a1e5ee6790c896cd1d0d.etc2.ctex"]
+source_file="res://unused_assets/blender/11720_Curling_Stone_bump_v1.jpg"
+dest_files=["res://.godot/imported/11720_Curling_Stone_bump_v1.jpg-9d9e48d7329e30b67c89a3a3cc9912d1.s3tc.ctex", "res://.godot/imported/11720_Curling_Stone_bump_v1.jpg-9d9e48d7329e30b67c89a3a3cc9912d1.etc2.ctex"]
 
 [params]
 

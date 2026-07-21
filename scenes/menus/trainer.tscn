@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://drax6p6tm5oby"]
+[gd_scene load_steps=18 format=3 uid="uid://drax6p6tm5oby"]
 
 [ext_resource type="PackedScene" uid="uid://du0jadqlrsdsc" path="res://scenes/controls/MenuBG.tscn" id="1_8js7n"]
 [ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="2_hnnbp"]
 [ext_resource type="Script" uid="uid://cv0f7wmfbqm32" path="res://scripts/backButton.gd" id="2_sbemh"]
+[ext_resource type="Texture2D" uid="uid://cevg37urke3ky" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/Spritesheet_UI_Gradient_Button.png" id="6_2p3aw"]
 [ext_resource type="Texture2D" uid="uid://70tj4avbinmn" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/UI_Gradient.png" id="6_8js7n"]
 [ext_resource type="Texture2D" uid="uid://deok2v6fn8pdd" path="res://assets/UI/Pixel UI/Colors/Yellow/yellow_spritesheet.png" id="8_aptah"]
 [ext_resource type="PackedScene" uid="uid://ddtpc341fn5u3" path="res://scenes/controls/RockWindow.tscn" id="8_hd128"]
@@ -18,9 +19,9 @@ region = Rect2(90.0669, 76.0919, 18.2035, 18.0919)
 atlas = ExtResource("10_fuody")
 region = Rect2(70.9865, 57.1005, 18.3387, 17.7083)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_y312g"]
-atlas = ExtResource("8_aptah")
-region = Rect2(0, 0, 70, 18)
+[sub_resource type="AtlasTexture" id="AtlasTexture_v68vt"]
+atlas = ExtResource("6_2p3aw")
+region = Rect2(0.181561, 227.031, 95.8526, 26.5965)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tgdyj"]
 atlas = ExtResource("8_aptah")
@@ -44,6 +45,13 @@ script = ExtResource("11_t0m3n")
 [node name="Control" parent="." instance=ExtResource("1_8js7n")]
 background_color = Color(0.574612, 0.0666305, 0.982883, 1)
 
+[node name="Panel2" type="Panel" parent="."]
+offset_left = 21.0
+offset_top = 135.0
+offset_right = 693.0
+offset_bottom = 1220.0
+theme = ExtResource("2_hnnbp")
+
 [node name="RockPanel" type="CanvasLayer" parent="."]
 
 [node name="RockSelector" parent="RockPanel" instance=ExtResource("8_hd128")]
@@ -56,9 +64,9 @@ scale = Vector2(0.695, 0.695)
 [node name="LeftArrow2" type="TextureButton" parent="RockPanel/RockSelector"]
 texture_filter = 1
 layout_mode = 0
-offset_left = -184.173
+offset_left = -161.151
 offset_top = 385.611
-offset_right = -99.1727
+offset_right = -76.1511
 offset_bottom = 478.611
 scale = Vector2(1.55743, 1.51799)
 texture_normal = SubResource("AtlasTexture_5tc8d")
@@ -67,30 +75,30 @@ stretch_mode = 0
 [node name="RightArrow2" type="TextureButton" parent="RockPanel/RockSelector"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 638.849
-offset_top = 395.683
-offset_right = 726.849
-offset_bottom = 490.683
+offset_left = 618.705
+offset_top = 394.244
+offset_right = 706.705
+offset_bottom = 489.244
 scale = Vector2(1.55743, 1.51799)
 texture_normal = SubResource("AtlasTexture_5vm2q")
 stretch_mode = 0
 
 [node name="StartButton" type="TextureButton" parent="RockPanel"]
 texture_filter = 1
-offset_left = 218.0
+offset_left = 209.0
 offset_top = 1095.0
-offset_right = 515.0
+offset_right = 506.0
 offset_bottom = 1189.0
-texture_normal = SubResource("AtlasTexture_y312g")
+texture_normal = SubResource("AtlasTexture_v68vt")
 texture_disabled = SubResource("AtlasTexture_tgdyj")
 stretch_mode = 0
 
 [node name="text" type="RichTextLabel" parent="RockPanel/StartButton"]
 layout_mode = 0
-offset_left = 102.0
-offset_top = 12.0
-offset_right = 212.0
-offset_bottom = 54.0
+offset_left = 101.0
+offset_top = 20.0
+offset_right = 211.0
+offset_bottom = 62.0
 mouse_filter = 2
 theme = ExtResource("2_hnnbp")
 theme_override_font_sizes/normal_font_size = 31

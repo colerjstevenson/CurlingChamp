@@ -6,67 +6,67 @@
   "year": 1,
   "money": 100,
   "player_stones": [
-    {
-      "name": "Pin Point",
-      "power": 30,
-      "spin": 40,
-      "precision": 90,
-      "condition": 40,
-      "age": 1,
-      "wins": 0,
-      "variant": 4,
-      "power_potential": 84,
-      "spin_potential": 80,
-      "precision_potential": 83
-    },
-    {
-      "name": "Knock Knock",
-      "power": 85,
-      "spin": 30,
-      "precision": 62,
-      "condition": 40,
-      "age": 1,
-      "wins": 0,
-      "variant": 11,
-      "power_potential": 78,
-      "spin_potential": 86,
-      "precision_potential": 84
-    },
-    {
-      "name": "Simple Jack",
-      "power": 50,
-      "spin": 50,
-      "precision": 50,
-      "condition": 60,
-      "age": 1,
-      "wins": 0,
-      "variant": 19,
-      "power_potential": 88,
-      "spin_potential": 76,
-      "precision_potential": 80
-    },
-    {
-      "name": "Big Top",
-      "power": 40,
-      "spin": 89,
-      "precision": 65,
-      "condition": 40,
-      "age": 1,
-      "wins": 0,
-      "variant": 27,
-      "power_potential": 82,
-      "spin_potential": 85,
-      "precision_potential": 90
-    }
+	{
+	  "name": "Pin Point",
+	  "power": 30,
+	  "spin": 40,
+	  "precision": 90,
+	  "condition": 40,
+	  "age": 1,
+	  "wins": 0,
+	  "variant": 4,
+	  "power_potential": 84,
+	  "spin_potential": 80,
+	  "precision_potential": 83
+	},
+	{
+	  "name": "Knock Knock",
+	  "power": 85,
+	  "spin": 30,
+	  "precision": 62,
+	  "condition": 40,
+	  "age": 1,
+	  "wins": 0,
+	  "variant": 11,
+	  "power_potential": 78,
+	  "spin_potential": 86,
+	  "precision_potential": 84
+	},
+	{
+	  "name": "Simple Jack",
+	  "power": 50,
+	  "spin": 50,
+	  "precision": 50,
+	  "condition": 60,
+	  "age": 1,
+	  "wins": 0,
+	  "variant": 19,
+	  "power_potential": 88,
+	  "spin_potential": 76,
+	  "precision_potential": 80
+	},
+	{
+	  "name": "Big Top",
+	  "power": 40,
+	  "spin": 89,
+	  "precision": 65,
+	  "condition": 40,
+	  "age": 1,
+	  "wins": 0,
+	  "variant": 27,
+	  "power_potential": 82,
+	  "spin_potential": 85,
+	  "precision_potential": 90
+	}
   ],
   "trainer_week_used": -1,
   "human_season_record": {
-    "wins": 0,
-    "losses": 0
+	"wins": 0,
+	"losses": 0
   },
   "human_all_time_record": {
-    "wins": 0,
-    "losses": 0
+	"wins": 0,
+	"losses": 0
   },
   "human_majors_won": [],
   "schedule": [],

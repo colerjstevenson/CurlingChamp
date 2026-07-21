@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://gqyid25k0itd"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://gqyid25k0itd"]
 
 [ext_resource type="FontFile" uid="uid://mfdjupiwfar2" path="res://Fonts/PixeloidSans-mLxMm.ttf" id="1_014c2"]
 
@@ -8,6 +8,13 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0swj"]
 bg_color = Color(0.79804, 0.67102, 3.85046e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wssc1"]
+bg_color = Color(0.18359, 0.18359, 0.18359, 0.678431)
+corner_radius_top_left = 36
+corner_radius_top_right = 35
+corner_radius_bottom_right = 35
+corner_radius_bottom_left = 30
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_014c2"]
 bg_color = Color(0.853706, 0.872212, 0, 1)
@@ -89,6 +96,7 @@ corner_detail = 5
 HScrollBar/styles/grabber = SubResource("StyleBoxEmpty_014c2")
 HScrollBar/styles/scroll = SubResource("StyleBoxEmpty_l0swj")
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_l0swj")
+Panel/styles/panel = SubResource("StyleBoxFlat_wssc1")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_014c2")
 RichTextLabel/font_sizes/normal_font_size = 35
 RichTextLabel/fonts/normal_font = ExtResource("1_014c2")

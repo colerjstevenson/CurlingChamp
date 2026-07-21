@@ -92,8 +92,14 @@ texture_normal = SubResource("AtlasTexture_q2ri1")
 stretch_mode = 0
 script = ExtResource("2_0gyva")
 
+[node name="Panel" type="Panel" parent="."]
+offset_left = 51.0
+offset_top = 170.0
+offset_right = 673.0
+offset_bottom = 1229.0
+theme = ExtResource("2_2hpqm")
+
 [node name="BreedingSelector" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -275,6 +281,7 @@ scale = Vector2(0.159028, 0.175694)
 texture = ExtResource("8_lva2r")
 
 [node name="BreedingIP" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 725.0
@@ -282,6 +289,7 @@ offset_bottom = 1282.0
 
 [node name="Panal" type="TextureRect" parent="BreedingIP"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 122.0
 offset_top = 320.0
 offset_right = 595.0
@@ -357,6 +365,7 @@ vertical_alignment = 1
 
 [node name="close" type="TextureButton" parent="BreedingFailed/Panal"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 347.0
 offset_top = 8.0
 offset_right = 443.0
@@ -365,6 +374,7 @@ texture_normal = ExtResource("9_lva2r")
 stretch_mode = 0
 
 [node name="BreedingSuccess" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

@@ -826,7 +826,7 @@ func _player_has_hammer(player_color: String) -> bool:
 
 func _load_hammer_icon_texture() -> Texture2D:
 	var candidate_paths := [
-		"res://assets/hammer.png",
+		"res://assets/icons/hammer.png",
 		"res://assets/pngtree-retro-8-bit-hammer-icon-with-transparent-background-vector-png-image_16300563.png",
 	]
 

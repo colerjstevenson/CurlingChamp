@@ -9,6 +9,7 @@ metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
+generator_parameters={}
 
 [deps]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpbfujbi2ibp5"
-path="res://.godot/imported/auction_bg.png-03bf96e87e56e26c4042a1b304fb56b3.ctex"
+uid="uid://c7vsauha66hoe"
+path="res://.godot/imported/auction_bg_temp.png-c2768c0a90250823c79e288884b08999.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://unused_assets/Auction/auction_bg.png"
-dest_files=["res://.godot/imported/auction_bg.png-03bf96e87e56e26c4042a1b304fb56b3.ctex"]
+source_file="res://unused_assets/Auction/auction_bg_temp.png"
+dest_files=["res://.godot/imported/auction_bg_temp.png-c2768c0a90250823c79e288884b08999.ctex"]
 
 [params]
 

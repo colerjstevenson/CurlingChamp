@@ -112,6 +112,25 @@ static func _serialize_state(state: Dictionary) -> Dictionary:
 	if saved_at_unix <= 0:
 		saved_at_unix = int(Time.get_unix_time_from_system())
 
+	var breeder_result_dict: Dictionary = {}
+	var breeder_result_variant: Variant = state.get("breeder_result", null)
+	if breeder_result_variant is Stone:
+		var result_stone: Stone = breeder_result_variant
+		breeder_result_dict = {
+			"name": result_stone.name,
+			"power": result_stone.power,
+			"spin": result_stone.spin,
+			"precision": result_stone.precision,
+			"condition": result_stone.condition,
+			"age": result_stone.age,
+			"wins": result_stone.wins,
+			"variant": result_stone.variant,
+			"power_potential": result_stone.power_potential,
+			"spin_potential": result_stone.spin_potential,
+			"precision_potential": result_stone.precision_potential,
+			"origin": result_stone.origin,
+		}
+
 	return {
 		"version": SAVE_VERSION,
 		"saved_at_unix": saved_at_unix,
@@ -129,10 +148,34 @@ static func _serialize_state(state: Dictionary) -> Dictionary:
 		"human_all_time_record": Dictionary(state.get("human_all_time_record", {})).duplicate(true),
 		"human_majors_won": _duplicate_array_of_dictionaries(state.get("human_majors_won", [])),
 		"trainer_week_used": int(state.get("trainer_week_used", -1)),
+		"breeder_active": bool(state.get("breeder_active", false)),
+		"breeder_parent1_id": int(state.get("breeder_parent1_id", -1)),
+		"breeder_parent2_id": int(state.get("breeder_parent2_id", -1)),
+		"breeder_finish_week": int(state.get("breeder_finish_week", -1)),
+		"breeder_result": breeder_result_dict,
 	}
 
 
 static func _deserialize_state(state: Dictionary) -> Dictionary:
+	var breeder_result: Stone = null
+	var breeder_result_dict: Variant = state.get("breeder_result", {})
+	if breeder_result_dict is Dictionary and not breeder_result_dict.is_empty():
+		var origin_value: int = int(breeder_result_dict.get("origin", Stone.Origin.STARTING))
+		breeder_result = Stone.new(
+			String(breeder_result_dict.get("name", "")),
+			int(breeder_result_dict.get("power", 0)),
+			int(breeder_result_dict.get("spin", 0)),
+			int(breeder_result_dict.get("precision", 0)),
+			int(breeder_result_dict.get("condition", 0)),
+			int(breeder_result_dict.get("age", 1)),
+			int(breeder_result_dict.get("wins", 0)),
+			int(breeder_result_dict.get("variant", Stone.MIN_VARIANT)),
+			int(breeder_result_dict.get("power_potential", 100)),
+			int(breeder_result_dict.get("spin_potential", 100)),
+			int(breeder_result_dict.get("precision_potential", 100)),
+			origin_value
+		)
+	
 	return {
 		"saved_at_unix": int(state.get("saved_at_unix", 0)),
 		"player_name": String(state.get("player_name", "John Smith")),
@@ -149,6 +192,11 @@ static func _deserialize_state(state: Dictionary) -> Dictionary:
 		"human_all_time_record": Dictionary(state.get("human_all_time_record", {})).duplicate(true),
 		"human_majors_won": _duplicate_array_of_dictionaries(state.get("human_majors_won", [])),
 		"trainer_week_used": int(state.get("trainer_week_used", -1)),
+		"breeder_active": bool(state.get("breeder_active", false)),
+		"breeder_parent1_id": int(state.get("breeder_parent1_id", -1)),
+		"breeder_parent2_id": int(state.get("breeder_parent2_id", -1)),
+		"breeder_finish_week": int(state.get("breeder_finish_week", -1)),
+		"breeder_result": breeder_result,
 	}
 
 
@@ -173,6 +221,7 @@ static func _serialize_stones(raw_stones: Variant) -> Array[Dictionary]:
 			"power_potential": stone.power_potential,
 			"spin_potential": stone.spin_potential,
 			"precision_potential": stone.precision_potential,
+			"origin": stone.origin,
 		})
 
 	return serialized
@@ -186,6 +235,7 @@ static func _deserialize_stones(raw_stones: Variant) -> Array[Stone]:
 	for raw_stone in raw_stones:
 		if raw_stone is not Dictionary:
 			continue
+		var origin_value: int = int(raw_stone.get("origin", Stone.Origin.STARTING))
 		stones.append(Stone.new(
 			String(raw_stone.get("name", "")),
 			int(raw_stone.get("power", 0)),
@@ -197,7 +247,8 @@ static func _deserialize_stones(raw_stones: Variant) -> Array[Stone]:
 			int(raw_stone.get("variant", Stone.MIN_VARIANT)),
 			int(raw_stone.get("power_potential", 100)),
 			int(raw_stone.get("spin_potential", 100)),
-			int(raw_stone.get("precision_potential", 100))
+			int(raw_stone.get("precision_potential", 100)),
+			origin_value
 		))
 
 	return stones

@@ -10,11 +10,14 @@ const YELLOW_SIDE_TEXTURE := preload("res://assets/curling/stones/stone_yellow_s
 @onready var wins_label: RichTextLabel = $Panel/wins
 @onready var rock_sprite: Sprite2D = $Panel/Rock
 @onready var power_bar: ProgressBar = $Panel/VBoxContainer/Power/PowerBar
+@onready var power_potential_bar: ProgressBar = $Panel/VBoxContainer/Power/potential
 @onready var spin_bar: ProgressBar = $Panel/VBoxContainer/Spin/SpinBar
+@onready var spin_potential_bar: ProgressBar = $Panel/VBoxContainer/Spin/potential
 @onready var precision_bar: ProgressBar = $Panel/VBoxContainer/Precision/PrecisionBar
-@onready var condition_bar: ProgressBar = $Panel/VBoxContainer/Spin2/SpinBar
+@onready var precision_potential_bar: ProgressBar = $Panel/VBoxContainer/Precision/potential
+@onready var condition_bar: ProgressBar = $Panel/VBoxContainer/Condition/ConditionBar
 @onready var close_button: TextureButton = $Panel/Close
-@onready var auction_button: TextureButton = $Panel/auctionButton
+@onready var auction_button: TextureButton = $Panel/AuctionButton
 @onready var used_shading: Control = $UsedShading
 @onready var selected_highlight: Control = $SelectedHighlight
 
@@ -41,8 +44,11 @@ func setup_from_stone(stone: Stone) -> void:
 	_set_rock_sprite_variant(stone.variant, _get_player_stone_color())
 
 	_set_bar_value(power_bar, stone.power)
+	_set_bar_value(power_potential_bar, stone.power_potential)
 	_set_bar_value(spin_bar, stone.spin)
+	_set_bar_value(spin_potential_bar, stone.spin_potential)
 	_set_bar_value(precision_bar, stone.precision)
+	_set_bar_value(precision_potential_bar, stone.precision_potential)
 	_set_bar_value(condition_bar, stone.condition)
 
 

@@ -1,7 +1,7 @@
 extends Node2D
 
 const TRAINING_STATS := ["Speed", "Precision", "Spin"]
-const TRAINING_GAME_SCENE := preload("res://scenes/menus/TrainingGame.tscn")
+const TRAINING_GAME_SCENE := preload("res://scenes/TrainingGame.tscn")
 
 @onready var stat_label: RichTextLabel = $StatSelector/RichTextLabel
 @onready var rock_selector: Control = $RockPanel/RockSelector

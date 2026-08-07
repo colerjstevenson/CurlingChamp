@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bvvy5yfb0cagb"]
+[gd_scene load_steps=15 format=3 uid="uid://bvvy5yfb0cagb"]
 
 [ext_resource type="Script" uid="uid://bsql4o7fdv5qr" path="res://scripts/curlinggame.gd" id="1_p15o0"]
 [ext_resource type="Texture2D" uid="uid://7q86xk5jln28" path="res://assets/curling/FullRink.png" id="2_ycd7k"]
@@ -17,6 +17,9 @@ bounce = 0.45
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rarhs"]
 size = Vector2(171, 3010)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vr7iy"]
+size = Vector2(724.208, 124.001)
 
 [sub_resource type="Theme" id="Theme_rarhs"]
 RichTextLabel/colors/default_color = Color(0.851391, 0, 0.169515, 1)
@@ -65,6 +68,10 @@ shape = SubResource("RectangleShape2D_rarhs")
 [node name="right_wall" type="CollisionShape2D" parent="Rink/walls"]
 position = Vector2(626.5, 570)
 shape = SubResource("RectangleShape2D_rarhs")
+
+[node name="back_wall" type="CollisionShape2D" parent="Rink/walls"]
+position = Vector2(346.499, -1049)
+shape = SubResource("RectangleShape2D_vr7iy")
 
 [node name="bg" type="ColorRect" parent="Rink"]
 z_index = -2

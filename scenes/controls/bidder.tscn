@@ -1,24 +1,60 @@
 [gd_scene load_steps=15 format=3 uid="uid://bmo7cn2m247qm"]
 
-[ext_resource type="Script" uid="uid://wpt1eukg2c5c" path="res://scripts/bidder.gd" id="1_fak17"]
-[ext_resource type="Texture2D" uid="uid://f7jq1e74tbwm" path="res://art/Auction/bidder1_active.png" id="2_balhy"]
-[ext_resource type="Texture2D" uid="uid://hfrsboug2dvy" path="res://art/Auction/bidder1_default.png" id="3_3u8i4"]
-[ext_resource type="Texture2D" uid="uid://b0o6rb0jvu8vi" path="res://art/Auction/bidder2_active.png" id="4_mkx0w"]
-[ext_resource type="Texture2D" uid="uid://bgg1ij5mwgmr8" path="res://art/Auction/bidder2_default.png" id="5_3cidd"]
-[ext_resource type="Texture2D" uid="uid://by86f1tcvyjns" path="res://art/Auction/bidder3_active.png" id="6_338em"]
-[ext_resource type="Texture2D" uid="uid://c1aua6uu5mbsx" path="res://art/Auction/bidder3_default.png" id="7_i81v3"]
-[ext_resource type="Texture2D" uid="uid://ba51g34rysm5q" path="res://art/Auction/bidder4_active.png" id="8_p8wb0"]
-[ext_resource type="Texture2D" uid="uid://crihuf4trna14" path="res://art/Auction/bidder4_default.png" id="9_6htjc"]
-[ext_resource type="Texture2D" uid="uid://bmswftuyn7800" path="res://art/Auction/bidder5_active.png" id="10_gmpu5"]
-[ext_resource type="Texture2D" uid="uid://dqwggprf23bcx" path="res://art/Auction/bidder5_default.png" id="11_sd54h"]
-[ext_resource type="Texture2D" uid="uid://x0b40khdf3vm" path="res://art/Auction/bidder6_active.png" id="12_v11ir"]
-[ext_resource type="Texture2D" uid="uid://qcdfn5d54eub" path="res://art/Auction/bidder6_default.png" id="13_lujnl"]
+[ext_resource type="Texture2D" uid="uid://chgeldtnxqxb2" path="res://assets/Auction/bidders_cutout.png" id="1_4rn4r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c13e3"]
+atlas = ExtResource("1_4rn4r")
+region = Rect2(267, 0, 244, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4vlt"]
+atlas = ExtResource("1_4rn4r")
+region = Rect2(23, 0, 244, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yixfo"]
+atlas = ExtResource("1_4rn4r")
+region = Rect2(267, 244, 244, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aexvg"]
+atlas = ExtResource("1_4rn4r")
+region = Rect2(23, 244, 244, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk21y"]
+atlas = ExtResource("1_4rn4r")
+region = Rect2(755, 244, 244, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2oka"]
+atlas = ExtResource("1_4rn4r")
+region = Rect2(511, 244, 244, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdcpy"]
+atlas = ExtResource("1_4rn4r")
+region = Rect2(755, 488, 244, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47d86"]
+atlas = ExtResource("1_4rn4r")
+region = Rect2(511, 488, 244, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0ks4"]
+atlas = ExtResource("1_4rn4r")
+region = Rect2(267, 488, 244, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfbpj"]
+atlas = ExtResource("1_4rn4r")
+region = Rect2(23, 488, 244, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s347o"]
+atlas = ExtResource("1_4rn4r")
+region = Rect2(755, 732, 244, 244)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo6fe"]
+atlas = ExtResource("1_4rn4r")
+region = Rect2(511, 732, 244, 244)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pe5jf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_balhy")
+"texture": SubResource("AtlasTexture_c13e3")
 }],
 "loop": true,
 "name": &"bidder1_active",
@@ -26,7 +62,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_3u8i4")
+"texture": SubResource("AtlasTexture_w4vlt")
 }],
 "loop": true,
 "name": &"bidder1_default",
@@ -34,7 +70,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_mkx0w")
+"texture": SubResource("AtlasTexture_yixfo")
 }],
 "loop": true,
 "name": &"bidder2_active",
@@ -42,7 +78,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_3cidd")
+"texture": SubResource("AtlasTexture_aexvg")
 }],
 "loop": true,
 "name": &"bidder2_default",
@@ -50,7 +86,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_338em")
+"texture": SubResource("AtlasTexture_kk21y")
 }],
 "loop": true,
 "name": &"bidder3_active",
@@ -58,7 +94,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("7_i81v3")
+"texture": SubResource("AtlasTexture_p2oka")
 }],
 "loop": true,
 "name": &"bidder3_default",
@@ -66,7 +102,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("8_p8wb0")
+"texture": SubResource("AtlasTexture_tdcpy")
 }],
 "loop": true,
 "name": &"bidder4_active",
@@ -74,7 +110,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("9_6htjc")
+"texture": SubResource("AtlasTexture_47d86")
 }],
 "loop": true,
 "name": &"bidder4_default",
@@ -82,7 +118,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("10_gmpu5")
+"texture": SubResource("AtlasTexture_f0ks4")
 }],
 "loop": true,
 "name": &"bidder5_active",
@@ -90,7 +126,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("11_sd54h")
+"texture": SubResource("AtlasTexture_lfbpj")
 }],
 "loop": true,
 "name": &"bidder5_default",
@@ -98,7 +134,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("12_v11ir")
+"texture": SubResource("AtlasTexture_s347o")
 }],
 "loop": true,
 "name": &"bidder6_active",
@@ -106,7 +142,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("13_lujnl")
+"texture": SubResource("AtlasTexture_mo6fe")
 }],
 "loop": true,
 "name": &"bidder6_default",
@@ -116,14 +152,16 @@ animations = [{
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
-anchors_preset = 0
-offset_right = 131.0
-offset_bottom = 159.0
+anchor_left = 0.001
+anchor_right = 0.324
+anchor_bottom = 0.175
+offset_left = 0.28
+offset_right = -0.279999
+offset_bottom = -1.52588e-05
 size_flags_horizontal = 3
-script = ExtResource("1_fak17")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(84, 136)
-scale = Vector2(0.408333, 0.395139)
+position = Vector2(127.592, 112.897)
+scale = Vector2(1.06072, 0.927078)
 sprite_frames = SubResource("SpriteFrames_pe5jf")
-animation = &"bidder5_active"
+animation = &"bidder3_active"

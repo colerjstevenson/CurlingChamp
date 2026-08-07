@@ -6,6 +6,7 @@ const COLLECTION_SCENE_PATH := "res://scenes/menus/collection.tscn"
 const AUCTION_SCENE_PATH := "res://scenes/menus/auctionMenu.tscn"
 const CALENDAR_SCENE_PATH := "res://scenes/menus/CalenderMenu.tscn"
 const TRAINER_SCENE_PATH := "res://scenes/menus/trainer.tscn"
+const BREEDER_SCENE_PATH := "res://scenes/menus/breeder.tscn"
 const MIN_SPAWN_INTERVAL := 2.6
 const MAX_SPAWN_INTERVAL := 3.4
 const TARGET_STONE_THRESHOLD := 3
@@ -33,6 +34,7 @@ const STRATEGIC_NEIGHBOR_RADIUS := 130.0
 @onready var auction_button: BaseButton = $BG/AuctionButton
 @onready var calendar_button: BaseButton = $BG/CalenderButton
 @onready var training_button: BaseButton = $BG/TrainingButton
+@onready var breeder_button: BaseButton = $BG/BreedingButton
 @onready var background_root: CanvasItem = $BG
 @onready var house_node: Area2D = $BG/house
 @onready var house_area: CollisionShape2D = $BG/house/houseArea
@@ -57,6 +59,8 @@ func _ready() -> void:
 		calendar_button.pressed.connect(_on_calendar_button_pressed)
 	if is_instance_valid(training_button):
 		training_button.pressed.connect(_on_training_button_pressed)
+	if is_instance_valid(breeder_button):
+		breeder_button.pressed.connect(_on_breeder_button_pressed)
 
 	var manager := get_node_or_null("/root/game_manager")
 	if manager != null and manager.has_signal("state_changed"):
@@ -86,6 +90,10 @@ func _on_calendar_button_pressed() -> void:
 
 func _on_training_button_pressed() -> void:
 	get_tree().change_scene_to_file(TRAINER_SCENE_PATH)
+
+
+func _on_breeder_button_pressed() -> void:
+	get_tree().change_scene_to_file(BREEDER_SCENE_PATH)
 
 
 func _refresh_header_text() -> void:

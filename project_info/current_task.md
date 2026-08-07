@@ -1,60 +1,166 @@
-## Plan: AI Recalibration For New Rink And Throw System
+# Current Task: Breeding Screen Plan
 
-Rebuild opponent shot planning so AI remains accurate under the resized rink and updated throw physics, while keeping all tuning values in `data/throw_physics_config.tres` untouched. The implementation keeps runtime behavior grounded in throw config-derived values already applied to stones, and replaces fragile fixed-offset aiming with geometry- and simulation-driven targeting.
+## Goal
 
-**Steps**
-1. Phase 1: Stabilize AI physics inputs
-1.1 Update `scripts/ai_player.gd` `choose_shot` contract to accept a context dictionary from `curlinggame` containing: `throw_distance_scale`, `house_center`, `house_radius`, `stone_spawn_position`, and active deceleration/curl parameters read from the spawned stone.
-1.2 Keep source-of-truth in throw config indirectly by reading runtime values already applied to the stone node, and remove dependence on hardcoded constants for power estimation wherever possible.
-1.3 Add guardrails in power solving for edge cases (zero launch multiplier, zero distance scale, very short distances) to avoid `NaN`/`INF` behavior.
+Implement the breeder scene as a real gameplay menu that supports the full breeding loop:
 
-2. Phase 2: Replace fixed-offset shot targeting with rink-relative geometry
-2.1 Refactor draw, guard, and takeout target builders in `scripts/ai_player.gd` to derive lateral and longitudinal offsets from `house_radius` and spawn-to-house vector rather than absolute pixels (`20`, `38`, `40-80`, `55`).
-2.2 Introduce named per-difficulty tuning parameters in `_get_difficulty_params` for relative offsets, spin intent, and acceptable landing tolerance.
-2.3 Keep the existing strategy categories (`draw`, `draw_second`, `takeout`, `guard`) but make each target choice computed in normalized rink-space.
+- selector screen when the breeder is empty
+- in-progress screen while breeding is underway
+- failed screen when a breeding attempt does not succeed
+- success screen when a breeding attempt produces a new stone
 
-3. Phase 3: Add candidate-based shot planner (full-overhaul core)
-3.1 Implement candidate generation per shot type (multiple target points, spin bands, and power seeds) in `scripts/ai_player.gd`.
-3.2 Add a lightweight forward estimator in `scripts/ai_player.gd` that predicts stop point and lateral curl drift using runtime deceleration/curl parameters from the current stone.
-3.3 Score candidates by objective: scoring improvement, takeout probability, guard protection value, and collision risk with known guards/stones.
-3.4 Select best candidate with difficulty-based randomness (high difficulty near-deterministic, low difficulty wider pick band).
+Breeding is a core progression system, so the result should feel worth trying often without becoming so punishing that players stop using it.
 
-4. Phase 4: Integrate and preserve scene flow
-4.1 Update `scripts/curlinggame.gd` `_start_ai_turn` to pass enriched planning context to `ai_player.choose_shot` while preserving existing launch call flow.
-4.2 Retain existing normalization contract: AI returns pre-scale power, game applies `_get_throw_distance_scale` before `launch_shot`.
-4.3 Add optional debug toggles in `scripts/curlinggame.gd` and `scripts/ai_player.gd` for one-line telemetry of selected candidate and predicted-vs-target delta (disabled by default).
+## Existing Scene Assumption
 
-5. Phase 5: Calibration pass without config edits
-5.1 Tune only AI-side coefficients in `scripts/ai_player.gd` so shot outcomes align with current throw config behavior.
-5.2 Validate guard placement band and second-stone clustering across low/mid/high difficulty using house-relative coordinates.
-5.3 Ensure no changes are made to `data/throw_physics_config.tres` per scope decision.
+- The breeder scene already exists.
+- It already contains layered UI that can be shown or hidden based on breeder state.
+- This task is about wiring the logic and state flow, not rebuilding the scene layout.
 
-6. Phase 6: Documentation and task tracking
-6.1 Update `project_info/task_state.md` with what AI changed, what remained unchanged, and known follow-up tuning opportunities.
-6.2 If behavior expectations changed materially, add a short AI section update in `project_info/gameplay.md`.
+## Files Likely To Edit
 
-**Relevant files**
-- `scripts/ai_player.gd` - primary overhaul: targeting model, candidate generation, scoring, runtime physics usage.
-- `scripts/curlinggame.gd` - pass planning context into `choose_shot`, keep launch scaling contract intact.
-- `scripts/stone.gd` - reference only for runtime physics fields already loaded from throw config; modify only if absolutely needed for read access helper methods.
-- `project_info/task_state.md` - record task outcomes.
-- `project_info/gameplay.md` - update only if player-visible AI behavior description changes.
+These are the main files that should be touched for the breeding feature:
 
-**Verification**
-1. Static consistency check: confirm `ai_player.gd` contains no fixed pixel magic offsets tied to old rink geometry for draw/guard/curl pre-compensation.
-2. Contract check: confirm `_start_ai_turn` in `curlinggame.gd` still multiplies AI power by `_get_throw_distance_scale` exactly once before `launch_shot`.
-3. Parameter provenance check: verify AI planner reads deceleration/curl/launch data from active stone runtime values (which come from throw config), not duplicated constants.
-4. Behavior sanity review: inspect candidate scoring weights and ensure each shot type objective matches strategy intent (takeout prioritizes opponent removal, guard prioritizes blocking lane).
-5. Regression check: run parser/lint diagnostics with `get_errors` for edited files and resolve all new errors.
-6. Manual in-editor review checklist: low difficulty should be noisier and less optimal; high difficulty should produce tighter draw/takeout targeting under current sheet dimensions.
+- scenes/menus/breeder.tscn - connect the existing layers and controls to the breeding state flow.
+- scripts/breeder_menu.gd - new or attached scene script that drives selector, in-progress, failed, and success behavior.
+- scripts/game_manager.gd - store breeder state, current pair, remaining weeks, and the generated offspring result.
+- scripts/save_file.gd - serialize and deserialize breeder state so the job survives reloads and week changes.
+- scripts/stone_data.gd - add or extend helper logic for generating offspring stats, origin, and selling value.
+- project_info/economy.md - adjust breeding price and reward assumptions if the implementation needs tuning.
 
-**Decisions**
-- Included scope: full AI overhaul focused on shot planning and accuracy.
-- Included scope: code-only changes; no modifications to `throw_physics_config.tres`.
-- Source of truth: throw physics config values as represented on runtime stone properties.
-- Excluded scope: non-AI gameplay refactors, scene hierarchy changes, asset changes, save format changes.
+If the scene exposes any missing nodes or still uses placeholder labels, the breeder scene file should be updated first before the new script is wired in.
 
-**Further considerations**
-1. If runtime telemetry shows estimator bias after rollout, add a small adaptive correction term per shot type (still AI-only) rather than altering throw config.
-2. If `stone.gd` lacks a clean read surface for current decel stage parameters, add a minimal getter method instead of exposing many fields directly.
-3. If match-length tuning is needed later, add difficulty-specific candidate-count limits to control think quality vs responsiveness.
+## Planned Breeder States
+
+### 1. Empty / Selector
+
+Use this when the breeder has no active breeding job.
+
+Player flow:
+
+- choose 2 stones from the roster
+- review the pair and preview the likely result
+- start breeding
+
+Required behavior:
+
+- prevent selecting the same stone twice
+- disable the start action until 2 stones are chosen
+
+### 2. In Progress
+
+Use this when breeding has already started.
+
+Required behavior:
+
+- show the number of weeks remaining
+- block starting another breeding job until the current one resolves
+- update the screen automatically if the current week advances
+
+### 3. Failed
+
+Use this when a breeding attempt fails.
+
+Required behavior:
+
+- show that the attempt failed
+- let the player exit back to the selector
+- preserve the selected stones only if the design expects retrying with the same pair, otherwise clear the attempt and let the player choose again
+
+### 4. Success
+
+Use this when a breeding attempt succeeds.
+
+Required behavior:
+
+- generate the new stone
+- let the player name the offspring
+- let the player add it to the collection or sell it instead
+- return to the selector after the outcome is resolved
+
+## Logic Plan
+
+### Breeding Start
+
+When the player confirms a pair:
+
+- save the parent stone references or IDs
+- mark the breeder as occupied
+- store the finish week or remaining weeks
+- seed any preview data needed for the in-progress screen
+
+### Success Chance
+
+The success formula should reward good breeding choices but still leave room for risk.
+
+Guiding rules:
+
+- healthy stones should breed more reliably
+- poor condition should noticeably reduce the chance of success
+- very bad condition should make failure possible or likely
+- the system should still allow occasional losses even with strong parents, so breeding does not become deterministic
+
+Recommended design shape:
+
+- start from a strong base success rate
+- apply bonuses for good condition, strong potentials, and compatible parents
+- apply penalties for low condition, old age if relevant, and any negative breeder traits
+- clamp the result so it never feels impossible or guaranteed
+
+### Offspring Generation
+
+The offspring should feel related to both parents, but not be a perfect copy.
+
+The new stone should:
+
+- inherit a blend of parent traits
+- sometimes lean slightly better in one stat and slightly worse in another
+- keep enough randomness that each birth feels distinct
+- have a strong enough floor that the result is usually usable
+- have enough ceiling that a great pair can produce exciting upgrades
+
+Recommended design shape:
+
+- average the parent stats as the baseline
+- add a small random variance within a controlled band
+- bias the variance upward when the parents are healthy, high quality, or well matched
+- bias the variance downward when condition is poor or breeder quality is low
+
+### Economy and Motivation
+
+Breeding should be one of the main reasons to keep playing.
+
+Design goals:
+
+- successful breeding should often produce a meaningful upgrade or a valuable sale option
+- failed breeding should sting, but not so much that it feels like wasted time
+- the player should want to try again because a better pair can realistically produce a better result
+- the best outcomes should feel rare enough to be exciting, but common enough that progress is steady
+
+## UI State Rules
+
+- Selector layer is visible only when no active breeding exists.
+- In-progress layer is visible while a breeding job is active.
+- Failed layer is visible after a failed attempt until the player dismisses it.
+- Success layer is visible after a successful attempt until the player names, stores, or sells the offspring.
+
+## Implementation Order
+
+1. Confirm the breeder scene layer names and the nodes that control visibility.
+2. Add or extend the breeder script to own the breeder state and selected pair data.
+3. Hook the selector to roster stone selection and start-breeding actions.
+4. Add breeder persistence so state survives week changes and scene reloads.
+5. Implement the success-rate and offspring-generation formulas.
+6. Wire failed and success transitions back into the selector flow.
+7. Add preview text and any simple stat display needed for the result screens.
+8. Test edge cases like empty roster, poor condition stones, and finishing a breeding job after advancing the week.
+
+## Acceptance Criteria
+
+- The breeder scene opens in the correct layer for its current state.
+- The player can select 2 stones and start breeding from the selector.
+- The in-progress screen shows a week countdown.
+- Failed breeding sends the player to a failure screen and then back to the selector.
+- Successful breeding produces a new stone that can be named and either kept or sold.
+- The success and failure rates feel fair, with condition mattering clearly but not making breeding miserable.
+

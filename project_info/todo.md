@@ -26,6 +26,7 @@
 - stats explanation
 - display potential
 - broken stone message
+- limit collection size that can be upgraded
 
 ## Auction
 - setup auction

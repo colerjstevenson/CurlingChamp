@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bfddffll8j8m0"
-valid=false
+path="res://.godot/imported/CurlingStone.blend-a0544c0c6cae26ea152553a305cb9bb0.scn"
 
 [deps]
 
 source_file="res://unused_assets/blender/CurlingStone.blend"
+dest_files=["res://.godot/imported/CurlingStone.blend-a0544c0c6cae26ea152553a305cb9bb0.scn"]
 
 [params]
 

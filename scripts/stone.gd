@@ -1288,8 +1288,8 @@ func should_remove_on_reset(red_line_y: float, rink_end_y: float) -> bool:
 	if touched_side_wall:
 		return true
 
-	if global_position.y < rink_end_y:
-		return true
+	# if global_position.y < rink_end_y:
+	# 	return true
 
 	if global_position.y > red_line_y:
 		return true

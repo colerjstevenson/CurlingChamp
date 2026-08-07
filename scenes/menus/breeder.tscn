@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c6lg1i8npojwy"]
+[gd_scene load_steps=30 format=3 uid="uid://c6lg1i8npojwy"]
 
 [ext_resource type="PackedScene" uid="uid://du0jadqlrsdsc" path="res://scenes/controls/MenuBG.tscn" id="1_2hao2"]
 [ext_resource type="Texture2D" uid="uid://70tj4avbinmn" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/UI_Gradient.png" id="1_vitth"]
@@ -10,10 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cevg37urke3ky" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/Spritesheet_UI_Gradient_Button.png" id="9_2b5sx"]
 [ext_resource type="Texture2D" uid="uid://gic4qmin7qxa" path="res://assets/UI/Essential UI/07_Gradient_Theme/Sprites/UI_Gradient_Cross_Large.png" id="9_lva2r"]
 [ext_resource type="Texture2D" uid="uid://ullende40irc" path="res://assets/UI/Pixel UI/Colors/Cyan/cyan_spritesheet.png" id="9_xl6cd"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q2ri1"]
-atlas = ExtResource("1_vitth")
-region = Rect2(293.781, 230.513, 20.9453, 19.4588)
+[ext_resource type="Script" uid="uid://cio3pnmq4lmq7" path="res://scripts/breeder_menu.gd" id="11_w7d5n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m18fy"]
 atlas = ExtResource("2_jinnr")
@@ -77,29 +74,42 @@ region = Rect2(0.181561, 227.031, 95.8526, 26.5965)
 atlas = ExtResource("9_2b5sx")
 region = Rect2(96.6608, 261.102, 95.3216, 24.3745)
 
+[sub_resource type="Theme" id="Theme_2b5sx"]
+HBoxContainer/constants/separation = 14
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5u8l"]
+atlas = ExtResource("1_vitth")
+region = Rect2(160.322, 224.65, 63.135, 62.3959)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5umon"]
+atlas = ExtResource("1_vitth")
+region = Rect2(293.472, 167.831, 21.2233, 18.7053)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glvfa"]
+atlas = ExtResource("1_vitth")
+region = Rect2(294.799, 198.507, 19.2939, 21.7466)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2b5sx"]
+atlas = ExtResource("1_vitth")
+region = Rect2(293.781, 230.513, 20.9453, 19.4588)
+
 [node name="Breeder" type="Node2D"]
+script = ExtResource("11_w7d5n")
 
 [node name="BG" parent="." instance=ExtResource("1_2hao2")]
+mouse_filter = 2
 background_color = Color(0.626184, 0.355071, 1, 1)
-
-[node name="Back" type="TextureButton" parent="."]
-texture_filter = 1
-offset_left = 37.0
-offset_top = 53.0
-offset_right = 131.0
-offset_bottom = 142.0
-texture_normal = SubResource("AtlasTexture_q2ri1")
-stretch_mode = 0
-script = ExtResource("2_0gyva")
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = 51.0
 offset_top = 170.0
 offset_right = 673.0
 offset_bottom = 1229.0
+mouse_filter = 2
 theme = ExtResource("2_2hpqm")
 
 [node name="BreedingSelector" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -374,7 +384,6 @@ texture_normal = ExtResource("9_lva2r")
 stretch_mode = 0
 
 [node name="BreedingSuccess" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -384,9 +393,9 @@ offset_bottom = 40.0
 texture_filter = 1
 layout_mode = 0
 offset_left = 122.0
-offset_top = 173.0
+offset_top = 217.0
 offset_right = 595.0
-offset_bottom = 803.0
+offset_bottom = 847.0
 texture = SubResource("AtlasTexture_ay15c")
 
 [node name="Stats" type="VBoxContainer" parent="BreedingSuccess/Preview"]
@@ -570,9 +579,9 @@ vertical_alignment = 1
 texture_filter = 1
 layout_mode = 0
 offset_left = 156.0
-offset_top = 188.0
+offset_top = 250.0
 offset_right = 568.0
-offset_bottom = 336.0
+offset_bottom = 398.0
 mouse_filter = 2
 theme = ExtResource("2_2hpqm")
 theme_override_colors/default_color = Color(0.325915, 1, 0.298232, 1)
@@ -583,7 +592,107 @@ text = "Breeding Successful
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="Back" to="Back" method="_on_pressed"]
+[node name="selector" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Tint" type="Panel" parent="selector"]
+layout_mode = 0
+offset_left = -33.0
+offset_top = 4.0
+offset_right = 743.0
+offset_bottom = 1301.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="selector"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 265.0
+offset_right = 670.0
+offset_bottom = 1173.0
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="selector/ScrollContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_2b5sx")
+theme_override_constants/separation = 5
+
+[node name="close" type="TextureButton" parent="selector"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 523.0
+offset_top = 17.0
+offset_right = 711.0
+offset_bottom = 173.0
+texture_normal = ExtResource("9_lva2r")
+stretch_mode = 0
+
+[node name="Confirm" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Tint" type="Panel" parent="Confirm"]
+offset_right = 720.0
+offset_bottom = 1280.0
+
+[node name="Panel" type="TextureRect" parent="Confirm"]
+texture_filter = 1
+offset_left = 80.0
+offset_top = 319.0
+offset_right = 665.0
+offset_bottom = 694.0
+theme = ExtResource("2_2hpqm")
+texture = SubResource("AtlasTexture_g5u8l")
+
+[node name="Label" type="RichTextLabel" parent="Confirm/Panel"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 29.0
+offset_right = 553.0
+offset_bottom = 207.0
+theme_override_font_sizes/normal_font_size = 26
+text = "Are you sure you want to auction off STONE_NAME?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Yes" type="TextureButton" parent="Confirm/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 113.0
+offset_top = 216.0
+offset_right = 207.0
+offset_bottom = 305.0
+texture_normal = SubResource("AtlasTexture_5umon")
+stretch_mode = 0
+
+[node name="No" type="TextureButton" parent="Confirm/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 348.0
+offset_top = 219.0
+offset_right = 442.0
+offset_bottom = 308.0
+texture_normal = SubResource("AtlasTexture_glvfa")
+stretch_mode = 0
+
+[node name="TextureButton" type="TextureButton" parent="."]
+texture_filter = 1
+offset_left = 39.0
+offset_top = 41.0
+offset_right = 133.0
+offset_bottom = 130.0
+texture_normal = SubResource("AtlasTexture_2b5sx")
+stretch_mode = 0
+script = ExtResource("2_0gyva")
+
 [connection signal="pressed" from="BreedingSelector/maleSelector" to="." method="openMales"]
 [connection signal="pressed" from="BreedingSelector/femaleSelector" to="." method="openFemales"]
 [connection signal="pressed" from="BreedingSelector/BreedButton" to="." method="_breed_pressed"]
+[connection signal="pressed" from="BreedingFailed/Panal/close" to="." method="_on_failed_close_pressed"]
+[connection signal="pressed" from="BreedingSuccess/KeepButton" to="." method="_on_keep_offspring_pressed"]
+[connection signal="pressed" from="BreedingSuccess/SellButton" to="." method="_on_sell_offspring_pressed"]
+[connection signal="pressed" from="selector/close" to="." method="_on_failed_close_pressed"]
+[connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

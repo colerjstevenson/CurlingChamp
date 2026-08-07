@@ -49,6 +49,17 @@ var HumanAllTimeRecord: Dictionary = {
 var HumanMajorsWon: Array[Dictionary] = []
 ## The week number in which the player last used the trainer (-1 = never trained).
 var trainer_week_used: int = -1
+var pending_auction: Dictionary = {}
+## Breeder state: whether a breeding job is active
+var breeder_active: bool = false
+## Index of first parent stone in player_stones array (-1 = none)
+var breeder_parent1_id: int = -1
+## Index of second parent stone in player_stones array (-1 = none)
+var breeder_parent2_id: int = -1
+## Week number when the breeding job will finish
+var breeder_finish_week: int = -1
+## The offspring stone that was generated (null until success)
+var breeder_result: Stone = null
 var current_save_slot: int = 0
 var _suspend_autosave: bool = false
 
@@ -148,6 +159,11 @@ func _export_save_state() -> Dictionary:
 		"human_all_time_record": HumanAllTimeRecord,
 		"human_majors_won": HumanMajorsWon,
 		"trainer_week_used": trainer_week_used,
+		"breeder_active": breeder_active,
+		"breeder_parent1_id": breeder_parent1_id,
+		"breeder_parent2_id": breeder_parent2_id,
+		"breeder_finish_week": breeder_finish_week,
+		"breeder_result": breeder_result,
 	}
 
 
@@ -200,6 +216,13 @@ func _apply_new_game_defaults(requested_player_name: String, requested_player_co
 	HumanMajorsWon = _to_dictionary_array(template_majors)
 
 	trainer_week_used = int(template.get("trainer_week_used", -1))
+	
+	# Initialize breeder state
+	breeder_active = false
+	breeder_parent1_id = -1
+	breeder_parent2_id = -1
+	breeder_finish_week = -1
+	breeder_result = null
 
 
 func _load_new_game_template() -> Dictionary:
@@ -292,6 +315,18 @@ func _apply_loaded_state(loaded_state: Dictionary) -> void:
 		HumanMajorsWon = loaded_majors
 
 	trainer_week_used = int(loaded_state.get("trainer_week_used", -1))
+	
+	# Load breeder state
+	breeder_active = bool(loaded_state.get("breeder_active", false))
+	breeder_parent1_id = int(loaded_state.get("breeder_parent1_id", -1))
+	breeder_parent2_id = int(loaded_state.get("breeder_parent2_id", -1))
+	breeder_finish_week = int(loaded_state.get("breeder_finish_week", -1))
+	
+	var loaded_result: Variant = loaded_state.get("breeder_result", null)
+	if loaded_result is Stone:
+		breeder_result = loaded_result
+	else:
+		breeder_result = null
 
 
 func _record_with_defaults(raw_record: Variant, fallback: Dictionary) -> Dictionary:
@@ -349,6 +384,119 @@ func set_date(new_year: int, new_week: int) -> void:
 func add_money(amount: int) -> void:
 	money += amount
 	emit_signal("state_changed")
+
+
+func set_pending_auction(data: Dictionary) -> void:
+	pending_auction = data.duplicate(true)
+
+
+func get_pending_auction() -> Dictionary:
+	return pending_auction.duplicate(true)
+
+
+func clear_pending_auction() -> void:
+	pending_auction.clear()
+
+
+## Finalizes the pending auction and applies money/collection changes in one place.
+## winner: "player", "ai", or "none"
+func settle_pending_auction(final_bid: int, winner: String) -> Dictionary:
+	if pending_auction.is_empty():
+		return {
+			"ok": false,
+			"reason": "missing_pending_auction",
+		}
+
+	var mode := String(pending_auction.get("mode", "")).to_lower()
+	var stone_index := int(pending_auction.get("stone_index", -1))
+	var result := {
+		"ok": true,
+		"mode": mode,
+		"winner": winner,
+		"final_bid": max(final_bid, 0),
+	}
+
+	if stone_index < 0:
+		pending_auction.clear()
+		return {
+			"ok": false,
+			"reason": "invalid_stone_index",
+		}
+
+	match mode:
+		"buy":
+			if winner == "player":
+				if not _transfer_store_stone_to_player(stone_index, final_bid):
+					pending_auction.clear()
+					return {
+						"ok": false,
+						"reason": "buy_transfer_failed",
+					}
+			elif winner == "ai":
+				if not _remove_store_stone_at(stone_index):
+					pending_auction.clear()
+					return {
+						"ok": false,
+						"reason": "store_remove_failed",
+					}
+
+		"sell":
+			if winner == "ai":
+				if not _sell_player_stone_to_ai(stone_index, final_bid):
+					pending_auction.clear()
+					return {
+						"ok": false,
+						"reason": "sell_transfer_failed",
+					}
+
+		_:
+			pending_auction.clear()
+			return {
+				"ok": false,
+				"reason": "invalid_mode",
+			}
+
+	pending_auction.clear()
+	emit_signal("state_changed")
+	return result
+
+
+func _transfer_store_stone_to_player(stone_index: int, cost: int) -> bool:
+	if stone_index < 0 or stone_index >= store_stones.size():
+		return false
+	if money < cost:
+		return false
+
+	var stone := store_stones[stone_index]
+	if stone == null:
+		return false
+
+	store_stones.remove_at(stone_index)
+	money -= max(cost, 0)
+	stone.origin = Stone.Origin.BOUGHT
+	player_stones.append(stone)
+	return true
+
+
+func _remove_store_stone_at(stone_index: int) -> bool:
+	if stone_index < 0 or stone_index >= store_stones.size():
+		return false
+
+	store_stones.remove_at(stone_index)
+	return true
+
+
+func _sell_player_stone_to_ai(stone_index: int, sale_price: int) -> bool:
+	if stone_index < 0 or stone_index >= player_stones.size():
+		return false
+
+	var stone := player_stones[stone_index]
+	if stone == null:
+		return false
+
+	player_stones.remove_at(stone_index)
+	money += max(sale_price, 0)
+	return true
 
 
 func get_date_text() -> String:

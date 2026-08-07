@@ -1,11 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://ddtpc341fn5u3"]
+[gd_scene load_steps=17 format=3 uid="uid://ddtpc341fn5u3"]
 
 [ext_resource type="Theme" uid="uid://gqyid25k0itd" path="res://themes/pixelText.tres" id="1_sx757"]
 [ext_resource type="Texture2D" uid="uid://70tj4avbinmn" path="res://assets/UI/Essential UI/07_Gradient_Theme/Spritesheets/UI_Gradient.png" id="2_45s63"]
 [ext_resource type="FontFile" uid="uid://mfdjupiwfar2" path="res://Fonts/PixeloidSans-mLxMm.ttf" id="3_p8rih"]
 [ext_resource type="Texture2D" uid="uid://cakwv8k8cjr12" path="res://assets/curling/stones/stone_red_side.png" id="4_qi5qn"]
-[ext_resource type="Texture2D" uid="uid://boya5y7ka0wt8" path="res://assets/UI/UI_Wood.png" id="7_45s63"]
 [ext_resource type="Script" uid="uid://cql4hu0rkainr" path="res://scripts/rock_window.gd" id="7_52n0h"]
+[ext_resource type="Texture2D" uid="uid://deok2v6fn8pdd" path="res://assets/UI/Pixel UI/Colors/Yellow/yellow_spritesheet.png" id="7_p8rih"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eh5pr"]
 atlas = ExtResource("2_45s63")
@@ -15,9 +15,22 @@ region = Rect2(160.322, 224.65, 63.135, 62.3959)
 default_font_size = 37
 RichTextLabel/fonts/normal_font = ExtResource("3_p8rih")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_q24dl"]
-atlas = ExtResource("7_45s63")
-region = Rect2(449.505, 167.769, 29.5949, 16.3508)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_45s63"]
+bg_color = Color(1, 0.607843, 0.231373, 0.552941)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p8rih"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qi5qn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e4ehg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qi5qn"]
+atlas = ExtResource("7_p8rih")
+region = Rect2(0, 0, 70, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4ehg"]
+atlas = ExtResource("7_p8rih")
+region = Rect2(0, 98, 70, 15)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sx757"]
 bg_color = Color(0.783953, 0.573541, 1.92523e-07, 0)
@@ -99,13 +112,24 @@ text = "SPEED
 "
 fit_content = true
 
+[node name="potential" type="ProgressBar" parent="Panel/VBoxContainer/Power"]
+layout_mode = 0
+offset_left = 226.0
+offset_top = 1.0
+offset_right = 472.855
+offset_bottom = 29.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_45s63")
+value = 91.73
+show_percentage = false
+
 [node name="PowerBar" type="ProgressBar" parent="Panel/VBoxContainer/Power"]
 layout_mode = 0
 offset_left = 226.0
 offset_top = 1.0
 offset_right = 472.855
 offset_bottom = 29.0
-value = 91.73
+theme_override_styles/background = SubResource("StyleBoxEmpty_p8rih")
+value = 52.82
 show_percentage = false
 
 [node name="Spin" type="RichTextLabel" parent="Panel/VBoxContainer"]
@@ -117,12 +141,23 @@ text = "SPIN
 "
 fit_content = true
 
+[node name="potential" type="ProgressBar" parent="Panel/VBoxContainer/Spin"]
+layout_mode = 0
+offset_left = 226.0
+offset_top = 1.0
+offset_right = 473.0
+offset_bottom = 30.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_45s63")
+value = 91.73
+show_percentage = false
+
 [node name="SpinBar" type="ProgressBar" parent="Panel/VBoxContainer/Spin"]
 layout_mode = 0
-offset_left = 227.0
+offset_left = 226.0
 offset_top = 1.0
-offset_right = 473.855
+offset_right = 474.0
 offset_bottom = 30.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_qi5qn")
 value = 28.04
 show_percentage = false
 
@@ -135,16 +170,27 @@ text = "PRECISION
 "
 fit_content = true
 
+[node name="potential" type="ProgressBar" parent="Panel/VBoxContainer/Precision"]
+layout_mode = 0
+offset_left = 226.0
+offset_top = 1.0
+offset_right = 473.0
+offset_bottom = 30.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_45s63")
+value = 91.73
+show_percentage = false
+
 [node name="PrecisionBar" type="ProgressBar" parent="Panel/VBoxContainer/Precision"]
 layout_mode = 0
 offset_left = 226.0
 offset_top = 1.0
 offset_right = 472.855
 offset_bottom = 30.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_e4ehg")
 value = 28.04
 show_percentage = false
 
-[node name="Spin2" type="RichTextLabel" parent="Panel/VBoxContainer"]
+[node name="Condition" type="RichTextLabel" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(201.205, 0)
 layout_mode = 2
 tooltip_text = "Effects the top speed
@@ -153,7 +199,7 @@ text = "CONDITION
 "
 fit_content = true
 
-[node name="SpinBar" type="ProgressBar" parent="Panel/VBoxContainer/Spin2"]
+[node name="ConditionBar" type="ProgressBar" parent="Panel/VBoxContainer/Condition"]
 layout_mode = 0
 offset_left = 226.0
 offset_top = 1.0
@@ -182,27 +228,30 @@ text = "Age: "
 fit_content = true
 scroll_active = false
 
-[node name="auctionButton" type="TextureButton" parent="Panel"]
+[node name="AuctionButton" type="TextureButton" parent="Panel"]
 visible = false
 layout_mode = 0
-offset_left = 182.0
-offset_top = 792.0
-offset_right = 414.0
-offset_bottom = 867.0
-texture_normal = SubResource("AtlasTexture_q24dl")
-stretch_mode = 1
+offset_left = 157.0
+offset_top = 786.0
+offset_right = 405.0
+offset_bottom = 860.0
+texture_normal = SubResource("AtlasTexture_qi5qn")
+texture_pressed = SubResource("AtlasTexture_e4ehg")
+texture_disabled = SubResource("AtlasTexture_e4ehg")
+stretch_mode = 0
 
-[node name="text" type="RichTextLabel" parent="Panel/auctionButton"]
+[node name="Value" type="RichTextLabel" parent="Panel/AuctionButton"]
 layout_mode = 0
-offset_left = 61.0
-offset_top = 13.0
-offset_right = 240.0
-offset_bottom = 55.0
+offset_left = -25.0
+offset_top = 3.0
+offset_right = 278.0
+offset_bottom = 59.0
 mouse_filter = 2
-theme_override_colors/default_color = Color(1, 0.0909423, 0.0594644, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.439216)
-theme_override_font_sizes/normal_font_size = 31
-text = "$2000"
+theme = ExtResource("1_sx757")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 41
+text = "$1000"
+horizontal_alignment = 1
 
 [node name="UsedShading" type="Panel" parent="."]
 visible = false
@@ -217,5 +266,3 @@ offset_top = 6.0
 offset_right = 593.0
 offset_bottom = 928.0
 theme = SubResource("Theme_45s63")
-
-[connection signal="pressed" from="Panel/auctionButton" to="." method="_launch_auction"]
